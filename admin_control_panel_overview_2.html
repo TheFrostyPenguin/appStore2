@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin: Add New Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full flex-col group/design-root">
+<div class="flex flex-1">
+<aside class="flex flex-col w-64 bg-white/5 dark:bg-black/20 border-r border-white/10 dark:border-black/10">
+<div class="flex items-center gap-3 px-6 py-5 border-b border-white/10 dark:border-black/20">
+<span class="material-symbols-outlined text-primary text-3xl">api</span>
+<h1 class="text-white text-lg font-bold">AppStore</h1>
+</div>
+<div class="flex flex-col p-4 flex-1">
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da6b9] hover:bg-white/5 dark:hover:bg-black/20" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<p class="text-sm font-medium">Marketplaces</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da6b9] hover:bg-white/5 dark:hover:bg-black/20" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<p class="text-sm font-medium">Application Folders</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da6b9] hover:bg-white/5 dark:hover:bg-black/20" href="#">
+<span class="material-symbols-outlined">widgets</span>
+<p class="text-sm font-medium">Applications</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da6b9] hover:bg-white/5 dark:hover:bg-black/20" href="#">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium">Users &amp; Permissions</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da6b9] hover:bg-white/5 dark:hover:bg-black/20" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+</div>
+</div>
+<div class="p-4 border-t border-white/10 dark:border-black/20">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Admin user avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCe-2d6NufjXWB6A4kOEUnS175b_zRPh8vZFxFMB3u3RiJL-PwLpb0U-6nqmlQ3RmvWtui558Ngjvmn__DeYfAQBqCCkyB3h7KfXnCuCav8_y5JL1YI3K-0mXrcHd7Ygp1yYeTsLjQrF-vN6PpAlnQp3j99rNBRSRo1oMm_gnvz7BatmfhR19dq517zl95mBjWoCfX0Ttgd7sbKketTVgRD1cCfNnxMsotrEyqYtfXVaGlWFwX0aoSINN3EgQeii60kaxuLNwyHPfQ");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-sm font-medium">Admin Name</h1>
+<p class="text-[#9da6b9] text-xs">Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-white/10 dark:border-black/20 px-10 py-4">
+<h2 class="text-white text-xl font-bold">Add New Marketplace</h2>
+<div class="flex flex-1 justify-end items-center gap-4">
+<label class="flex flex-col min-w-40 !h-10 w-full max-w-sm">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#9da6b9] flex border-none bg-white/5 dark:bg-black/20 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-white focus:outline-0 focus:ring-0 border-none bg-white/5 dark:bg-black/20 h-full placeholder:text-[#9da6b9] px-4 pl-2 text-sm" placeholder="Search apps, users, folders..." value=""/>
+</div>
+</label>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-white/5 dark:bg-black/20 text-white/80 hover:text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Admin user avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCZdzzV1RAFE8MGorBrqPkwTDBqyWGLox7GglW3H80un82gVWyI5cx2RPFq6EqCAEuTuGI27vQiZwa9A8jwqr2iN-c7wvI4keRX6jKNuD0iIn5SenVIYOVvcKqBgosdOD47sgmFpZFIW6CWyW_2yncI-xntx4UHItZMtTjheB6Z3koVhJ89rgxqtTbxjsAfk7OUNgkIqv7l1oP4jmckwpIQUEyj0MqZxe3Lvz94GeUWU7OfgIO76P1oQK0sLOgLpcrPX3eeduO3yFA");'></div>
+</div>
+</header>
+<div class="p-10">
+<div class="max-w-3xl mx-auto">
+<div class="flex flex-col rounded-xl shadow-lg bg-white/5 dark:bg-black/20 border border-white/10 dark:border-black/20">
+<div class="p-8">
+<h3 class="text-white text-lg font-bold mb-1">Marketplace Information</h3>
+<p class="text-[#9da6b9] text-sm mb-6">Fill in the details below to create a new marketplace.</p>
+<form class="grid grid-cols-1 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-white" for="marketplace-name">Marketplace Name</label>
+<input class="form-input w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary border-white/10 dark:border-black/30 bg-white/5 dark:bg-black/20 h-10 placeholder:text-[#9da6b9] px-4 text-sm" id="marketplace-name" placeholder="e.g. Sales Department Store" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-white" for="marketplace-description">Description</label>
+<textarea class="form-textarea w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary border-white/10 dark:border-black/30 bg-white/5 dark:bg-black/20 placeholder:text-[#9da6b9] px-4 py-2 text-sm" id="marketplace-description" placeholder="Enter a brief description of the marketplace..." rows="4"></textarea>
+</div>
+<div class="flex flex-col gap-4">
+<label class="text-sm font-medium text-white">Configuration Options</label>
+<div class="flex items-center gap-3">
+<input checked="" class="form-checkbox rounded bg-white/5 dark:bg-black/20 border-white/10 dark:border-black/30 text-primary focus:ring-primary focus:ring-offset-background-dark" id="visibility" type="checkbox"/>
+<label class="text-white text-sm" for="visibility">Set marketplace as public</label>
+</div>
+<div class="flex items-center gap-3">
+<input class="form-checkbox rounded bg-white/5 dark:bg-black/20 border-white/10 dark:border-black/30 text-primary focus:ring-primary focus:ring-offset-background-dark" id="app-approval" type="checkbox"/>
+<label class="text-white text-sm" for="app-approval">Require admin approval for new apps</label>
+</div>
+</div>
+</form>
+</div>
+<div class="flex items-center justify-end gap-4 bg-white/5 dark:bg-black/30 p-4 border-t border-white/10 dark:border-black/10">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-white/10 dark:bg-white/5 text-white text-sm font-medium">
+<span class="truncate">Cancel</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-medium">
+<span class="truncate">Save Marketplace</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>
