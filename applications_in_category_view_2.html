@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Enterprise App Store - Figma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex min-h-screen">
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-[#181e29] border-r border-gray-200 dark:border-gray-800 flex flex-col">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 p-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Enterprise Inc. logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCe2grI1_X9Sf0Q2Bvl_C5SlSBSVC6aaiUfYg0ET1PpBrhtRPvomoO64IfIsSPZ4GIZvhkB3OEzVk7tkwJxg5Sy8LBhuKg9_LVi59jEKUMs5rywWxtk4xreHvlcVv5XOau3ljgh9u0NChVHmnJ6kg9ZIjtleD7MAugjLPowGogmxx2uin9oSK7SW58XGRM2CXf6KSlnnU0kJNNjbIagRkK2mpgIYRS6GZUe2PYh8kAz5rUfZ6VK_CYfdPbmRcdtzBCZDQep6RieUmQ");'></div>
+<div class="flex flex-col">
+<h1 class="text-gray-900 dark:text-white text-base font-semibold leading-normal">Enterprise Inc.</h1>
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal">App Store</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
+<span class="material-symbols-outlined">home</span>
+<p class="text-sm font-medium leading-normal">Home</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
+<span class="material-symbols-outlined">apps</span>
+<p class="text-sm font-medium leading-normal">All Apps</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white" href="#">
+<span class="material-symbols-outlined !font-bold" style="font-variation-settings: 'FILL' 1;">folder</span>
+<p class="text-sm font-semibold leading-normal">Categories</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
+<span class="material-symbols-outlined">download</span>
+<p class="text-sm font-medium leading-normal">Updates</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
+<span class="material-symbols-outlined">person</span>
+<p class="text-sm font-medium leading-normal">My Apps</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">
+<span class="truncate">Request an App</span>
+</button>
+<div class="flex flex-col gap-1 border-t border-gray-200 dark:border-gray-800 pt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
+<span class="material-symbols-outlined">help</span>
+<p class="text-sm font-medium leading-normal">Help &amp; Support</p>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 p-8 overflow-y-auto">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-wrap gap-2 items-center">
+<a class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-600 text-lg">chevron_right</span>
+<a class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal hover:text-primary" href="#">Design Tools</a>
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-600 text-lg">chevron_right</span>
+<span class="text-gray-800 dark:text-white text-sm font-medium leading-normal">Figma</span>
+</div>
+<div class="mt-6 flex flex-wrap gap-6 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl size-24 shrink-0" data-alt="Figma app icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTzCMGEPNfUBci7AaGvhz8lnxSiQfx6mCLHAIgjQhxNQk-Kw1rS_0wnD_rQ3jsTTigFwXKMaETCZ6Ao5ngSntEflka5t1606NY9PM2Xon-i9mxaKA_QN99veBwTvECwn2TSfUrEIIXq9W_LF8gmZvHQbiqnwT8dfOYpsSRGmWfezLdgmfIh2LORCOwoD5ukv82d_FzLkA8LjlmsZTG6Os2wiPlkEjl0CrQiyL-jMGmv0z7GMvZ6v1e4MHZkhRQ_NptCdhzWR1OxXs");'></div>
+<div class="flex-1">
+<h1 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Figma</h1>
+<p class="text-gray-500 dark:text-[#9da6b9] text-base font-normal leading-normal mt-1">by Figma Inc.</p>
+<p class="text-gray-600 dark:text-gray-300 text-base font-normal leading-normal mt-2">The collaborative interface design tool. Create, test, and ship better designs from start to finish.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined mr-2">download</span>
+<span class="truncate">Install</span>
+</button>
+<button class="flex size-12 items-center justify-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#181e29] text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Downloads</p>
+<p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight mt-1">1.2M+</p>
+</div>
+<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Rating</p>
+<div class="flex items-center gap-1 mt-1">
+<p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">4.8</p>
+<span class="material-symbols-outlined text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Version</p>
+<p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight mt-1">116.8.9</p>
+</div>
+<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Category</p>
+<p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight mt-1">Design</p>
+</div>
+</div>
+<div class="mt-8">
+<h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Screenshots</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+<div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+<div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+<div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+<div class="flex justify-between items-center">
+<h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">User Reviews</h2>
+<button class="text-primary text-sm font-bold hover:underline">Write a Review</button>
+</div>
+<div class="flex flex-col gap-6 mt-6">
+<div class="flex gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7HSUdS3OECLxzNkUSxxNFGoIOcS9ox4GDZ2shgT2Vrpky5HUJ2X0XVJCP74NodB4uVWJqpRsV9xAWtR9thr11nPaI8mvqiE0XqGIYek1pY0RLxnrpBxSfQdY47Efo7qkFkXNZQgZQYfgvpNcqLXYZLAkHIaZhazfqfHcmUW5oQpvg4s0TfKWmrim5xEFKImsFjnl4pZuxBE__3VVF5gzUcGR6vqFGlq75M2woV8WkX-do2Nbz02PV3opy7dx_Ev0pLArsDTUCcDM");'></div>
+<div>
+<div class="flex items-center gap-2">
+<p class="font-bold text-gray-900 dark:text-white">Sarah W.</p>
+<p class="text-sm text-gray-500 dark:text-[#9da6b9]">2 weeks ago</p>
+</div>
+<div class="flex items-center gap-0.5 mt-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="mt-2 text-gray-600 dark:text-gray-300">A game-changer for our design team. The real-time collaboration is seamless and has significantly sped up our workflow.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcuqVquqq8pMM7Qjvq9fvDy658eZvY55F_ooJYJSwt-mlfFBhDyCb2R-lJluBQJQvoK7Z1s9g3oeNQn9UnCd8AFpqfIBUzYedLzAcFHGLX-s_4LePsFoHPrERykmtOlTCaHlq5bJ31Ed35XWn9K7kldVDrmFOYcl-fUPwhjgclqBIPgCEOPDau8mgfOfLM_bK3caRM1HNVIegx0KaC90nbHM5Zp9-el28URGPGEewb1x9f3YUogMnQPYpvaq_P2We8B-rX-vLOXVw");'></div>
+<div>
+<div class="flex items-center gap-2">
+<p class="font-bold text-gray-900 dark:text-white">Mike R.</p>
+<p class="text-sm text-gray-500 dark:text-[#9da6b9]">1 month ago</p>
+</div>
+<div class="flex items-center gap-0.5 mt-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<p class="mt-2 text-gray-600 dark:text-gray-300">Powerful and intuitive. The only thing I wish it had was better offline support, but it's a minor issue for our use case.</p>
+</div>
+</div>
+<div class="pt-4 border-t border-gray-200 dark:border-gray-800">
+<button class="text-primary font-bold text-sm w-full text-center hover:underline">Show all 245 reviews</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6 mt-8">
+<h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Version History</h2>
+<div class="flow-root mt-6">
+<ul class="-mb-8">
+<li>
+<div class="relative pb-8">
+<span aria-hidden="true" class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-gray-700"></span>
+<div class="relative flex space-x-3">
+<div>
+<span class="h-8 w-8 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center ring-8 ring-white dark:ring-[#181e29]">
+<span class="material-symbols-outlined text-primary dark:text-white">history</span>
+</span>
+</div>
+<div class="min-w-0 flex-1 pt-1.5">
+<p class="text-sm text-gray-500 dark:text-[#9da6b9]">Version 116.8.9 <time class="ml-2">June 15, 2024</time></p>
+<div class="mt-2 text-gray-700 dark:text-gray-300">
+<p>Minor bug fixes and performance improvements.</p>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<div class="relative pb-8">
+<span aria-hidden="true" class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-gray-700"></span>
+<div class="relative flex space-x-3">
+<div>
+<span class="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center ring-8 ring-white dark:ring-[#181e29]">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">history</span>
+</span>
+</div>
+<div class="min-w-0 flex-1 pt-1.5">
+<p class="text-sm text-gray-500 dark:text-[#9da6b9]">Version 116.8.0 <time class="ml-2">May 28, 2024</time></p>
+<div class="mt-2 text-gray-700 dark:text-gray-300">
+<ul class="list-disc list-inside space-y-1">
+<li>New AI-powered design tools.</li>
+<li>Improved component library management.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<div class="relative">
+<div class="relative flex space-x-3">
+<div>
+<span class="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center ring-8 ring-white dark:ring-[#181e29]">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">history</span>
+</span>
+</div>
+<div class="min-w-0 flex-1 pt-1.5">
+<p class="text-sm text-gray-500 dark:text-[#9da6b9]">Version 115.0.0 <time class="ml-2">April 1, 2024</time></p>
+<div class="mt-2 text-gray-700 dark:text-gray-300">
+<p>Major user interface overhaul and performance enhancements.</p>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="pt-4 mt-6 border-t border-gray-200 dark:border-gray-800">
+<button class="text-primary font-bold text-sm w-full text-center hover:underline">View full history</button>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1">
+<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6 sticky top-8">
+<h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Installation Requirements</h2>
+<div class="flex flex-col gap-4 mt-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined mt-1 text-primary">memory</span>
+<div>
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm">Operating System</p>
+<p class="font-medium text-gray-900 dark:text-white">Windows 10 (64-bit) or newer, macOS 11 (Big Sur) or newer</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined mt-1 text-primary">developer_board</span>
+<div>
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm">RAM</p>
+<p class="font-medium text-gray-900 dark:text-white">8GB (16GB recommended)</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined mt-1 text-primary">hard_drive</span>
+<div>
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm">Disk Space</p>
+<p class="font-medium text-gray-900 dark:text-white">2GB of available space</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined mt-1 text-primary">language</span>
+<div>
+<p class="text-gray-500 dark:text-[#9da6b9] text-sm">Network</p>
+<p class="font-medium text-gray-900 dark:text-white">Internet connection required for installation and collaboration features</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
