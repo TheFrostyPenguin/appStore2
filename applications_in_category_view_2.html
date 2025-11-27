@@ -153,45 +153,31 @@
 <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">User Reviews</h2>
 <a class="text-primary text-sm font-bold hover:underline" href="applications_in_category_view_3.html">Write a Review</a>
 </div>
-<div class="flex flex-col gap-6 mt-6">
-<div class="flex gap-4">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7HSUdS3OECLxzNkUSxxNFGoIOcS9ox4GDZ2shgT2Vrpky5HUJ2X0XVJCP74NodB4uVWJqpRsV9xAWtR9thr11nPaI8mvqiE0XqGIYek1pY0RLxnrpBxSfQdY47Efo7qkFkXNZQgZQYfgvpNcqLXYZLAkHIaZhazfqfHcmUW5oQpvg4s0TfKWmrim5xEFKImsFjnl4pZuxBE__3VVF5gzUcGR6vqFGlq75M2woV8WkX-do2Nbz02PV3opy7dx_Ev0pLArsDTUCcDM");'></div>
-<div>
-<div class="flex items-center gap-2">
-<p class="font-bold text-gray-900 dark:text-white">Sarah W.</p>
-<p class="text-sm text-gray-500 dark:text-[#9da6b9]">2 weeks ago</p>
-</div>
-<div class="flex items-center gap-0.5 mt-1 text-yellow-500">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-</div>
-<p class="mt-2 text-gray-600 dark:text-gray-300">A game-changer for our design team. The real-time collaboration is seamless and has significantly sped up our workflow.</p>
-</div>
-</div>
-<div class="flex gap-4">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcuqVquqq8pMM7Qjvq9fvDy658eZvY55F_ooJYJSwt-mlfFBhDyCb2R-lJluBQJQvoK7Z1s9g3oeNQn9UnCd8AFpqfIBUzYedLzAcFHGLX-s_4LePsFoHPrERykmtOlTCaHlq5bJ31Ed35XWn9K7kldVDrmFOYcl-fUPwhjgclqBIPgCEOPDau8mgfOfLM_bK3caRM1HNVIegx0KaC90nbHM5Zp9-el28URGPGEewb1x9f3YUogMnQPYpvaq_P2We8B-rX-vLOXVw");'></div>
-<div>
-<div class="flex items-center gap-2">
-<p class="font-bold text-gray-900 dark:text-white">Mike R.</p>
-<p class="text-sm text-gray-500 dark:text-[#9da6b9]">1 month ago</p>
-</div>
-<div class="flex items-center gap-0.5 mt-1 text-yellow-500">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-sm">star</span>
-</div>
-<p class="mt-2 text-gray-600 dark:text-gray-300">Powerful and intuitive. The only thing I wish it had was better offline support, but it's a minor issue for our use case.</p>
-</div>
-</div>
-<div class="pt-4 border-t border-gray-200 dark:border-gray-800">
-<a class="text-primary font-bold text-sm w-full text-center hover:underline" href="applications_in_category_view_3.html">Show all 245 reviews</a>
-</div>
-</div>
+<div id="reviewsList" class="flex flex-col gap-6 mt-6"></div>
+<form id="reviewForm" class="mt-4 space-y-3">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+      Your Name
+      <input id="reviewAuthor" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2" placeholder="Jane Doe" required />
+    </label>
+    <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+      Rating
+      <select id="reviewRating" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2">
+        <option value="5">5 - Excellent</option>
+        <option value="4">4 - Good</option>
+        <option value="3">3 - Okay</option>
+        <option value="2">2 - Poor</option>
+        <option value="1">1 - Terrible</option>
+      </select>
+    </label>
+  </div>
+  <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+    Comments
+    <textarea id="reviewComment" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2" rows="3" placeholder="How did this app help your team?" required></textarea>
+  </label>
+  <button type="submit" class="w-full h-10 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90">Publish to Supabase</button>
+  <p id="reviewMessage" class="text-sm text-gray-500 dark:text-gray-400"></p>
+</form>
 </div>
 <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6 mt-8">
 <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Version History</h2>
@@ -300,4 +286,104 @@
 </main>
 </div>
 
+
+<script type="module" src="./supabase-client.js"></script><script type="module">
+  import { supabase } from './supabase-client.js';
+
+  const APP_SLUG = 'figma';
+  const reviewsList = document.getElementById('reviewsList');
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewAuthor = document.getElementById('reviewAuthor');
+  const reviewRating = document.getElementById('reviewRating');
+  const reviewComment = document.getElementById('reviewComment');
+  const reviewMessage = document.getElementById('reviewMessage');
+
+  const defaultReviews = [
+    {
+      author: 'Sarah W.',
+      created_at: new Date().toISOString(),
+      rating: 5,
+      comment: 'A game-changer for our design team. The real-time collaboration is seamless and has significantly sped up our workflow.',
+    },
+    {
+      author: 'Mike R.',
+      created_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30).toISOString(),
+      rating: 4,
+      comment: "Powerful and intuitive. I'd like better offline support, but it's a minor issue for our use case.",
+    },
+  ];
+
+  const setMessage = (text, isError = false) => {
+    if (!reviewMessage) return;
+    reviewMessage.textContent = text;
+    reviewMessage.classList.toggle('text-red-500', isError);
+    reviewMessage.classList.toggle('text-green-600', !isError);
+  };
+
+  const renderStars = (count) => Array.from({ length: 5 })
+    .map((_, idx) => `<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' ${idx < count ? 1 : 0};">star</span>`)
+    .join('');
+
+  const renderReviews = (reviews) => {
+    if (!reviewsList) return;
+    reviewsList.innerHTML = '';
+
+    reviews.forEach((review) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex gap-4';
+      wrapper.innerHTML = `
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0" style="background-image: url('https://placehold.co/80x80/png');"></div>
+        <div>
+          <div class="flex items-center gap-2">
+            <p class="font-bold text-gray-900 dark:text-white">${review.author || 'Anonymous'}</p>
+            <p class="text-sm text-gray-500 dark:text-[#9da6b9]">${new Date(review.created_at).toLocaleDateString()}</p>
+          </div>
+          <div class="flex items-center gap-0.5 mt-1 text-yellow-500">${renderStars(review.rating || 0)}</div>
+          <p class="mt-2 text-gray-600 dark:text-gray-300">${review.comment}</p>
+        </div>
+      `;
+      reviewsList.appendChild(wrapper);
+    });
+  };
+
+  async function loadReviews() {
+    const { data, error } = await supabase
+      .from('ratings')
+      .select('id,author,comment,rating,created_at')
+      .eq('app_slug', APP_SLUG)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.warn('Unable to load Supabase reviews', error);
+      renderReviews(defaultReviews);
+      return;
+    }
+
+    renderReviews(data?.length ? data : defaultReviews);
+  }
+
+  reviewForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    setMessage('Submitting your review...');
+    const payload = {
+      app_slug: APP_SLUG,
+      author: reviewAuthor.value,
+      rating: Number(reviewRating.value),
+      comment: reviewComment.value,
+    };
+
+    const { error } = await supabase.from('ratings').insert(payload);
+
+    if (error) {
+      setMessage(error.message, true);
+      return;
+    }
+
+    setMessage('Review published to Supabase.');
+    reviewForm.reset();
+    await loadReviews();
+  });
+
+  loadReviews();
+</script>
 </body></html>

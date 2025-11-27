@@ -144,6 +144,66 @@
 </button>
 </div>
 </div>
+<!-- Admin Supabase Controls -->
+<div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4 bg-white dark:bg-[#181e29] border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+  <div>
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white">Supabase Admin Controls</h3>
+      <span class="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">Admin only</span>
+    </div>
+    <p class="text-sm text-gray-500 dark:text-[#9da6b9]">Create categories to organize applications before adding them to the store.</p>
+    <form id="newCategoryForm" class="mt-3 space-y-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+          Category Name
+          <input id="categoryName" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2" placeholder="Design Tools" required />
+        </label>
+        <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+          Slug
+          <input id="categorySlug" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2" placeholder="design-tools" required />
+        </label>
+      </div>
+      <button type="submit" class="w-full h-10 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90">Save Category to Supabase</button>
+      <p id="categoryMessage" class="text-sm text-gray-500 dark:text-gray-400"></p>
+    </form>
+  </div>
+  <div>
+    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">Add App to Supabase</h3>
+    <p class="text-sm text-gray-500 dark:text-[#9da6b9]">Store new applications directly in Supabase so the catalog stays in sync across pages.</p>
+    <form id="newAppForm" class="mt-3 space-y-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+          App Name
+          <input id="appName" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2" placeholder="New Design Tool" required />
+        </label>
+        <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+          Status
+          <select id="appStatus" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2">
+            <option value="available">Available</option>
+            <option value="installed">Installed</option>
+            <option value="update">Update</option>
+          </select>
+        </label>
+      </div>
+      <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+        Description
+        <textarea id="appDescription" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2" rows="2" placeholder="Short description"></textarea>
+      </label>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+          Image URL
+          <input id="appImage" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2" placeholder="https://..." />
+        </label>
+        <label class="flex flex-col text-sm font-medium text-gray-700 dark:text-gray-200">
+          Category
+          <select id="appCategory" class="mt-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2"></select>
+        </label>
+      </div>
+      <button type="submit" class="w-full h-10 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90">Save App to Supabase</button>
+      <p id="appMessage" class="text-sm text-gray-500 dark:text-gray-400"></p>
+    </form>
+  </div>
+</div>
 <!-- Application Grid -->
 <div id="appsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8"></div>
 <!-- Empty State Example -->
@@ -156,8 +216,11 @@
 </div>
 </main>
 </div>
-<script>
-  const apps = [
+<script type="module" src="./supabase-client.js"></script>
+<script type="module">
+  import { supabase } from './supabase-client.js';
+
+  const defaultApps = [
     {
       name: "Figma",
       description: "The collaborative interface design tool. Create, test, and ship better designs from start to finish.",
@@ -165,6 +228,7 @@
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCTzCMGEPNfUBci7AaGvhz8lnxSiQfx6mCLHAIgjQhxNQk-Kw1rS_0wnD_rQ3jsTTigFwXKMaETCZ6Ao5ngSntEflka5t1606NY9PM2Xon-i9mxaKA_QN99veBwTvECwn2TSfUrEIIXq9W_LF8gmZvHQbiqnwT8dfOYpsSRGmWfezLdgmfIh2LORCOwoD5ukv82d_FzLkA8LjlmsZTG6Os2wiPlkEjl0CrQiyL-jMGmv0z7GMvZ6v1e4MHZkhRQ_NptCdhzWR1OxXs",
       updatedAt: 4,
       detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
     },
     {
       name: "Adobe Photoshop",
@@ -173,6 +237,7 @@
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAZO1k392hcAYRimeUwTIl0MRUyed9Y_mHNWar0537euAvlYFtzzTwrjJ_mk84dANWumhutQy4QtAr6BfNRZFKlOJLuYwWLPYfS_z4UOBgDj9IUPf7EII5Y2WV8B9KJoqZtmI6PqF3hVQDWXH4d82IeUi5THoYHcOdEAThAKsdcf0_3d94YOljbk_Qt8IApOPt3ugYEhdf6aCzjZyEw6G8QV9D397Hep7UsdynfwPVF4pfRsoLMzquHpnhiMHKWt_fFrhbYgxT5Qnc",
       updatedAt: 6,
       detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
     },
     {
       name: "Sketch",
@@ -181,6 +246,7 @@
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTeFXI2EAn1WDBRvd7U7c-5UJbXnLclNt9rYEV8jY_t3yPGprkFP5aKFbgF7K5wfluRRSL6tdEXvwHE1tKXskcuMre3SGPzKULsihj4gITMnx1I5X0Ru_oDy7hRlXpbtvqRQM28dUj8N5lNfGBVPZKj-C3YlagudXtnm7U-LJcHV1wk3ZFnRdt3UKU8AWrk64F_lghYzkVKQ4KO5PeHmTPUrhQjYQR3BErcwqeHhDuzPAWIocFUvj_C2yOfQH3d9w5zU6ixfdAtCA",
       updatedAt: 3,
       detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
     },
     {
       name: "InVision Studio",
@@ -189,6 +255,7 @@
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAtJFHseySm85a5CIbkl27K0vWLMgNAQ6VV_lzYiNoxRx-uTMZn8d8o6apFE3g5Pi44LkCUQZpFLmFNVvpk6kDllaubW1vE6Od-O7JTsvzbGBZxQDH8aJPR2xnq_lSz79-vYsl-JaRmyTr9WYAKdU_uiiWsBsL_gWGnwV-TzPcSo19F9xZNtbjBOMLQ9m1khY-orcPrmQrJ7jSIao7fp51NbflNU3l7o6g0T6weikgk5qv07YjrzBiObObo3gKMNjAK2Sw2aBMjXCc",
       updatedAt: 9,
       detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
     },
     {
       name: "Canva",
@@ -197,6 +264,34 @@
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBnCFxEfk1hwarR7Xl8CV91C1oPi21X6kV8d_mJyBQ1RAOWYfCnjIcIWlYSRqi5YFHdjliqEe8fRrcxAV5jN4GdMlH9D4_w7lx9VjnXXXe4EtNgAkj3hHDPYBbYuRBDknXOLKqV_236D_tXPOSEOv8DFKzzNpPcrdzRMG6G-BaG2IeZfXcraQyUC0hg3vwzC3cykwD9RiaInJFM9BI9NWHXJVswPdFC7J_Isy0zIQCJPyKDvT8jedKfmcRBCza1r0Fc6cTv2CIdfSQ",
       updatedAt: 2,
       detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
+    },
+    {
+      name: "Principle",
+      description: "Design animated and interactive user interfaces for mobile and web apps.",
+      status: "available",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCrV3fI5y0tc2pGKjnhEwhgkHoajhtMVpe6YPbpNgA7E01KV8dsm-65PN8vJzmt8Z9oD4g5zImjpU7vHAEKCkcRukZ7GEmV9ynS1w1Zb-UMwXfN466LZHRGYBt4UU-q5xqG_D3JhawvUDby-xfUp5ygqyrxRpJQUe4suanf0xc8lnwi3StInRyXyDRHC3CXx-AyxVtiyHYNn1vL6x1GaBZkSU9yOv-g91kQp_4wGLLQLqxqDKgGaqyv0w8AfZm7MAslg",
+      updatedAt: 5,
+      detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
+    },
+    {
+      name: "Axure RP",
+      description: "Plan, prototype, and hand off to developers in one powerful design tool.",
+      status: "installed",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCI594t9s8OXPZmrrFSChLByXowSP-ysuo2YsDH8apqpRY3yP10Vy5BZ5bIXwjHeuo-i2Z_WAyBREEtnOUXFqGNxMa9dJGaObruY1tDkuMhXrzv_dv_YaA40TfKHMfg8tcap9Wyry5YIbM3BwKaIMVRnW6OiipE32j5NxGQ0yXQmHXa53i5EiN9FGJueJpY0m0pYdjDCq_s7Z7bJ_15OCWxZAE6d4DtzTsJGTzWBkavv-SoA3Q0szwqnZZU",
+      updatedAt: 8,
+      detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
+    },
+    {
+      name: "LottieFiles",
+      description: "Discover, test and share Lottie animations. Integrate motion easily into your designs.",
+      status: "available",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtuf6OXPmzhthlaQ-q6h3YQF32b3sv5b0QLmePd2c6aUyw92Hk_Uxe3i9JhN0EU3SOfHVF9xdHkjkQ75UqDm_1NdWpdkECKERSLtLbIF2-8_TLyU4O_ZMmxFbxXJjXBa1ePF6NPiXWfHyHHkpKsFB1YvE2vjlbCFxzwft-CIUzVnFhm8z4gSeyxrNKeG67yKPDcnpo1dDPXlUQrBvVnwNPgmOrIX7B7tt_Zp4ETy6jL8Pa",
+      updatedAt: 1,
+      detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
     },
     {
       name: "Miro",
@@ -205,6 +300,7 @@
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCSsHwZSt4ajqiCe9MJAZJlo2P8suM1cP3r5eCVbHusLY-m4SOcsnSKHMy7G_92OLig_1jz-Y_Gp2HzYdVvj9ytEhfWzoT5gze-qG9_OyfNWhgx3-qGY9doB4Mzn_6iQ-WEvLmmouDk9aAYhZ5FjNcPN3VAPv-78_8j-eUT7TGg2Atq6mWQfJLU7wqXsIKBv74o2mWUDRz7aEUQx-EdzX3KW2aUVUHJjhq5_7UgCQt0xr96eu4KMPFChS0y_8T3kyd",
       updatedAt: 7,
       detailLink: "applications_in_category_view_2.html",
+      category_slug: "design-tools",
     },
   ];
 
@@ -215,7 +311,22 @@
   const statusFilter = document.getElementById("statusFilter");
   const viewToggle = document.getElementById("viewToggle");
   const clearFilters = document.getElementById("clearFilters");
+  const categorySelect = document.getElementById('appCategory');
+  const categoryMessage = document.getElementById('categoryMessage');
+  const categoryName = document.getElementById('categoryName');
+  const categorySlug = document.getElementById('categorySlug');
+  const newCategoryForm = document.getElementById('newCategoryForm');
+  const newAppForm = document.getElementById('newAppForm');
+  const appMessage = document.getElementById('appMessage');
+  const appName = document.getElementById('appName');
+  const appStatus = document.getElementById('appStatus');
+  const appDescription = document.getElementById('appDescription');
+  const appImage = document.getElementById('appImage');
+  const appCategory = document.getElementById('appCategory');
+
   let isListView = false;
+  let apps = [...defaultApps];
+  let categories = [{ name: 'Design Tools', slug: 'design-tools' }];
 
   const statusStyles = {
     installed: "bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300",
@@ -224,6 +335,13 @@
   };
 
   const statusPriority = { installed: 0, update: 1, available: 2 };
+
+  const setInlineMessage = (element, text, isError = false) => {
+    if (!element) return;
+    element.textContent = text;
+    element.classList.toggle('text-red-500', isError);
+    element.classList.toggle('text-green-600', !isError);
+  };
 
   function buildCard(app) {
     const card = document.createElement("div");
@@ -300,6 +418,97 @@
     renderApps();
   }
 
+  function populateCategorySelect() {
+    if (!categorySelect) return;
+    categorySelect.innerHTML = categories
+      .map((cat) => `<option value="${cat.slug}">${cat.name}</option>`)
+      .join("");
+  }
+
+  async function hydrateCategories() {
+    const { data, error } = await supabase.from('categories').select('name,slug').order('name');
+    if (!error && data?.length) {
+      categories = data;
+    }
+    populateCategorySelect();
+  }
+
+  async function hydrateApps() {
+    const { data, error } = await supabase
+      .from('apps')
+      .select('id,name,description,status,image,updated_at,detail_path,category_slug')
+      .order('updated_at', { ascending: false });
+
+    if (!error && data?.length) {
+      apps = data.map((app) => ({
+        name: app.name,
+        description: app.description || '',
+        status: app.status || 'available',
+        image: app.image || 'https://placehold.co/280x180/png',
+        updatedAt: app.updated_at ? new Date(app.updated_at).getTime() : 0,
+        detailLink: app.detail_path || 'applications_in_category_view_2.html',
+        category_slug: app.category_slug || 'design-tools',
+      }));
+    }
+
+    renderApps();
+  }
+
+  newCategoryForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    setInlineMessage(categoryMessage, 'Saving category...');
+    const { error } = await supabase.from('categories').upsert({
+      name: categoryName.value,
+      slug: categorySlug.value,
+    });
+
+    if (error) {
+      setInlineMessage(categoryMessage, error.message, true);
+      return;
+    }
+
+    categories = [...categories.filter((c) => c.slug !== categorySlug.value), { name: categoryName.value, slug: categorySlug.value }];
+    populateCategorySelect();
+    setInlineMessage(categoryMessage, 'Category saved to Supabase.');
+    categoryName.value = '';
+    categorySlug.value = '';
+  });
+
+  newAppForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    setInlineMessage(appMessage, 'Saving app to Supabase...');
+    const payload = {
+      name: appName.value,
+      description: appDescription.value,
+      status: appStatus.value,
+      image: appImage.value,
+      category_slug: appCategory.value,
+      detail_path: 'applications_in_category_view_2.html',
+    };
+
+    const { data, error } = await supabase.from('apps').insert(payload).select().maybeSingle();
+
+    if (error) {
+      setInlineMessage(appMessage, error.message, true);
+      return;
+    }
+
+    apps.unshift({
+      name: payload.name,
+      description: payload.description,
+      status: payload.status,
+      image: payload.image || 'https://placehold.co/280x180/png',
+      updatedAt: Date.now(),
+      detailLink: payload.detail_path,
+      category_slug: payload.category_slug,
+      id: data?.id,
+    });
+
+    renderApps();
+    setInlineMessage(appMessage, 'App saved to Supabase and synced.');
+    newAppForm.reset();
+  });
+
   searchInput.addEventListener("input", renderApps);
   sortSelect.addEventListener("change", renderApps);
   statusFilter.addEventListener("change", renderApps);
@@ -313,6 +522,8 @@
     renderApps();
   });
 
+  populateCategorySelect();
+  hydrateCategories().finally(hydrateApps);
   renderApps();
 </script>
 </body></html>

@@ -51,22 +51,29 @@
 <p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Get started with our enterprise app store.</p>
 </div>
 </div>
-<div class="space-y-6">
+<form id="signupForm" class="space-y-6">
 <label class="flex flex-col w-full">
 <p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Full Name</p>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal" placeholder="Enter your full name" value=""/>
+<input id="fullName" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal" placeholder="Enter your full name" required />
 </label>
 <label class="flex flex-col w-full">
 <p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Email Address</p>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal" placeholder="Enter your email address" type="email" value=""/>
+<input id="signupEmail" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal" placeholder="Enter your email address" type="email" required />
+</label>
+<label class="flex flex-col w-full">
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Role</p>
+<select id="signupRole" class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 px-[15px] text-base font-normal leading-normal">
+  <option value="employee">Employee</option>
+  <option value="admin">Admin</option>
+</select>
 </label>
 <div class="flex flex-col gap-2">
 <label class="flex flex-col w-full">
 <p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Password</p>
 <div class="flex w-full flex-1 items-stretch rounded-lg">
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal" placeholder="Enter your password" type="password" value=""/>
+<input id="signupPassword" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal" placeholder="Enter your password" type="password" required />
 <div class="text-gray-500 dark:text-gray-400 flex border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 items-center justify-center pr-[15px] rounded-r-lg border-l-0">
-<span class="material-symbols-outlined cursor-pointer">visibility</span>
+<span class="material-symbols-outlined cursor-pointer" id="toggleSignupPassword">visibility</span>
 </div>
 </div>
 </label>
@@ -75,16 +82,17 @@
 <label class="flex flex-col w-full">
 <p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Confirm Password</p>
 <div class="flex w-full flex-1 items-stretch rounded-lg">
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal" placeholder="Confirm your password" type="password" value=""/>
+<input id="signupConfirm" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal" placeholder="Confirm your password" type="password" required />
 <div class="text-gray-500 dark:text-gray-400 flex border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 items-center justify-center pr-[15px] rounded-r-lg border-l-0">
-<span class="material-symbols-outlined cursor-pointer">visibility_off</span>
+<span class="material-symbols-outlined cursor-pointer" id="toggleConfirmPassword">visibility_off</span>
 </div>
 </div>
 </label>
 </div>
-</div>
+</form>
 <div class="flex flex-col gap-4 pt-2">
-<a class="flex items-center justify-center font-semibold text-base text-white h-14 w-full rounded-lg bg-primary hover:bg-primary/90 transition-colors" href="marketplaces_&_categories_overview.html">Create Account</a>
+<button type="submit" form="signupForm" class="flex items-center justify-center font-semibold text-base text-white h-14 w-full rounded-lg bg-primary hover:bg-primary/90 transition-colors">Create Account</button>
+<p id="signupMessage" class="text-center text-sm text-gray-500 dark:text-gray-400"></p>
 <div class="text-center">
 <p class="text-sm text-gray-500 dark:text-gray-400">Already have an account? <a class="font-semibold text-primary hover:text-primary/80" href="enterprise_app_store_login_1.html">Sign In</a></p>
 </div>
@@ -103,4 +111,69 @@
 </div>
 </div>
 </div>
-</body></html>
+<script type="module" src="./supabase-client.js"></script><script type="module">
+  import { supabase } from './supabase-client.js';
+
+  const signupForm = document.getElementById('signupForm');
+  const fullName = document.getElementById('fullName');
+  const signupEmail = document.getElementById('signupEmail');
+  const signupPassword = document.getElementById('signupPassword');
+  const signupConfirm = document.getElementById('signupConfirm');
+  const signupRole = document.getElementById('signupRole');
+  const signupMessage = document.getElementById('signupMessage');
+  const toggleSignupPassword = document.getElementById('toggleSignupPassword');
+  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+  const setMessage = (text, isError = false) => {
+    if (!signupMessage) return;
+    signupMessage.textContent = text;
+    signupMessage.classList.toggle('text-red-500', isError);
+    signupMessage.classList.toggle('text-green-600', !isError);
+  };
+
+  toggleSignupPassword?.addEventListener('click', () => {
+    const current = signupPassword.getAttribute('type');
+    signupPassword.setAttribute('type', current === 'password' ? 'text' : 'password');
+  });
+
+  toggleConfirmPassword?.addEventListener('click', () => {
+    const current = signupConfirm.getAttribute('type');
+    signupConfirm.setAttribute('type', current === 'password' ? 'text' : 'password');
+  });
+
+  signupForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (signupPassword.value !== signupConfirm.value) {
+      setMessage('Passwords do not match.', true);
+      return;
+    }
+
+    setMessage('Creating your account...');
+    const { data, error } = await supabase.auth.signUp({
+      email: signupEmail.value,
+      password: signupPassword.value,
+      options: {
+        data: { full_name: fullName.value, role: signupRole.value },
+      },
+    });
+
+    if (error) {
+      setMessage(error.message, true);
+      return;
+    }
+
+    if (data?.user) {
+      await supabase.from('accounts').upsert({
+        id: data.user.id,
+        email: signupEmail.value,
+        full_name: fullName.value,
+        role: signupRole.value,
+      });
+    }
+
+    setMessage('Account created! Check your email to confirm and then sign in.');
+    setTimeout(() => {
+      window.location.href = 'enterprise_app_store_login_1.html';
+    }, 800);
+  });
+</script></body></html>
