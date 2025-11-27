@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Enterprise App Store - Marketplaces</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Enterprise App Store - Marketplaces</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
       theme: {
@@ -32,7 +32,7 @@
       },
     }
   </script>
-<style>
+  <style>
     .material-symbols-outlined {
       font-variation-settings:
         'FILL' 0,
@@ -43,139 +43,226 @@
   </style>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark">
-<div class="relative flex h-auto min-h-screen w-full flex-col">
-<!-- Top Navigation Bar -->
-<header class="sticky top-0 z-10 flex h-16 items-center justify-between whitespace-nowrap border-b border-zinc-200/50 dark:border-zinc-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm px-6">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-3 text-zinc-900 dark:text-white">
-<div class="size-6 text-primary">
-<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_6_535)">
-<path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
-</g>
-<defs>
-<clippath id="clip0_6_535">
-<rect fill="white" height="48" width="48"></rect>
-</clippath>
-</defs>
-</svg>
-</div>
-<h2 class="text-lg font-bold tracking-tight">Enterprise App Store</h2>
-</div>
-<label class="relative hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
-<div class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 dark:text-zinc-400">
-<span class="material-symbols-outlined text-lg">search</span>
-</div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-transparent focus:border-transparent h-full placeholder:text-zinc-500 dark:placeholder:text-zinc-400 pl-10 pr-4 text-sm font-normal" placeholder="Search all apps..." value=""/>
-</label>
-</div>
-<div class="flex flex-1 items-center justify-end gap-4">
-<div class="flex gap-2">
-<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-<span class="material-symbols-outlined text-xl">notifications</span>
-</button>
-<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-<span class="material-symbols-outlined text-xl">settings</span>
-</button>
-</div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-zinc-200 dark:border-zinc-700" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCX8OLIf17eXGdkX6BQkaI3WOw45inmT1idwQ-POypEDGjWgOSJ8ns49eGN7dkGHhBrLBMQLm_ZUI4pZxvqt3mi0CGzxMwpo4rUmqYY2w2gVl91_QQEKgFXLEQAYmb3OREG2hV3sYJSbyx2W2Qn6CToTl1HyIUWzYFBomeG8NrK9OIGSA1DCOZL6nRPO1nYqLZiXxVsk6-DEvyVpIMYEzaY3tz7V6MvXTTmpJI7oFadCBYR7sUTGB1w6lBmNY-c20WGOernaS7A7z0");'></div>
-</div>
-</header>
-<div class="flex flex-1">
-<!-- Side Navigation Bar -->
-<aside class="w-64 flex-shrink-0 border-r border-zinc-200/50 dark:border-zinc-800 p-4">
-<div class="flex h-full flex-col justify-between">
-<div class="flex flex-col gap-4">
-<div class="flex items-center gap-3 px-3 py-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-10" data-alt="Company Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZLfcLKPQDGGDGpbgI5wZ56PN6T6xT3alx3G_pz6XnFcjSshys_s5E8epJDoiD2IuZxTY0OpAElaoMGYBf9rW5V7qcJTvJCIioOyz8xOGYAi25QzNXqyco76rtWOQfBPd-ie8Hxt4JdeVM2PMpnqA4o7ZfDzuNQr4hj1jzPygyryh2Jrve8D5G1MAcuP3X2WsBhl4fd-nlo1M4fw0C2qSix0Wk_fSBcvgrbKPxjiA0y_Vxr3S8DJ0ntUlqo9AA85mfISuh4E60Ro8");'></div>
-<div class="flex flex-col">
-<h1 class="text-zinc-900 dark:text-white text-sm font-medium leading-normal">Enterprise Store</h1>
-<p class="text-zinc-500 dark:text-zinc-400 text-xs font-normal leading-normal">company.com</p>
-</div>
-</div>
-<div class="flex flex-col gap-1 mt-4">
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary transition-colors" href="marketplaces_&_categories_overview.html">
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">store</span>
-<p class="text-sm font-medium leading-normal">Official Company Marketplace</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" href="applications_in_category_view_4.html">
-<span class="material-symbols-outlined text-xl">code</span>
-<p class="text-sm font-medium leading-normal">Approved Open Source</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" href="admin:_manage_app_folders_1.html">
-<span class="material-symbols-outlined text-xl">construction</span>
-<p class="text-sm font-medium leading-normal">Developer Tools</p>
-</a>
-</div>
-</div>
-</div>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 p-6 lg:p-10">
-<div class="mx-auto max-w-7xl">
-<!-- Breadcrumbs -->
-<div class="flex flex-wrap gap-2 mb-6">
-<a class="text-zinc-500 dark:text-zinc-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="marketplaces_&_categories_overview.html">Home</a>
-<span class="text-zinc-500 dark:text-zinc-400 text-sm font-medium leading-normal">/</span>
-<span class="text-zinc-900 dark:text-white text-sm font-medium leading-normal">Official Company Marketplace</span>
-</div>
-<!-- Page Heading -->
-<div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-<div class="flex min-w-72 flex-col gap-2">
-<h1 class="text-zinc-900 dark:text-white text-3xl font-bold tracking-tight">Official Company Marketplace</h1>
-<p class="text-zinc-500 dark:text-zinc-400 text-base font-normal leading-normal">A curated collection of approved applications for official company use.</p>
-</div>
-<a class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-sm hover:bg-primary/90 transition-colors" href="applications_in_category_view_1.html">
-<span class="truncate">View All Apps</span>
-</a>
-</div>
-<!-- Image Grid -->
-<div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
-<a class="group flex cursor-pointer flex-col gap-3 rounded-xl p-4 bg-zinc-100/50 dark:bg-zinc-900/50 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all" href="applications_in_category_view_1.html">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Abstract gradient for Productivity &amp; Collaboration category" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmArVF7g3KnCbt0-dB8Q2JcoJhxfOKMgBzOW36YsxJvxsvC3KSItxOiO0lJmdJOUFqGoL8BShL1K3bE6UIJBxufH6tob2j4Veb0hIlihXlzAhPbHExi_ZrJNgSW--9gjTaw1Z3zLENRG85Ibh31puOw_rFfT9-WVwSz67B5PqAX6z-E_xpUUdv45Gp5AsWeAtQ_Wgovy_F0ZBynzHKWfF6knP90a_pyW9k44ph5nnE0iPQIG58Hqy7lcEafnXloyGuqPVHCa5BajE");'></div>
-<div>
-<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Productivity &amp; Collaboration</p>
-<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">25 Apps</p>
-</div>
-</a>
-<a class="group flex cursor-pointer flex-col gap-3 rounded-xl p-4 bg-zinc-100/50 dark:bg-zinc-900/50 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all" href="applications_in_category_view_4.html">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Abstract gradient for Security &amp; Compliance category" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpIYmbGo3TF1LCulB5lnlhPAF3-28WtwBu4ADiPDzTHdl3oxTANDXgSJ4XrbQV2feHzs-8WZN8AVoLAZIWq5xTz-BISU_BwsWg0EmflL_3qy26YK4Qtab1LzJBZu3ylmcsp-LuPKDZaVU1qFnQRc89DQd05B-B8mE8ap1oee7Ax60hQKRLNxC4KWnl-0A2ftHuoD3PeQXUOZBeUnt_HkraTMOJMXO9Crkeugh_yJ6kxzNNN32lcIXW8nu_zVvQ-S3lDWtjNgid5NE");'></div>
-<div>
-<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Security &amp; Compliance</p>
-<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">15 Apps</p>
-</div>
-</a>
-<a class="group flex cursor-pointer flex-col gap-3 rounded-xl p-4 bg-zinc-100/50 dark:bg-zinc-900/50 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all" href="applications_in_category_view_2.html">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Abstract gradient for Sales &amp; Marketing category" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLYuuAeznNFfJLulsU7urfjn7e1iOSiQEyPjqhiAC0cMoEMYbkf-NLgAmBoMNLPFcQV9aY2Qcgs-g3qbQNx1pm1e797w6VVf7sF-rhkwnRMMSxLHqm7GHyReXuSB6_PhfhUc1AQdc0fjyt5dzjdgbT84qRqWUO8uUv2-dincipMmtjX7bW99_6zwBFevPu5WeUXP5h9q_H91X8Z82vhxyQt0y38NnVHDKB_F6U1RITTbuy0hKx04EZ7ojHn3flc4tJva1JfiHy124");'></div>
-<div>
-<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Sales &amp; Marketing</p>
-<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">18 Apps</p>
-</div>
-</a>
-<a class="group flex cursor-pointer flex-col gap-3 rounded-xl p-4 bg-zinc-100/50 dark:bg-zinc-900/50 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all" href="admin:_manage_app_folders_1.html">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Abstract gradient for Engineering &amp; IT category" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCQ2cHWgFLTFnm2sS_QGgIi1lkOFS41gwXHQJrXPIaPvdLQo3CrtgNprh2_W5UOtbbTearSXkUKw71dqkrWUTQeN8f2lRGMc2-89ClfUwZ57OupK8HesY4blGRPvhqt78jRKNUkYsUzkOy40bw6E4TDcgrqNHLwEL4WQCil1vukUEhxI2ItfRk-RYOArEma_KEDoWQlEwoSCrawFfF1isLbWUPOqWLUIUDT3Qi7Jh_1MMKdHqVLOfTOJWtDbg2sBJ9oD9rU0hySuA");'></div>
-<div>
-<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Engineering &amp; IT</p>
-<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">32 Apps</p>
-</div>
-</a>
-<a class="group flex cursor-pointer flex-col gap-3 rounded-xl p-4 bg-zinc-100/50 dark:bg-zinc-900/50 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all" href="applications_in_category_view_3.html">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Abstract gradient for HR &amp; Finance category" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAmOy2RMk3WPMEgAVZZRoGxHzahbQO-M1aaWMo9Q5npZQMWMDTMqyTAaGRGE71zHrWykBT46i0jz7tv_nDgl7dYrxe_Gd1Zs6ysfdYb2fq0cfxUIdEdtUbTDbcJytm9mu8DRzuiMQmrd1XcnuJv4AJAec13OjUpuzybAX3UGD0lhcKYeMTfkYTb3-1j9A4hYh_jiVYwht1wNDp5h-KgQbMVDHlL35tQpy04nRyfeDYt3t5xSVQBsaI67e8zx3m3HBjBbZjhD0dpCyc");'></div>
-<div>
-<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">HR &amp; Finance</p>
-<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">12 Apps</p>
-</div>
-</a>
-<a class="group flex cursor-pointer flex-col gap-3 rounded-xl p-4 bg-zinc-100/50 dark:bg-zinc-900/50 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all" href="applications_in_category_view_1.html">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Abstract gradient for Design Tools category" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAj4dirtkCeuuDtARyL83WSE2BXDi6gVbU8kcWD6oZpQq9VEfNlRXKZzD5Ay-gNNWSnSgV9gD9yfwVPPPAySKhwoc-2I2uUjMJ1Gb4qWY6nXrKKA5XRaW3q8W_HLEv6anqIJMiF1yUFbaJ_kInXhBJA8gZc-ISubJEZIkKN51aoQ9tGM7aJ-Mj2LuSwTGREu2LIfH5qvOL8rJqgITwG_wuEOjuw3MBSKvZcrJiTp3lnc6MWIViUKLR14JKACl3Fk59U3wpvaBcTwQI");'></div>
-<div>
-<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Design Tools</p>
-<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">9 Apps</p>
-</div>
-</a>
-</div>
-</div>
-</main>
-</div>
-</div>
-</body></html>
+  <div class="relative flex h-auto min-h-screen w-full flex-col">
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-10 flex h-16 items-center justify-between whitespace-nowrap border-b border-zinc-200/50 dark:border-zinc-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm px-6">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-3 text-zinc-900 dark:text-white">
+          <div class="size-6 text-primary">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6_535)">
+                <path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_6_535">
+                  <rect fill="white" height="48" width="48"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold tracking-tight">Enterprise App Store</h2>
+        </div>
+        <label class="relative hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 dark:text-zinc-400">
+            <span class="material-symbols-outlined text-lg">search</span>
+          </div>
+          <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-transparent focus:border-transparent h-full placeholder:text-zinc-500 dark:placeholder:text-zinc-400 pl-10 pr-4 text-sm font-normal" placeholder="Search all apps..." value="" />
+        </label>
+      </div>
+      <div class="flex flex-1 items-center justify-end gap-4">
+        <div class="flex gap-2">
+          <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <span class="material-symbols-outlined text-xl">notifications</span>
+          </button>
+          <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <span class="material-symbols-outlined text-xl">settings</span>
+          </button>
+        </div>
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-zinc-200 dark:border-zinc-700" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCX8OLIf17eXGdkX6BQkaI3WOw45inmT1idwQ-POypEDGjWgOSJ8ns49eGN7dkGHhBrLBMQLm_ZUI4pZxvqt3mi0CGzxMwpo4rUmqYY2w2gVl91_QQEKgFXLEQAYmb3OREG2hV3sYJSbyx2W2Qn6CToTl1HyIUWzYFBomeG8NrK9OIGSA1DCOZL6nRPO1nYqLZiXxVsk6-DEvyVpIMYEzaY3tz7V6MvXTTmpJI7oFadCBYR7sUTGB1w6lBmNY-c20WGOernaS7A7z0");'></div>
+      </div>
+    </header>
+    <div class="flex flex-1">
+      <!-- Side Navigation Bar -->
+      <aside class="w-64 flex-shrink-0 border-r border-zinc-200/50 dark:border-zinc-800 p-4">
+        <div class="flex h-full flex-col justify-between">
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-3 px-3 py-2">
+              <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-10" data-alt="Company Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZLfcLKPQDGGDGpbgI5wZ56PN6T6xT3alx3G_pz6XnFcjSshys_s5E8epJDoiD2IuZxTY0OpAElaoMGYBf9rW5V7qcJTvJCIioOyz8xOGYAi25QzNXqyco76rtWOQfBPd-ie8Hxt4JdeVM2PMpnqA4o7ZfDzuNQr4hj1jzPygyryh2Jrve8D5G1MAcuP3X2WsBhl4fd-nlo1M4fw0C2qSix0Wk_fSBcvgrbKPxjiA0y_Vxr3S8DJ0ntUlqo9AA85mfISuh4E60Ro8");'></div>
+              <div class="flex flex-col">
+                <h1 class="text-zinc-900 dark:text-white text-sm font-medium leading-normal">Enterprise Store</h1>
+                <p class="text-zinc-500 dark:text-zinc-400 text-xs font-normal leading-normal">company.com</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-1 mt-4">
+              <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary transition-colors" href="marketplaces_&_categories_overview.html">
+                <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">store</span>
+                <p class="text-sm font-medium leading-normal">Official Company Marketplace</p>
+              </a>
+              <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" href="applications_in_category_view_4.html">
+                <span class="material-symbols-outlined text-xl">code</span>
+                <p class="text-sm font-medium leading-normal">Approved Open Source</p>
+              </a>
+              <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" href="admin:_manage_app_folders_1.html">
+                <span class="material-symbols-outlined text-xl">construction</span>
+                <p class="text-sm font-medium leading-normal">Developer Tools</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <!-- Main Content Area -->
+      <main class="flex-1 p-6 lg:p-10">
+        <div class="mx-auto max-w-7xl">
+          <!-- Breadcrumbs -->
+          <div class="flex flex-wrap gap-2 mb-6">
+            <a class="text-zinc-500 dark:text-zinc-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="marketplaces_&_categories_overview.html">Home</a>
+            <span class="text-zinc-500 dark:text-zinc-400 text-sm font-medium leading-normal">/</span>
+            <span class="text-zinc-900 dark:text-white text-sm font-medium leading-normal">Official Company Marketplace</span>
+          </div>
+          <!-- Page Heading -->
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div class="flex min-w-72 flex-col gap-2">
+              <h1 class="text-zinc-900 dark:text-white text-3xl font-bold tracking-tight">Official Company Marketplace</h1>
+              <p class="text-zinc-500 dark:text-zinc-400 text-base font-normal leading-normal">A curated collection of approved applications for official company use.</p>
+            </div>
+            <a class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-sm hover:bg-primary/90 transition-colors" href="applications_in_category_view_1.html">
+              <span class="truncate">View All Apps</span>
+            </a>
+          </div>
+          <!-- Dynamic Categories and Apps -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-semibold text-white">Marketplaces</h2>
+              <p class="text-sm text-zinc-400">Choose a marketplace to explore approved apps.</p>
+            </div>
+            <div id="categories-tabs" class="flex flex-wrap gap-2 border-b border-slate-800 pb-3 mb-4">
+              <p class="text-slate-400 text-sm">Loading categories...</p>
+            </div>
+            <div id="apps-grid" class="grid gap-4 md:grid-cols-3">
+              <p class="text-slate-400 text-sm">Select a category to view apps.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase-client.js';
+
+    const tabsContainer = document.getElementById('categories-tabs');
+    const appsGrid = document.getElementById('apps-grid');
+
+    async function loadCategories() {
+      const { data: categories, error } = await supabase
+        .from('categories')
+        .select('id, name, slug')
+        .order('name', { ascending: true });
+
+      if (error) {
+        console.error('Error loading categories:', error);
+        tabsContainer.innerHTML = '<p class="text-red-500 text-sm">Failed to load categories.</p>';
+        return;
+      }
+
+      tabsContainer.innerHTML = '';
+
+      if (!categories || categories.length === 0) {
+        tabsContainer.innerHTML = '<p class="text-slate-400 text-sm">No marketplaces defined yet.</p>';
+        appsGrid.innerHTML = '';
+        return;
+      }
+
+      categories.forEach((cat, index) => {
+        const btn = document.createElement('button');
+        btn.className = [
+          'tab-button',
+          'px-3 py-2 text-xs md:text-sm rounded-full border border-slate-700',
+          'text-slate-200 hover:bg-slate-800 transition-colors'
+        ].join(' ');
+
+        btn.textContent = cat.name;
+        btn.dataset.slug = cat.slug;
+
+        btn.addEventListener('click', () => {
+          setActiveTab(btn);
+          loadAppsForCategory(cat.slug);
+        });
+
+        tabsContainer.appendChild(btn);
+
+        if (index === 0) {
+          setActiveTab(btn);
+          loadAppsForCategory(cat.slug);
+        }
+      });
+    }
+
+    function setActiveTab(activeBtn) {
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('bg-slate-800', 'text-sky-400');
+      });
+      activeBtn.classList.add('bg-slate-800', 'text-sky-400');
+    }
+
+    async function loadAppsForCategory(categorySlug) {
+      appsGrid.innerHTML = '<p class="text-slate-400 text-sm">Loading apps...</p>';
+
+      const { data: apps, error } = await supabase
+        .from('apps')
+        .select('id, name, description, image, status')
+        .eq('category_slug', categorySlug)
+        .order('name', { ascending: true });
+
+      if (error) {
+        console.error('Error loading apps:', error);
+        appsGrid.innerHTML = '<p class="text-red-500 text-sm">Failed to load apps.</p>';
+        return;
+      }
+
+      appsGrid.innerHTML = '';
+
+      if (!apps || apps.length === 0) {
+        appsGrid.innerHTML = '<p class="text-slate-400 text-sm">No apps in this category yet.</p>';
+        return;
+      }
+
+      apps.forEach(app => {
+        const card = document.createElement('article');
+        card.className = [
+          'rounded-2xl border border-slate-800 bg-slate-900/60',
+          'p-4 flex flex-col gap-3'
+        ].join(' ');
+
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl bg-slate-800 overflow-hidden flex items-center justify-center">
+              ${
+                app.image
+                  ? `<img src="${app.image}" alt="${app.name} icon" class="h-10 w-10 object-cover" />`
+                  : `<span class="text-sm text-slate-400 font-semibold">${(app.name || '?')[0]}</span>`
+              }
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white">${app.name}</h3>
+              <p class="text-xs text-slate-400 line-clamp-2">${app.description || ''}</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-2">
+            <span class="text-xs px-2 py-0.5 rounded-full border border-slate-700 text-slate-300">
+              ${app.status || 'Available'}
+            </span>
+            <button class="text-xs font-medium text-sky-400 hover:underline">
+              View details
+            </button>
+          </div>
+        `;
+
+        appsGrid.appendChild(card);
+      });
+    }
+
+    loadCategories();
+  </script>
+</body>
+</html>
