@@ -1,247 +1,220 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Enterprise App Store - Design Tools</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings:
-            'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#135bec",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#101622",
-                    },
-                    fontFamily: {
-                        "display": ["Manrope", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Enterprise App Store - Category Apps</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#135bec",
+            "background-light": "#f6f6f8",
+            "background-dark": "#101622",
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
-<div class="flex min-h-screen">
-<!-- SideNavBar -->
-<aside class="w-64 flex-shrink-0 bg-white dark:bg-[#181e29] border-r border-gray-200 dark:border-gray-800 flex flex-col">
-<div class="flex h-full flex-col justify-between p-4">
-<div class="flex flex-col gap-4">
-<div class="flex items-center gap-3 p-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Enterprise Inc. logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCe2grI1_X9Sf0Q2Bvl_C5SlSBSVC6aaiUfYg0ET1PpBrhtRPvomoO64IfIsSPZ4GIZvhkB3OEzVk7tkwJxg5Sy8LBhuKg9_LVi59jEKUMs5rywWxtk4xreHvlcVv5XOau3ljgh9u0NChVHmnJ6kg9ZIjtleD7MAugjLPowGogmxx2uin9oSK7SW58XGRM2CXf6KSlnnU0kJNNjbIagRkK2mpgIYRS6GZUe2PYh8kAz5rUfZ6VK_CYfdPbmRcdtzBCZDQep6RieUmQ");'></div>
-<div class="flex flex-col">
-<h1 class="text-gray-900 dark:text-white text-base font-semibold leading-normal">Enterprise Inc.</h1>
-<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal">App Store</p>
-</div>
-</div>
-<nav class="flex flex-col gap-2 mt-4">
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
-<span class="material-symbols-outlined">home</span>
-<p class="text-sm font-medium leading-normal">Home</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
-<span class="material-symbols-outlined">apps</span>
-<p class="text-sm font-medium leading-normal">All Apps</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white" href="#">
-<span class="material-symbols-outlined !font-bold" style="font-variation-settings: 'FILL' 1;">folder</span>
-<p class="text-sm font-semibold leading-normal">Categories</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
-<span class="material-symbols-outlined">download</span>
-<p class="text-sm font-medium leading-normal">Updates</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
-<span class="material-symbols-outlined">person</span>
-<p class="text-sm font-medium leading-normal">My Apps</p>
-</a>
-</nav>
-</div>
-<div class="flex flex-col gap-4">
-<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">
-<span class="truncate">Request an App</span>
-</button>
-<div class="flex flex-col gap-1 border-t border-gray-200 dark:border-gray-800 pt-4">
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
-<span class="material-symbols-outlined">settings</span>
-<p class="text-sm font-medium leading-normal">Settings</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="#">
-<span class="material-symbols-outlined">help</span>
-<p class="text-sm font-medium leading-normal">Help &amp; Support</p>
-</a>
-</div>
-</div>
-</div>
-</aside>
-<!-- Main Content -->
-<main class="flex-1 p-8 overflow-y-auto">
-<div class="max-w-7xl mx-auto">
-<!-- Breadcrumbs -->
-<div class="flex flex-wrap gap-2 items-center">
-<a class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal hover:text-primary" href="#">Home</a>
-<span class="material-symbols-outlined text-gray-400 dark:text-gray-600 text-lg">chevron_right</span>
-<a class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal hover:text-primary" href="#">Productivity</a>
-<span class="material-symbols-outlined text-gray-400 dark:text-gray-600 text-lg">chevron_right</span>
-<span class="text-gray-800 dark:text-white text-sm font-medium leading-normal">Design Tools</span>
-</div>
-<!-- Page Heading -->
-<div class="mt-6">
-<div class="flex flex-wrap justify-between items-start gap-4">
-<div class="flex flex-col gap-2">
-<h1 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Design Tools</h1>
-<p class="text-gray-500 dark:text-[#9da6b9] text-base font-normal leading-normal max-w-2xl">A collection of powerful tools for UI/UX designers, graphic artists, and creative professionals.</p>
-</div>
-</div>
-</div>
-<!-- Toolbar & Filters -->
-<div class="flex flex-wrap justify-between items-center gap-4 mt-8 pb-4 border-b border-gray-200 dark:border-gray-800">
-<div class="relative w-full max-w-xs">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">search</span>
-<input class="w-full h-10 pl-10 pr-4 rounded-lg bg-gray-100 dark:bg-[#181e29] border-transparent focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Search in Design Tools..." type="text"/>
-</div>
-<div class="flex flex-wrap gap-3 items-center">
-<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-[#181e29] border border-gray-300 dark:border-gray-700 px-4">
-<p class="text-gray-800 dark:text-white text-sm font-medium leading-normal">Sort by: A-Z</p>
-<span class="material-symbols-outlined text-gray-500 dark:text-gray-400" style="font-size: 20px;">expand_more</span>
-</button>
-<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-[#181e29] border border-gray-300 dark:border-gray-700 px-4">
-<p class="text-gray-800 dark:text-white text-sm font-medium leading-normal">Installed</p>
-<span class="material-symbols-outlined text-gray-500 dark:text-gray-400" style="font-size: 20px;">expand_more</span>
-</button>
-<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-[#181e29] border border-gray-300 dark:border-gray-700 px-4">
-<p class="text-gray-800 dark:text-white text-sm font-medium leading-normal">Update Available</p>
-<span class="material-symbols-outlined text-gray-500 dark:text-gray-400" style="font-size: 20px;">expand_more</span>
-</button>
-</div>
-</div>
-<!-- Application Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
-<!-- App Card 1 -->
-<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-5 flex flex-col gap-4 hover:shadow-lg hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300">
-<div class="flex items-start justify-between">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14" data-alt="Figma app icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTzCMGEPNfUBci7AaGvhz8lnxSiQfx6mCLHAIgjQhxNQk-Kw1rS_0wnD_rQ3jsTTigFwXKMaETCZ6Ao5ngSntEflka5t1606NY9PM2Xon-i9mxaKA_QN99veBwTvECwn2TSfUrEIIXq9W_LF8gmZvHQbiqnwT8dfOYpsSRGmWfezLdgmfIh2LORCOwoD5ukv82d_FzLkA8LjlmsZTG6Os2wiPlkEjl0CrQiyL-jMGmv0z7GMvZ6v1e4MHZkhRQ_NptCdhzWR1OxXs");'></div>
-<button class="text-gray-500 dark:text-gray-400 hover:text-primary">
-<span class="material-symbols-outlined">more_horiz</span>
-</button>
-</div>
-<div class="flex flex-col gap-1 flex-grow">
-<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Figma</h3>
-<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal line-clamp-2">The collaborative interface design tool. Create, test, and ship better designs from start to finish.</p>
-</div>
-<div class="flex items-center gap-2 mt-2">
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">Install</button>
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white text-sm font-medium leading-normal hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Details</button>
-</div>
-</div>
-<!-- App Card 2 -->
-<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-5 flex flex-col gap-4 hover:shadow-lg hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300">
-<div class="flex items-start justify-between">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14" data-alt="Adobe Photoshop app icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAZO1k392hcAYRimeUwTIl0MRUyed9Y_mHNWar0537euAvlYFtzzTwrjJ_mk84dANWumhutQy4QtAr6BfNRZFKlOJLuYwWLPYfS_z4UOBgDj9IUPf7EII5Y2WV8B9KJoqZtmI6PqF3hVQDWXH4d82IeUi5THoYHcOdEAThAKsdcf0_3d94YOljbk_Qt8IApOPt3ugYEhdf6aCzjZyEw6G8QV9D397Hep7UsdynfwPVF4pfRsoLMzquHpnhiMHKWt_fFrhbYgxT5Qnc");'></div>
-<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-700 dark:text-green-300">Installed</span>
-</div>
-<div class="flex flex-col gap-1 flex-grow">
-<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Adobe Photoshop</h3>
-<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal line-clamp-2">The industry standard for digital image processing and editing.</p>
-</div>
-<div class="flex items-center gap-2 mt-2">
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-green-600 text-white text-sm font-bold leading-normal tracking-wide hover:bg-green-700 transition-colors">Open</button>
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white text-sm font-medium leading-normal hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Details</button>
-</div>
-</div>
-<!-- App Card 3 -->
-<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-5 flex flex-col gap-4 hover:shadow-lg hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300">
-<div class="flex items-start justify-between">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14" data-alt="Sketch app icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDTeFXI2EAn1WDBRvd7U7c-5UJbXnLclNt9rYEV8jY_t3yPGprkFP5aKFbgF7K5wfluRRSL6tdEXvwHE1tKXskcuMre3SGPzKULsihj4gITMnx1I5X0Ru_oDy7hRlXpbtvqRQM28dUj8N5lNfGBVPZKj-C3YlagudXtnm7U-LJcHV1wk3ZFnRdt3UKU8AWrk64F_lghYzkVKQ4KO5PeHmTPUrhQjYQR3BErcwqeHhDuzPAWIocFUvj_C2yOfQH3d9w5zU6ixfdAtCA");'></div>
-<button class="text-gray-500 dark:text-gray-400 hover:text-primary">
-<span class="material-symbols-outlined">more_horiz</span>
-</button>
-</div>
-<div class="flex flex-col gap-1 flex-grow">
-<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Sketch</h3>
-<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal line-clamp-2">A powerful vector graphics editor for macOS, known for its focus on UI/UX design.</p>
-</div>
-<div class="flex items-center gap-2 mt-2">
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">Install</button>
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white text-sm font-medium leading-normal hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Details</button>
-</div>
-</div>
-<!-- App Card 4 -->
-<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-5 flex flex-col gap-4 hover:shadow-lg hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300">
-<div class="flex items-start justify-between">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14" data-alt="InVision Studio app icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtJFHseySm85a5CIbkl27K0vWLMgNAQ6VV_lzYiNoxRx-uTMZn8d8o6apFE3g5Pi44LkCUQZpFLmFNVvpk6kDllaubW1vE6Od-O7JTsvzbGBZxQDH8aJPR2xnq_lSz79-vYsl-JaRmyTr9WYAKdU_uiiWsBsL_gWGnwV-TzPcSo19F9xZNtbjBOMLQ9m1khY-orcPrmQrJ7jSIao7fp51NbflNU3l7o6g0T6weikgk5qv07YjrzBiObObo3gKMNjAK2Sw2aBMjXCc");'></div>
-<span class="inline-flex items-center rounded-full bg-orange-100 dark:bg-orange-900/50 px-3 py-1 text-xs font-medium text-orange-700 dark:text-orange-300">Update</span>
-</div>
-<div class="flex flex-col gap-1 flex-grow">
-<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-normal">InVision Studio</h3>
-<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal line-clamp-2">The world's most powerful screen design tool with prototyping and animation features.</p>
-</div>
-<div class="flex items-center gap-2 mt-2">
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-orange-500 text-white text-sm font-bold leading-normal tracking-wide hover:bg-orange-600 transition-colors">Update</button>
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white text-sm font-medium leading-normal hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Details</button>
-</div>
-</div>
-<!-- App Card 5 -->
-<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-5 flex flex-col gap-4 hover:shadow-lg hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300">
-<div class="flex items-start justify-between">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14" data-alt="Canva app icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBnCFxEfk1hwarR7Xl8CV91C1oPi21X6kV8d_mJyBQ1RAOWYfCnjIcIWlYSRqi5YFHdjliqEe8fRrcxAV5jN4GdMlH9D4_w7lx9VjnXXXe4EtNgAkj3hHDPYBbYuRBDknXOLKqV_236D_tXPOSEOv8DFKzzNpPcrdzRMG6G-BaG2IeZfXcraQyUC0hg3vwzC3cykwD9RiaInJFM9BI9NWHXJVswPdFC7J_Isy0zIQCJPyKDvT8jedKfmcRBCza1r0Fc6cTv2CIdfSQ");'></div>
-<button class="text-gray-500 dark:text-gray-400 hover:text-primary">
-<span class="material-symbols-outlined">more_horiz</span>
-</button>
-</div>
-<div class="flex flex-col gap-1 flex-grow">
-<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-normal">Canva</h3>
-<p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal line-clamp-2">Create beautiful designs with your team. Use Canva's drag-and-drop feature and layouts.</p>
-</div>
-<div class="flex items-center gap-2 mt-2">
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">Install</button>
-<button class="flex flex-1 items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white text-sm font-medium leading-normal hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Details</button>
-</div>
-</div>
-<!-- App Card 6 - Loading Skeleton -->
-<div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-5 flex flex-col gap-4 animate-pulse">
-<div class="flex items-start justify-between">
-<div class="bg-gray-200 dark:bg-gray-700 rounded-lg size-14"></div>
-<div class="bg-gray-200 dark:bg-gray-700 rounded-full h-6 w-6"></div>
-</div>
-<div class="flex flex-col gap-2 flex-grow">
-<div class="h-6 w-3/4 bg-gray-200 dark:bg-gray-700 rounded"></div>
-<div class="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
-<div class="h-4 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
-</div>
-<div class="flex items-center gap-2 mt-2">
-<div class="flex-1 h-9 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-<div class="flex-1 h-9 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-</div>
-</div>
-</div>
-<!-- Empty State Example -->
-<div class="mt-16 flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl hidden">
-<span class="material-symbols-outlined text-5xl text-gray-400 dark:text-gray-500 mb-4">search_off</span>
-<h3 class="text-xl font-bold text-gray-900 dark:text-white">No applications found</h3>
-<p class="text-gray-500 dark:text-[#9da6b9] mt-2">Your search or filter criteria did not match any applications in this category.</p>
-<button class="mt-6 flex items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">Clear Filters</button>
-</div>
-</div>
-</main>
-</div>
-</body></html>
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-900 dark:text-white">
+  <div class="min-h-screen flex flex-col">
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-10 flex h-16 items-center justify-between whitespace-nowrap border-b border-zinc-200/50 dark:border-zinc-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm px-6">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-3 text-zinc-900 dark:text-white">
+          <div class="size-6 text-primary">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6_535)">
+                <path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_6_535">
+                  <rect fill="white" height="48" width="48"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold tracking-tight">Enterprise App Store</h2>
+        </div>
+        <label class="relative hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 dark:text-zinc-400">
+            <span class="material-symbols-outlined text-lg">search</span>
+          </div>
+          <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-transparent focus:border-transparent h-full placeholder:text-zinc-500 dark:placeholder:text-zinc-400 pl-10 pr-4 text-sm font-normal" placeholder="Search apps..." value="" />
+        </label>
+      </div>
+      <div class="flex flex-1 items-center justify-end gap-4">
+        <div class="flex gap-2">
+          <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <span class="material-symbols-outlined text-xl">notifications</span>
+          </button>
+          <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <span class="material-symbols-outlined text-xl">settings</span>
+          </button>
+        </div>
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-zinc-200 dark:border-zinc-700" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCX8OLIf17eXGdkX6BQkaI3WOw45inmT1idwQ-POypEDGjWgOSJ8ns49eGN7dkGHhBrLBMQLm_ZUI4pZxvqt3mi0CGzxMwpo4rUmqYY2w2gVl91_QQEKgFXLEQAYmb3OREG2hV3sYJSbyx2W2Qn6CToTl1HyIUWzYFBomeG8NrK9OIGSA1DCOZL6nRPO1nYqLZiXxVsk6-DEvyVpIMYEzaY3tz7V6MvXTTmpJI7oFadCBYR7sUTGB1w6lBmNY-c20WGOernaS7A7z0");'></div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 lg:p-10">
+      <div class="mx-auto max-w-7xl space-y-6">
+        <!-- Breadcrumbs -->
+        <div class="flex flex-wrap gap-2 items-center text-sm text-zinc-500 dark:text-zinc-400">
+          <a class="hover:text-primary" href="marketplaces_&_categories_overview.html">Home</a>
+          <span class="material-symbols-outlined text-lg">chevron_right</span>
+          <span id="category-crumb">Category</span>
+        </div>
+
+        <!-- Page Heading -->
+        <header class="space-y-2">
+          <h1 id="category-title" class="text-3xl font-bold tracking-tight text-white">Applications</h1>
+          <p id="category-description" class="text-sm text-slate-400"></p>
+        </header>
+
+        <!-- Apps Grid -->
+        <section>
+          <div id="apps-grid" class="grid gap-4 md:grid-cols-3">
+            <p class="text-slate-400 text-sm">Loading apps...</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase-client.js';
+
+    const appsGrid = document.getElementById('apps-grid');
+    const titleEl = document.getElementById('category-title');
+    const descEl = document.getElementById('category-description');
+    const crumbEl = document.getElementById('category-crumb');
+
+    function getCategoryFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('category');
+    }
+
+    async function loadCategory(slug) {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('name, description')
+        .eq('slug', slug)
+        .maybeSingle();
+
+      if (error || !data) {
+        titleEl.textContent = 'Applications';
+        descEl.textContent = '';
+        crumbEl.textContent = 'Applications';
+        return;
+      }
+
+      titleEl.textContent = data.name;
+      descEl.textContent = data.description || '';
+      crumbEl.textContent = data.name;
+    }
+
+    async function loadApps(slug) {
+      appsGrid.innerHTML = '<p class="text-slate-400 text-sm">Loading apps...</p>';
+
+      const { data: apps, error } = await supabase
+        .from('apps')
+        .select('id, name, description, image, status')
+        .eq('category_slug', slug)
+        .order('name', { ascending: true });
+
+      if (error) {
+        console.error('Error loading apps:', error);
+        appsGrid.innerHTML = '<p class="text-red-500 text-sm">Failed to load apps.</p>';
+        return;
+      }
+
+      if (!apps || apps.length === 0) {
+        appsGrid.innerHTML = '<p class="text-slate-400 text-sm">No applications in this category yet.</p>';
+        return;
+      }
+
+      appsGrid.innerHTML = '';
+
+      apps.forEach(app => {
+        const card = document.createElement('article');
+        card.className = 'rounded-2xl border border-slate-800 bg-slate-900/60 p-4 flex flex-col justify-between gap-3';
+
+        card.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="h-10 w-10 rounded-xl bg-slate-800 overflow-hidden flex items-center justify-center">
+              ${
+                app.image
+                  ? `<img src="${app.image}" alt="${app.name} icon" class="h-10 w-10 object-cover" />`
+                  : `<span class="text-sm text-slate-400 font-semibold">${(app.name || '?')[0]}</span>`
+              }
+            </div>
+            <div class="flex-1">
+              <h3 class="text-sm font-semibold text-white">${app.name}</h3>
+              <p class="text-xs text-slate-400 mt-1 line-clamp-3">
+                ${app.description || ''}
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-2">
+            <span class="text-xs px-2 py-0.5 rounded-full border border-slate-700 text-slate-300">
+              ${app.status || 'Available'}
+            </span>
+            <div class="flex gap-2">
+              <button class="text-xs px-2 py-1 rounded-md bg-sky-500/90 hover:bg-sky-400 text-white font-medium">
+                Install
+              </button>
+              <button class="text-xs px-2 py-1 rounded-md border border-slate-700 text-slate-200 hover:bg-slate-800">
+                Details
+              </button>
+            </div>
+          </div>
+        `;
+
+        appsGrid.appendChild(card);
+      });
+    }
+
+    async function main() {
+      const slug = getCategoryFromUrl();
+      if (!slug) {
+        titleEl.textContent = 'Applications';
+        descEl.textContent = '';
+        appsGrid.innerHTML = '<p class="text-slate-400 text-sm">No category specified.</p>';
+        return;
+      }
+
+      await loadCategory(slug);
+      await loadApps(slug);
+    }
+
+    main();
+  </script>
+</body>
+</html>
