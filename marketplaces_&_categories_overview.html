@@ -151,7 +151,6 @@
     import { supabase } from './supabase-client.js';
 
     const tabsContainer = document.getElementById('categories-tabs');
-    const appsGrid = document.getElementById('apps-grid');
 
     async function loadCategories() {
       const { data: categories, error } = await supabase
@@ -169,7 +168,6 @@
 
       if (!categories || categories.length === 0) {
         tabsContainer.innerHTML = '<p class="text-slate-400 text-sm">No marketplaces defined yet.</p>';
-        appsGrid.innerHTML = '';
         return;
       }
 
@@ -185,83 +183,14 @@
         btn.dataset.slug = cat.slug;
 
         btn.addEventListener('click', () => {
-          setActiveTab(btn);
-          loadAppsForCategory(cat.slug);
+          const slug = btn.dataset.slug;
+          if (!slug) return;
+          window.location.href = `applications_in_category_view_1.html?category=${encodeURIComponent(slug)}`;
         });
 
         tabsContainer.appendChild(btn);
-
-        if (index === 0) {
-          setActiveTab(btn);
-          loadAppsForCategory(cat.slug);
-        }
       });
     }
-
-    function setActiveTab(activeBtn) {
-      document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('bg-slate-800', 'text-sky-400');
-      });
-      activeBtn.classList.add('bg-slate-800', 'text-sky-400');
-    }
-
-    async function loadAppsForCategory(categorySlug) {
-      appsGrid.innerHTML = '<p class="text-slate-400 text-sm">Loading apps...</p>';
-
-      const { data: apps, error } = await supabase
-        .from('apps')
-        .select('id, name, description, image, status')
-        .eq('category_slug', categorySlug)
-        .order('name', { ascending: true });
-
-      if (error) {
-        console.error('Error loading apps:', error);
-        appsGrid.innerHTML = '<p class="text-red-500 text-sm">Failed to load apps.</p>';
-        return;
-      }
-
-      appsGrid.innerHTML = '';
-
-      if (!apps || apps.length === 0) {
-        appsGrid.innerHTML = '<p class="text-slate-400 text-sm">No apps in this category yet.</p>';
-        return;
-      }
-
-      apps.forEach(app => {
-        const card = document.createElement('article');
-        card.className = [
-          'rounded-2xl border border-slate-800 bg-slate-900/60',
-          'p-4 flex flex-col gap-3'
-        ].join(' ');
-
-        card.innerHTML = `
-          <div class="flex items-center gap-3">
-            <div class="h-10 w-10 rounded-xl bg-slate-800 overflow-hidden flex items-center justify-center">
-              ${
-                app.image
-                  ? `<img src="${app.image}" alt="${app.name} icon" class="h-10 w-10 object-cover" />`
-                  : `<span class="text-sm text-slate-400 font-semibold">${(app.name || '?')[0]}</span>`
-              }
-            </div>
-            <div>
-              <h3 class="text-sm font-semibold text-white">${app.name}</h3>
-              <p class="text-xs text-slate-400 line-clamp-2">${app.description || ''}</p>
-            </div>
-          </div>
-          <div class="flex items-center justify-between pt-2">
-            <span class="text-xs px-2 py-0.5 rounded-full border border-slate-700 text-slate-300">
-              ${app.status || 'Available'}
-            </span>
-            <button class="text-xs font-medium text-sky-400 hover:underline">
-              View details
-            </button>
-          </div>
-        `;
-
-        appsGrid.appendChild(card);
-      });
-    }
-
     loadCategories();
   </script>
 </body>
