@@ -4,8 +4,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Enterprise App Store - Login</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -51,30 +51,28 @@
 <p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Welcome back! Please enter your details.</p>
 </div>
 </div>
-<div class="space-y-6">
+<form id="login-form" class="space-y-6">
 <label class="flex flex-col w-full">
-<p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Username</p>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal" placeholder="Enter your username" value=""/>
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Email</p>
+<input id="login-email" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal" placeholder="name@company.com" type="email" required />
 </label>
 <div class="flex flex-col gap-2">
 <label class="flex flex-col w-full">
 <p class="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Password</p>
 <div class="flex w-full flex-1 items-stretch rounded-lg">
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal" placeholder="Enter your password" type="password" value=""/>
+<input id="login-password" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal" placeholder="Enter your password" type="password" required />
 <div class="text-gray-500 dark:text-gray-400 flex border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 items-center justify-center pr-[15px] rounded-r-lg border-l-0">
-<span class="material-symbols-outlined cursor-pointer">visibility</span>
+<span class="material-symbols-outlined cursor-pointer" id="togglePassword">visibility</span>
 </div>
 </div>
 </label>
-<div class="flex justify-end">
-<p class="text-primary text-sm font-normal leading-normal underline cursor-pointer hover:text-primary/80">Forgot Password?</p>
 </div>
-</div>
-</div>
+<div id="login-error" class="text-sm text-red-500 min-h-[1.5rem]"></div>
+</form>
 <div class="flex flex-col gap-4">
-<button class="flex items-center justify-center font-semibold text-base text-white h-14 w-full rounded-lg bg-primary hover:bg-primary/90 transition-colors">Login</button>
+<button type="submit" form="login-form" class="flex items-center justify-center font-semibold text-base text-white h-14 w-full rounded-lg bg-primary hover:bg-primary/90 transition-colors">Log in</button>
 <div class="text-center">
-<p class="text-sm text-gray-500 dark:text-gray-400">Don't have an account? <a class="font-semibold text-primary hover:text-primary/80" href="#">Sign Up</a></p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Don't have an account? <button id="go-to-signup" type="button" class="font-semibold text-primary hover:text-primary/80 underline">Create an account</button></p>
 </div>
 </div>
 </div>
@@ -91,4 +89,58 @@
 </div>
 </div>
 </div>
-</body></html>
+<script type="module">
+  import { supabase } from './supabase-client.js';
+
+  const form = document.getElementById('login-form');
+  const errorBox = document.getElementById('login-error');
+  const passwordInput = document.getElementById('login-password');
+  const togglePassword = document.getElementById('togglePassword');
+  const signupLink = document.getElementById('go-to-signup');
+
+  togglePassword?.addEventListener('click', () => {
+    const current = passwordInput.getAttribute('type');
+    passwordInput.setAttribute('type', current === 'password' ? 'text' : 'password');
+  });
+
+  signupLink?.addEventListener('click', () => {
+    window.location.href = 'enterprise_app_store_login_2.html';
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.textContent = '';
+
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    if (!email || !password) {
+      errorBox.textContent = 'Please enter both email and password.';
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      console.error(error);
+      errorBox.textContent = error.message || 'Login failed. Please check your credentials.';
+      return;
+    }
+
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+
+    const { data: account } = await supabase
+      .from('accounts')
+      .select('role')
+      .eq('id', user?.id)
+      .maybeSingle();
+
+    if (account?.role === 'admin') {
+      window.location.href = 'admin_control_panel_overview_1.html';
+    } else {
+      window.location.href = 'marketplaces_&_categories_overview.html';
+    }
+  });
+</script></body></html>
