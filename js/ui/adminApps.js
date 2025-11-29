@@ -157,7 +157,9 @@ export async function renderAdminAppNewPage() {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.id = 'app-file';
-    fileInput.className = 'app-input';
+    fileInput.accept = '*/*';
+    fileInput.className =
+      'w-full text-sm text-slate-300 file:mr-4 file:rounded-lg file:border-0 file:bg-sky-500 file:px-4 file:py-2 file:text-sm file:font-medium hover:file:bg-sky-400 mt-2';
     fileWrap.appendChild(fileInput);
     form.appendChild(fileWrap);
 
@@ -294,11 +296,13 @@ export async function renderAdminAppEditPage(appId) {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.id = 'app-file';
-    fileInput.className = 'app-input';
+    fileInput.accept = '*/*';
+    fileInput.className =
+      'w-full text-sm text-slate-300 file:mr-4 file:rounded-lg file:border-0 file:bg-sky-500 file:px-4 file:py-2 file:text-sm file:font-medium hover:file:bg-sky-400 mt-2';
     fileWrap.appendChild(fileInput);
     if (app.file_name) {
       const currentFile = document.createElement('p');
-      currentFile.className = 'app-note';
+      currentFile.className = 'mt-1 text-xs text-slate-400';
       currentFile.textContent = `Current file: ${app.file_name}`;
       fileWrap.appendChild(currentFile);
     }

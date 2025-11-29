@@ -133,7 +133,7 @@ export async function getAppById(id) {
 }
 
 export async function createApp(payload) {
-  return supabase.from('apps').insert(payload);
+  return supabase.from('apps').insert(payload).select('*').maybeSingle();
 }
 
 export async function updateApp(id, payload) {
@@ -143,37 +143,40 @@ export async function updateApp(id, payload) {
 export async function uploadAppFile(appId, file) {
   if (!file) return { data: null, error: null };
 
-  const name = file.name || '';
-  const parts = name.split('.');
-  const ext = parts.length > 1 ? parts.pop() : '';
-  const filePath = `apps/${appId}/${Date.now()}${ext ? `.${ext}` : ''}`;
+  const originalName = file.name || '';
+  const ext = originalName.includes('.') ? originalName.split('.').pop() : 'bin';
+  const timestamp = Date.now();
+  const filePath = `apps/${appId}/${timestamp}.${ext}`;
 
-  const { error: uploadError } = await supabase.storage.from('app-files').upload(filePath, file, {
+  const { data: uploadData, error: uploadError } = await supabase.storage.from('app-files').upload(filePath, file, {
     cacheControl: '3600',
     upsert: true
   });
 
   if (uploadError) {
-    console.error('File upload failed', uploadError);
+    console.error('Failed to upload app file', uploadError);
     return { data: null, error: uploadError };
   }
 
-  const { data, error } = await supabase
+  const { data: appData, error: updateError } = await supabase
     .from('apps')
     .update({
       file_path: filePath,
-      file_name: name,
+      file_name: originalName,
+      file_size: file.size,
+      file_type: file.type || null,
       updated_at: new Date().toISOString()
     })
     .eq('id', appId)
-    .select()
+    .select('id, file_path, file_name, file_size, file_type')
     .maybeSingle();
 
-  if (error) {
-    console.error('Failed to update app with file info', error);
+  if (updateError) {
+    console.error('Failed to update app with file info', updateError);
+    return { data: null, error: updateError };
   }
 
-  return { data, error };
+  return { data: appData, error: null };
 }
 
 export async function getAppDownloadUrl(app) {
@@ -184,6 +187,9 @@ export async function getAppDownloadUrl(app) {
   const { data, error } = await supabase.storage.from('app-files').createSignedUrl(app.file_path, 60);
 
   // For public buckets we would call getPublicUrl, but this bucket is private so we always sign.
+  // If bucket ever becomes public:
+  // const { data: pub } = supabase.storage.from('app-files').getPublicUrl(app.file_path);
+  // return { url: pub?.publicUrl || null, error: null };
   if (error) {
     console.error('Failed to create signed download URL', error);
     return { url: null, error };

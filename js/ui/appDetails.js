@@ -40,17 +40,35 @@ export async function renderAppDetailsPage(appId) {
 
     const actions = document.createElement('div');
     actions.style.marginTop = '12px';
-    const downloadBtn = createButton('Install');
-    downloadBtn.addEventListener('click', async () => {
-      const { url, error: downloadError } = await getAppDownloadUrl(app);
-      if (downloadError || !url) {
-        alert('No downloadable file is available for this app.');
-        return;
-      }
-      await incrementAppDownloadCount(app.id);
-      window.location.href = url;
-    });
-    actions.appendChild(downloadBtn);
+
+    if (app.file_path) {
+      const downloadBtn = createButton('Install');
+      downloadBtn.addEventListener('click', async () => {
+        downloadBtn.disabled = true;
+        const { url, error: downloadError } = await getAppDownloadUrl(app);
+        if (downloadError || !url) {
+          alert('Could not prepare download for this app.');
+          console.error(downloadError);
+          downloadBtn.disabled = false;
+          return;
+        }
+
+        try {
+          await incrementAppDownloadCount(app.id);
+        } catch (err) {
+          console.error('Failed to increment download count', err);
+        }
+
+        window.location.href = url;
+        downloadBtn.disabled = false;
+      });
+      actions.appendChild(downloadBtn);
+    } else {
+      const noFile = document.createElement('p');
+      noFile.className = 'app-note';
+      noFile.textContent = 'No installable file is available for this app yet.';
+      actions.appendChild(noFile);
+    }
     header.appendChild(actions);
     main.appendChild(header);
 
