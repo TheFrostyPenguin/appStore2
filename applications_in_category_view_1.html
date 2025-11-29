@@ -190,12 +190,21 @@
               <button class="text-xs px-2 py-1 rounded-md bg-sky-500/90 hover:bg-sky-400 text-white font-medium">
                 Install
               </button>
-              <button class="text-xs px-2 py-1 rounded-md border border-slate-700 text-slate-200 hover:bg-slate-800">
+              <button class="btn-details text-xs px-2 py-1 rounded-md border border-slate-700 text-slate-200 hover:bg-slate-800" data-app-id="${app.id}">
                 Details
               </button>
             </div>
           </div>
         `;
+
+        const detailsBtn = card.querySelector('.btn-details');
+        if (detailsBtn) {
+          detailsBtn.addEventListener('click', () => {
+            const appId = detailsBtn.dataset.appId;
+            if (!appId) return;
+            window.location.href = `app_details.html?app=${encodeURIComponent(appId)}`;
+          });
+        }
 
         appsGrid.appendChild(card);
       });
