@@ -259,6 +259,31 @@ export async function getRatingsForAnalytics() {
   return { data, error };
 }
 
+export async function getAverageRatingsMap() {
+  const { data, error } = await getRatingsForAnalytics();
+  if (error) {
+    return { map: {}, error };
+  }
+
+  const map = {};
+  (data || []).forEach(row => {
+    if (!row.app_id) return;
+    map[row.app_id] = map[row.app_id] || { total: 0, count: 0 };
+    map[row.app_id].total += row.rating || 0;
+    map[row.app_id].count += 1;
+  });
+
+  const averaged = {};
+  Object.entries(map).forEach(([appId, agg]) => {
+    averaged[appId] = {
+      avgRating: agg.count ? agg.total / agg.count : 0,
+      count: agg.count
+    };
+  });
+
+  return { map: averaged, error: null };
+}
+
 export async function getCategoriesMap() {
   const { data, error } = await supabase.from('categories').select('id, name, slug');
 
