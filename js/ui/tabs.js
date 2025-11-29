@@ -5,8 +5,7 @@ export function initTabs(rootEl, defaultTab) {
   function activate(tabName) {
     tabButtons.forEach(btn => {
       const active = btn.dataset.tab === tabName;
-      btn.classList.toggle('bg-slate-800', active);
-      btn.classList.toggle('text-sky-400', active);
+      btn.classList.toggle('app-tab--active', active);
       btn.setAttribute('aria-selected', active ? 'true' : 'false');
     });
     panels.forEach(panel => {

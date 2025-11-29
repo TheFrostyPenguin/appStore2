@@ -1,81 +1,85 @@
 import { getAppById, getRatingsForApp, addRating, getVersionsForApp, getAppDownloadUrl } from '../api.js';
-import { renderShell } from './layout.js';
+import { renderAppShell } from './layout.js';
 import { initTabs } from './tabs.js';
-import { ratingStars, statusPill, createCard, createButton } from './components.js';
+import { statusPill, createCard, createButton } from './components.js';
 
 export async function renderAppDetailsPage(appId) {
-  await renderShell(async main => {
+  await renderAppShell(async main => {
     const { data: app, error } = await getAppById(appId);
     if (error || !app) {
-      main.innerHTML = '<p class="text-red-500 text-sm">Application not found.</p>';
+      main.innerHTML = '<p class="app-note" style="color:#f87171">Application not found.</p>';
       return;
     }
 
     const header = createCard();
-    header.classList.add('flex', 'gap-4', 'items-start');
     header.innerHTML = `
-      <div class="h-14 w-14 rounded-2xl bg-slate-800 overflow-hidden flex items-center justify-center">
-        ${app.image ? `<img src="${app.image}" alt="${app.name} icon" class="h-14 w-14 object-cover" />` : `<span class="text-lg text-slate-200 font-semibold">${(app.name || '?')[0]}</span>`}
-      </div>
-      <div class="flex-1">
-        <p class="text-sm text-slate-400">Application</p>
-        <h1 id="app-title" class="text-2xl font-semibold text-white">${app.name}</h1>
-        <p id="app-subtitle" class="text-sm text-slate-400 mt-1">${app.description || ''}</p>
-        <div class="mt-2 flex items-center gap-2">${statusPill(app.status || 'Available').outerHTML}</div>
-        ${app.system_requirements ? `<p class="text-xs text-slate-400 mt-2">Requirements: ${app.system_requirements}</p>` : ''}
+      <div style="display:flex; gap:14px; align-items:flex-start;">
+        <div class="app-avatar" style="width:56px; height:56px; border-radius:16px;">
+          ${
+            app.image
+              ? `<img src="${app.image}" alt="${app.name} icon" style="width:56px;height:56px;border-radius:16px;object-fit:cover;" />`
+              : `${(app.name || '?')[0]}`
+          }
+        </div>
+        <div style="flex:1;">
+          <p class="app-subtext">Application</p>
+          <h1 id="app-title" class="app-section-title" style="margin:4px 0;">${app.name}</h1>
+          <p id="app-subtitle" class="app-subtext">${app.description || ''}</p>
+          <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">${statusPill(app.status || 'Available').outerHTML}</div>
+          ${app.system_requirements ? `<p class="app-note" style="margin-top:8px;">Requirements: ${app.system_requirements}</p>` : ''}
+        </div>
       </div>
     `;
-    const actions = document.createElement('div');
-    actions.className = 'flex items-start gap-2';
+
     if (app.file_path) {
+      const actions = document.createElement('div');
+      actions.style.marginTop = '12px';
       const downloadBtn = createButton('Download');
       downloadBtn.addEventListener('click', async () => {
-        const { url, error } = await getAppDownloadUrl(app);
-        if (error || !url) {
+        const { url, error: downloadError } = await getAppDownloadUrl(app);
+        if (downloadError || !url) {
           alert('Could not create download link.');
           return;
         }
         window.location.href = url;
       });
       actions.appendChild(downloadBtn);
-    }
-    if (actions.children.length) {
       header.appendChild(actions);
     }
     main.appendChild(header);
 
     const tabsContainer = document.createElement('div');
-    tabsContainer.className = 'space-y-4';
+    tabsContainer.className = 'app-card';
     tabsContainer.innerHTML = `
-      <div class="flex gap-2 mt-4" role="tablist">
-        <button class="px-3 py-1.5 rounded-full border border-slate-800 text-sm text-slate-200" data-tab="overview" role="tab">Overview</button>
-        <button class="px-3 py-1.5 rounded-full border border-slate-800 text-sm text-slate-200" data-tab="reviews" role="tab">Reviews</button>
-        <button class="px-3 py-1.5 rounded-full border border-slate-800 text-sm text-slate-200" data-tab="versions" role="tab">Version History</button>
+      <div class="app-tabs" role="tablist">
+        <button class="app-tab" data-tab="overview" role="tab">Overview</button>
+        <button class="app-tab" data-tab="reviews" role="tab">Reviews</button>
+        <button class="app-tab" data-tab="versions" role="tab">Version History</button>
       </div>
-      <div class="space-y-4">
-        <div data-tab-panel="overview" role="tabpanel" class="space-y-2">
-          <h3 class="text-lg font-semibold text-white">Overview</h3>
-          <p class="text-sm text-slate-300 whitespace-pre-line">${app.description || 'No description provided.'}</p>
-          ${app.system_requirements ? `<div class="text-sm text-slate-200"><span class="font-semibold">System requirements:</span> ${app.system_requirements}</div>` : ''}
+      <div class="app-stack">
+        <div data-tab-panel="overview" role="tabpanel" class="app-stack">
+          <h3 class="app-card-title">Overview</h3>
+          <p class="app-subtext" style="white-space:pre-line;">${app.description || 'No description provided.'}</p>
+          ${app.system_requirements ? `<div class="app-note"><strong>System requirements:</strong> ${app.system_requirements}</div>` : ''}
         </div>
-        <div data-tab-panel="reviews" role="tabpanel" class="space-y-3 hidden">
-          <div id="reviews-summary" class="text-sm text-slate-200"></div>
-          <form id="review-form" class="space-y-2">
+        <div data-tab-panel="reviews" role="tabpanel" class="app-stack hidden">
+          <div id="reviews-summary" class="app-subtext"></div>
+          <form id="review-form" class="app-stack">
             <div>
-              <label class="block text-xs text-slate-400 mb-1">Your rating</label>
-              <div id="review-stars" class="flex gap-1 text-xl cursor-pointer"></div>
+              <label class="app-label" for="review-comment">Your rating</label>
+              <div id="review-stars" class="app-stars" style="display:flex; gap:6px; cursor:pointer;"></div>
             </div>
             <div>
-              <label class="block text-xs text-slate-400 mb-1" for="review-comment">Your review</label>
-              <textarea id="review-comment" rows="3" class="w-full rounded-lg bg-slate-900/60 border border-slate-800 text-sm text-white p-2" placeholder="Share your experience..."></textarea>
+              <label class="app-label" for="review-comment">Your review</label>
+              <textarea id="review-comment" rows="3" class="app-textarea" placeholder="Share your experience..."></textarea>
             </div>
-            <button type="submit" class="px-3 py-1.5 rounded-md bg-sky-500 text-xs font-medium text-white hover:bg-sky-400">Submit review</button>
+            <button type="submit" class="app-btn-primary" style="width:fit-content;">Submit review</button>
           </form>
-          <div id="reviews-list" class="space-y-3 text-sm"></div>
+          <div id="reviews-list" class="app-stack" style="margin-top:4px;"></div>
         </div>
-        <div data-tab-panel="versions" role="tabpanel" class="space-y-2 hidden">
-          <h3 class="text-lg font-semibold text-white">Version History</h3>
-          <div id="version-history" class="space-y-2 text-sm text-slate-200"></div>
+        <div data-tab-panel="versions" role="tabpanel" class="app-stack hidden">
+          <h3 class="app-card-title">Version History</h3>
+          <div id="version-history" class="app-stack"></div>
         </div>
       </div>
     `;
@@ -101,7 +105,7 @@ async function initReviews(appId) {
     for (let i = 1; i <= 5; i++) {
       const span = document.createElement('span');
       span.textContent = i <= rating ? '★' : '☆';
-      span.className = 'text-yellow-400';
+      span.className = 'app-stars';
       span.dataset.value = i;
       span.style.cursor = 'pointer';
       span.addEventListener('click', () => {
@@ -125,9 +129,9 @@ async function initReviews(appId) {
     }
     const avg = reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length;
     summaryEl.innerHTML = `
-      <div class="flex items-center gap-2">
-        <div class="text-lg">${'★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg))}</div>
-        <div class="text-xs text-slate-400">${avg.toFixed(1)} / 5.0 · ${reviews.length} review${reviews.length === 1 ? '' : 's'}</div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="app-stars">${'★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg))}</div>
+        <div class="app-note">${avg.toFixed(1)} / 5.0 · ${reviews.length} review${reviews.length === 1 ? '' : 's'}</div>
       </div>
     `;
     listEl.innerHTML = reviews
@@ -135,12 +139,12 @@ async function initReviews(appId) {
         const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
         const date = r.created_at ? new Date(r.created_at).toLocaleDateString() : '';
         return `
-          <article class="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-            <div class="flex items-center justify-between mb-1">
-              <div class="text-yellow-400 text-sm">${stars}</div>
-              <div class="text-xs text-slate-500">${date}</div>
+          <article class="app-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+              <div class="app-stars">${stars}</div>
+              <div class="app-note">${date}</div>
             </div>
-            <p class="text-sm text-slate-100 whitespace-pre-wrap">${(r.comment || '').replace(/</g, '&lt;')}</p>
+            <p class="app-subtext" style="white-space:pre-wrap;">${(r.comment || '').replace(/</g, '&lt;')}</p>
           </article>
         `;
       })
@@ -186,12 +190,12 @@ async function loadVersionHistory(appId) {
       const date = v.created_at ? new Date(v.created_at).toLocaleDateString() : '';
       const notes = (v.release_notes || '').replace(/</g, '&lt;');
       return `
-        <article class="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-          <div class="flex items-center justify-between mb-1">
-            <div class="font-semibold">Version ${v.version}</div>
-            <div class="text-xs text-slate-500">${date}</div>
+        <article class="app-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <div class="app-card-title" style="margin:0;">Version ${v.version}</div>
+            <div class="app-note">${date}</div>
           </div>
-          <p class="text-xs text-slate-200 whitespace-pre-wrap">${notes}</p>
+          <p class="app-subtext" style="white-space:pre-wrap;">${notes}</p>
         </article>
       `;
     })

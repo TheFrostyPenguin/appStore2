@@ -1,37 +1,36 @@
-import { renderShell } from './layout.js';
+import { renderAppShell } from './layout.js';
 import { createCard, statusPill } from './components.js';
 import { createSearchInput } from './search.js';
 import { getAllApps, getAllCategories, createApp, updateApp, getAppById, uploadAppFile } from '../api.js';
 import { navigateTo } from '../router.js';
 
 export async function renderAdminAppsListPage() {
-  await renderShell(async main => {
+  await renderAppShell(async main => {
     const header = document.createElement('div');
-    header.className = 'flex items-center justify-between';
-    header.innerHTML = `<div><p class="text-sm text-slate-400">Admin</p><h2 class="text-2xl font-semibold text-white">Applications</h2></div>`;
+    header.className = 'app-flex-between';
+    header.innerHTML = `<div><p class="app-subtext">Admin</p><h2 class="app-section-title">Applications</h2></div>`;
     const addBtn = document.createElement('button');
-    addBtn.className = 'px-3 py-1.5 rounded-lg bg-sky-500 text-sm font-semibold text-white hover:bg-sky-400';
+    addBtn.className = 'app-btn-primary';
     addBtn.textContent = 'Add New';
     addBtn.addEventListener('click', () => navigateTo('#/admin/apps/new'));
     header.appendChild(addBtn);
     main.appendChild(header);
 
     const searchWrap = document.createElement('div');
-    searchWrap.className = 'mt-4';
     main.appendChild(searchWrap);
 
     const tableWrap = document.createElement('div');
-    tableWrap.className = 'overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/60';
+    tableWrap.className = 'app-card';
     const table = document.createElement('table');
-    table.className = 'min-w-full text-sm text-slate-200';
+    table.className = 'app-table';
     table.innerHTML = `
-      <thead class="bg-slate-900/80 text-xs uppercase text-slate-400">
+      <thead>
         <tr>
-          <th class="px-4 py-2 text-left">Name</th>
-          <th class="px-4 py-2 text-left">Category</th>
-          <th class="px-4 py-2 text-left">Version</th>
-          <th class="px-4 py-2 text-left">Status</th>
-          <th class="px-4 py-2 text-right">Actions</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Version</th>
+          <th>Status</th>
+          <th class="text-right">Actions</th>
         </tr>
       </thead>
       <tbody id="apps-table-body"></tbody>
@@ -41,7 +40,7 @@ export async function renderAdminAppsListPage() {
 
     const { data: apps, error } = await getAllApps();
     if (error) {
-      tableWrap.innerHTML = '<p class="text-red-500 text-sm p-4">Failed to load apps.</p>';
+      tableWrap.innerHTML = '<p class="app-note" style="color:#f87171">Failed to load apps.</p>';
       return;
     }
     const allApps = apps || [];
@@ -57,19 +56,21 @@ export async function renderAdminAppsListPage() {
     function renderRows(list) {
       tbody.innerHTML = '';
       if (!list || list.length === 0) {
-        tbody.innerHTML = '<tr><td class="px-4 py-3 text-slate-400" colspan="5">No applications found.</td></tr>';
+        tbody.innerHTML = '<tr><td class="app-note" colspan="5">No applications found.</td></tr>';
         return;
       }
       list.forEach(app => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="px-4 py-3 font-medium text-white">${app.name}</td>
-          <td class="px-4 py-3 text-slate-300">${app.category_slug || ''}</td>
-          <td class="px-4 py-3 text-slate-300">${app.version || ''}</td>
-          <td class="px-4 py-3">${statusPill(app.status || 'available').outerHTML}</td>
-          <td class="px-4 py-3 text-right flex items-center justify-end gap-2">
-            <button data-id="${app.id}" class="btn-edit text-xs px-2 py-1 rounded-md border border-slate-700 text-slate-200 hover:bg-slate-800">Edit</button>
-            <button data-id="${app.id}" class="btn-versions text-xs px-2 py-1 rounded-md bg-sky-500 text-white">Versions</button>
+          <td>${app.name}</td>
+          <td>${app.category_slug || ''}</td>
+          <td>${app.version || ''}</td>
+          <td>${statusPill(app.status || 'available').outerHTML}</td>
+          <td>
+            <div class="app-table-row-actions">
+              <button data-id="${app.id}" class="btn-edit app-btn-secondary" style="padding:8px 10px; font-size:0.85rem;">Edit</button>
+              <button data-id="${app.id}" class="btn-versions app-btn-primary" style="padding:8px 10px; font-size:0.85rem;">Versions</button>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
@@ -84,18 +85,18 @@ export async function renderAdminAppsListPage() {
     }
 
     renderRows(allApps);
-  });
+  }, { currentRoute: '#/admin/apps' });
 }
 
 export async function renderAdminAppNewPage() {
-  await renderShell(async main => {
+  await renderAppShell(async main => {
     const heading = document.createElement('div');
-    heading.innerHTML = `<p class="text-sm text-slate-400">Admin</p><h2 class="text-2xl font-semibold text-white">Add Application</h2>`;
+    heading.innerHTML = `<p class="app-subtext">Admin</p><h2 class="app-section-title">Add Application</h2>`;
     main.appendChild(heading);
 
     const formCard = createCard();
     const form = document.createElement('form');
-    form.className = 'grid gap-3 md:grid-cols-2';
+    form.className = 'app-form-grid';
 
     const fields = [
       { id: 'name', label: 'Name', type: 'text' },
@@ -109,60 +110,60 @@ export async function renderAdminAppNewPage() {
 
     fields.forEach(({ id, label, type, placeholder }) => {
       const wrap = document.createElement('div');
-      wrap.className = 'flex flex-col gap-1';
-      wrap.innerHTML = `<label class="text-sm text-slate-300" for="${id}">${label}</label>`;
+      wrap.className = 'app-stack';
+      wrap.innerHTML = `<label class="app-label" for="${id}">${label}</label>`;
       const input = document.createElement('input');
       input.id = `app-${id}`;
       input.type = type;
       input.placeholder = placeholder || '';
-      input.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+      input.className = 'app-input';
       wrap.appendChild(input);
       inputs[id] = input;
       form.appendChild(wrap);
     });
 
     const categoryWrap = document.createElement('div');
-    categoryWrap.className = 'flex flex-col gap-1';
-    categoryWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-category">Category</label>';
+    categoryWrap.className = 'app-stack';
+    categoryWrap.innerHTML = '<label class="app-label" for="app-category">Category</label>';
     const categorySelect = document.createElement('select');
     categorySelect.id = 'app-category';
-    categorySelect.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    categorySelect.className = 'app-select';
     categoryWrap.appendChild(categorySelect);
     form.appendChild(categoryWrap);
 
     const descWrap = document.createElement('div');
-    descWrap.className = 'md:col-span-2 flex flex-col gap-1';
-    descWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-description">Description</label>';
+    descWrap.className = 'app-stack';
+    descWrap.innerHTML = '<label class="app-label" for="app-description">Description</label>';
     const descArea = document.createElement('textarea');
     descArea.id = 'app-description';
-    descArea.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    descArea.className = 'app-textarea';
     descArea.rows = 3;
     descWrap.appendChild(descArea);
     form.appendChild(descWrap);
 
     const reqWrap = document.createElement('div');
-    reqWrap.className = 'md:col-span-2 flex flex-col gap-1';
-    reqWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-requirements">System Requirements</label>';
+    reqWrap.className = 'app-stack';
+    reqWrap.innerHTML = '<label class="app-label" for="app-requirements">System Requirements</label>';
     const reqArea = document.createElement('textarea');
     reqArea.id = 'app-requirements';
-    reqArea.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    reqArea.className = 'app-textarea';
     reqArea.rows = 3;
     reqWrap.appendChild(reqArea);
     form.appendChild(reqWrap);
 
     const fileWrap = document.createElement('div');
-    fileWrap.className = 'md:col-span-2 flex flex-col gap-1';
-    fileWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-file">Application File</label>';
+    fileWrap.className = 'app-stack';
+    fileWrap.innerHTML = '<label class="app-label" for="app-file">Application File</label>';
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.id = 'app-file';
-    fileInput.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    fileInput.className = 'app-input';
     fileWrap.appendChild(fileInput);
     form.appendChild(fileWrap);
 
     const submit = document.createElement('button');
     submit.type = 'submit';
-    submit.className = 'md:col-span-2 px-3 py-2 rounded-lg bg-sky-500 text-white font-semibold';
+    submit.className = 'app-btn-primary';
     submit.textContent = 'Save Application';
     form.appendChild(submit);
 
@@ -214,24 +215,24 @@ export async function renderAdminAppNewPage() {
     }
     navigateTo('#/admin/apps');
     });
-  });
+  }, { currentRoute: '#/admin/apps' });
 }
 
 export async function renderAdminAppEditPage(appId) {
-  await renderShell(async main => {
+  await renderAppShell(async main => {
     const heading = document.createElement('div');
-    heading.innerHTML = `<p class="text-sm text-slate-400">Admin</p><h2 class="text-2xl font-semibold text-white">Edit Application</h2>`;
+    heading.innerHTML = `<p class="app-subtext">Admin</p><h2 class="app-section-title">Edit Application</h2>`;
     main.appendChild(heading);
 
     const { data: app, error } = await getAppById(appId);
     if (error || !app) {
-      main.innerHTML += '<p class="text-red-500 text-sm">App not found.</p>';
+      main.innerHTML += '<p class="app-note" style="color:#f87171">App not found.</p>';
       return;
     }
 
     const formCard = createCard();
     const form = document.createElement('form');
-    form.className = 'grid gap-3 md:grid-cols-2';
+    form.className = 'app-form-grid';
 
     const inputs = {};
     const fields = [
@@ -244,60 +245,60 @@ export async function renderAdminAppEditPage(appId) {
 
     fields.forEach(({ id, label, type, value }) => {
       const wrap = document.createElement('div');
-      wrap.className = 'flex flex-col gap-1';
-      wrap.innerHTML = `<label class="text-sm text-slate-300" for="${id}">${label}</label>`;
+      wrap.className = 'app-stack';
+      wrap.innerHTML = `<label class="app-label" for="${id}">${label}</label>`;
       const input = document.createElement('input');
       input.id = `app-${id}`;
       input.type = type;
       input.value = value || '';
-      input.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+      input.className = 'app-input';
       wrap.appendChild(input);
       inputs[id] = input;
       form.appendChild(wrap);
     });
 
     const categoryWrap = document.createElement('div');
-    categoryWrap.className = 'flex flex-col gap-1';
-    categoryWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-category">Category</label>';
+    categoryWrap.className = 'app-stack';
+    categoryWrap.innerHTML = '<label class="app-label" for="app-category">Category</label>';
     const categorySelect = document.createElement('select');
     categorySelect.id = 'app-category';
-    categorySelect.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    categorySelect.className = 'app-select';
     categoryWrap.appendChild(categorySelect);
     form.appendChild(categoryWrap);
 
     const descWrap = document.createElement('div');
-    descWrap.className = 'md:col-span-2 flex flex-col gap-1';
-    descWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-description">Description</label>';
+    descWrap.className = 'app-stack';
+    descWrap.innerHTML = '<label class="app-label" for="app-description">Description</label>';
     const descArea = document.createElement('textarea');
     descArea.id = 'app-description';
-    descArea.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    descArea.className = 'app-textarea';
     descArea.rows = 3;
     descArea.value = app.description || '';
     descWrap.appendChild(descArea);
     form.appendChild(descWrap);
 
     const reqWrap = document.createElement('div');
-    reqWrap.className = 'md:col-span-2 flex flex-col gap-1';
-    reqWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-requirements">System Requirements</label>';
+    reqWrap.className = 'app-stack';
+    reqWrap.innerHTML = '<label class="app-label" for="app-requirements">System Requirements</label>';
     const reqArea = document.createElement('textarea');
     reqArea.id = 'app-requirements';
-    reqArea.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    reqArea.className = 'app-textarea';
     reqArea.rows = 3;
     reqArea.value = app.system_requirements || '';
     reqWrap.appendChild(reqArea);
     form.appendChild(reqWrap);
 
     const fileWrap = document.createElement('div');
-    fileWrap.className = 'md:col-span-2 flex flex-col gap-1';
-    fileWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-file">Application File</label>';
+    fileWrap.className = 'app-stack';
+    fileWrap.innerHTML = '<label class="app-label" for="app-file">Application File</label>';
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.id = 'app-file';
-    fileInput.className = 'rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white';
+    fileInput.className = 'app-input';
     fileWrap.appendChild(fileInput);
     if (app.file_name) {
       const currentFile = document.createElement('p');
-      currentFile.className = 'text-xs text-slate-400';
+      currentFile.className = 'app-note';
       currentFile.textContent = `Current file: ${app.file_name}`;
       fileWrap.appendChild(currentFile);
     }
@@ -305,7 +306,7 @@ export async function renderAdminAppEditPage(appId) {
 
     const submit = document.createElement('button');
     submit.type = 'submit';
-    submit.className = 'md:col-span-2 px-3 py-2 rounded-lg bg-sky-500 text-white font-semibold';
+    submit.className = 'app-btn-primary';
     submit.textContent = 'Save Changes';
     form.appendChild(submit);
 
@@ -357,5 +358,5 @@ export async function renderAdminAppEditPage(appId) {
     }
     navigateTo('#/admin/apps');
     });
-  });
+  }, { currentRoute: '#/admin/apps' });
 }

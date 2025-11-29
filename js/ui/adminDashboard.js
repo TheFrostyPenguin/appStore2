@@ -1,16 +1,23 @@
 import { getAllCategories, getAllApps } from '../api.js';
-import { renderShell } from './layout.js';
-import { createCard, createButton } from './components.js';
+import { renderAppShell } from './layout.js';
+import { createCard } from './components.js';
 import { navigateTo } from '../router.js';
 
 export async function renderAdminDashboardPage() {
-  await renderShell(async main => {
+  await renderAppShell(async main => {
     const heading = document.createElement('div');
-    heading.innerHTML = `<p class="text-sm text-slate-400">Admin</p><h2 class="text-2xl font-semibold text-white">Control Panel</h2>`;
+    const title = document.createElement('h2');
+    title.className = 'app-section-title';
+    title.textContent = 'Admin Control Panel';
+    const subtitle = document.createElement('p');
+    subtitle.className = 'app-section-subtitle';
+    subtitle.textContent = 'Manage marketplaces, applications, and releases.';
+    heading.appendChild(title);
+    heading.appendChild(subtitle);
     main.appendChild(heading);
 
     const grid = document.createElement('div');
-    grid.className = 'grid gap-4 md:grid-cols-3';
+    grid.className = 'app-grid';
     main.appendChild(grid);
 
     const [categories, apps] = await Promise.all([getAllCategories(), getAllApps()]);
@@ -33,15 +40,13 @@ export async function renderAdminDashboardPage() {
     cards.forEach(cardInfo => {
       const card = createCard();
       card.innerHTML = `
-        <div class="flex items-start justify-between">
-          <div>
-            <p class="text-sm text-slate-400">${cardInfo.title}</p>
-            <h3 class="text-3xl font-bold text-white">${cardInfo.count}</h3>
-          </div>
+        <div class="app-card-header">
+          <p class="app-subtext">${cardInfo.title}</p>
+          <h3 class="app-card-title" style="font-size:1.8rem;">${cardInfo.count}</h3>
         </div>
-        <div class="flex items-center gap-2 pt-4">
-          <button class="px-3 py-1.5 rounded-lg border border-slate-700 text-sm text-slate-200 hover:bg-slate-800">View All</button>
-          <button class="px-3 py-1.5 rounded-lg bg-sky-500 text-sm font-semibold text-white hover:bg-sky-400">Add New</button>
+        <div class="app-flex-between" style="padding-top:8px;">
+          <button class="app-btn-secondary">View All</button>
+          <button class="app-btn-primary">Add New</button>
         </div>
       `;
       const [viewBtn, addBtn] = card.querySelectorAll('button');
@@ -49,5 +54,5 @@ export async function renderAdminDashboardPage() {
       addBtn.addEventListener('click', cardInfo.onAdd);
       grid.appendChild(card);
     });
-  });
+  }, { currentRoute: '#/admin' });
 }

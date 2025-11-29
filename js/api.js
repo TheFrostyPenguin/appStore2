@@ -160,6 +160,7 @@ export async function getAppDownloadUrl(app) {
 
   return { url: data?.signedUrl || null, error: null };
 }
+
 export async function searchAppsInCategory(slug, query) {
   const { data, error } = await getAppsByCategorySlug(slug);
   if (error || !data) return { data, error };

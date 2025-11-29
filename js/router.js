@@ -48,11 +48,11 @@ export function startRouter() {
       const root = document.getElementById('app-root');
       if (root) {
         root.innerHTML =
-          '<div class="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100 px-4"><div class="max-w-md text-center space-y-3">' +
-          '<h1 class="text-2xl font-semibold text-white">Page not found</h1>' +
-          '<p class="text-slate-400 text-sm">The requested page could not be located.</p>' +
-          '<a href="#/marketplaces" class="text-sky-400 hover:underline text-sm">Back to home</a>' +
-          '</div></div>';
+          '<div class="app-card" style="margin-top:40px;">' +
+          '<h1 class="app-section-title">Page not found</h1>' +
+          '<p class="app-subtext">The requested page could not be located.</p>' +
+          '<a href="#/marketplaces">Back to home</a>' +
+          '</div>';
       }
     }
   }

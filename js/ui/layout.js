@@ -1,57 +1,143 @@
-import { handleLogout, getSessionAccount } from '../auth.js';
-import { createButton } from './components.js';
+import { handleLogout } from '../auth.js';
+import { getCurrentAccount } from '../api.js';
 
-export async function renderShell(viewContentFn) {
-  const root = document.getElementById('app-root');
-  root.innerHTML = '';
+function buildTabs(tabs, currentRoute) {
+  const nav = document.createElement('div');
+  nav.className = 'app-tabs';
+  const hash = currentRoute || window.location.hash || '#/';
 
-  const account = (await getSessionAccount()).data;
+  tabs.forEach(tab => {
+    const btn = document.createElement('button');
+    btn.className = 'app-tab';
+    btn.textContent = tab.label;
+    const active = tab.isActive(hash);
+    if (active) {
+      btn.classList.add('app-tab--active');
+      btn.setAttribute('aria-selected', 'true');
+    } else {
+      btn.setAttribute('aria-selected', 'false');
+    }
+    btn.addEventListener('click', () => {
+      window.location.hash = tab.href;
+    });
+    nav.appendChild(btn);
+  });
 
-  const page = document.createElement('div');
-  page.className = 'min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100';
-
-  const header = document.createElement('header');
-  header.className = 'border-b border-slate-800 bg-slate-900/70 sticky top-0 z-10';
-  header.innerHTML = `
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-xl bg-sky-500/20 border border-sky-500/50 flex items-center justify-center text-sky-300 font-bold">EA</div>
-        <div>
-          <p class="text-sm text-slate-400">Enterprise App Store</p>
-          <h1 class="text-lg font-semibold text-white">Workspace</h1>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        ${account ? `<span class="text-sm text-slate-300">${account.full_name || account.email || ''}</span>` : ''}
-        <button id="logout-btn" class="text-sm text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 hover:bg-slate-800">Logout</button>
-      </div>
-    </div>
-  `;
-
-  const main = document.createElement('main');
-  main.className = 'max-w-6xl mx-auto px-6 py-8 space-y-6';
-
-  page.appendChild(header);
-  page.appendChild(main);
-  root.appendChild(page);
-
-  const logoutBtn = header.querySelector('#logout-btn');
-  if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
-
-  await viewContentFn(main);
+  return nav;
 }
 
-export async function renderAuthShell(viewContentFn) {
+function shellBase({ title, subtitle, tabs, currentRoute, showAccount }) {
   const root = document.getElementById('app-root');
   root.innerHTML = '';
 
-  const main = document.createElement('main');
-  main.className = 'min-h-screen flex items-center justify-center bg-slate-950 text-slate-100 px-4';
+  const shell = document.createElement('div');
+  shell.className = 'app-shell-card';
 
-  const card = document.createElement('div');
-  card.className = 'w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl space-y-4';
+  const header = document.createElement('div');
+  header.className = 'app-shell-header';
+  const heading = document.createElement('div');
+  const titleEl = document.createElement('h1');
+  titleEl.className = 'app-shell-title';
+  titleEl.textContent = title;
+  const subEl = document.createElement('p');
+  subEl.className = 'app-subtext';
+  subEl.textContent = subtitle || '';
+  heading.appendChild(titleEl);
+  heading.appendChild(subEl);
+  header.appendChild(heading);
 
-  await viewContentFn(card);
-  main.appendChild(card);
-  root.appendChild(main);
+  if (showAccount?.name) {
+    const accountBox = document.createElement('div');
+    accountBox.className = 'app-header-meta';
+    const avatar = document.createElement('div');
+    avatar.className = 'app-avatar';
+    avatar.textContent = showAccount.name.slice(0, 2).toUpperCase();
+    const name = document.createElement('div');
+    name.innerHTML = `<div class="app-subtext">Signed in</div><div>${showAccount.name}</div>`;
+    const logout = document.createElement('button');
+    logout.className = 'app-btn-secondary';
+    logout.textContent = 'Logout';
+    logout.addEventListener('click', handleLogout);
+    accountBox.appendChild(avatar);
+    accountBox.appendChild(name);
+    accountBox.appendChild(logout);
+    header.appendChild(accountBox);
+  }
+
+  shell.appendChild(header);
+  if (tabs?.length) {
+    const nav = buildTabs(tabs, currentRoute);
+    nav.classList.add('app-shell-nav');
+    shell.appendChild(nav);
+  }
+
+  const main = document.createElement('div');
+  main.className = 'app-stack';
+  shell.appendChild(main);
+  root.appendChild(shell);
+
+  return main;
+}
+
+export async function renderPublicShell(viewFn, { currentRoute } = {}) {
+  const tabs = [
+    {
+      label: 'Login',
+      href: '#/login',
+      isActive: hash => hash.startsWith('#/login')
+    },
+    {
+      label: 'Sign Up',
+      href: '#/signup',
+      isActive: hash => hash.startsWith('#/signup')
+    }
+  ];
+
+  const main = shellBase({
+    title: 'Enterprise App Store',
+    subtitle: 'Access your workspace apps securely',
+    tabs,
+    currentRoute
+  });
+
+  await viewFn(main);
+}
+
+export async function renderAppShell(viewFn, { currentRoute } = {}) {
+  const { data: account } = await getCurrentAccount();
+  const tabs = [
+    {
+      label: 'Marketplaces',
+      href: '#/marketplaces',
+      isActive: hash =>
+        hash.startsWith('#/marketplaces') || hash.startsWith('#/category') || hash.startsWith('#/app')
+    }
+  ];
+
+  if (account?.role === 'admin') {
+    tabs.push({
+      label: 'Admin',
+      href: '#/admin',
+      isActive: hash => hash.startsWith('#/admin')
+    });
+  }
+
+  const main = shellBase({
+    title: 'Enterprise App Store',
+    subtitle: 'Browse, manage, and deploy applications',
+    tabs,
+    currentRoute,
+    showAccount: account ? { name: account.full_name || account.email || 'User' } : null
+  });
+
+  await viewFn(main);
+}
+
+// Backwards compatibility for existing calls
+export async function renderShell(viewFn, options = {}) {
+  return renderAppShell(viewFn, options);
+}
+
+export async function renderAuthShell(viewFn, options = {}) {
+  return renderPublicShell(viewFn, options);
 }

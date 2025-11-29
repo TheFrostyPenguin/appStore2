@@ -31,6 +31,7 @@ registerRoute('/admin/marketplaces/new', async () => requireAdmin(() => renderAd
 registerRoute('/admin/marketplaces/:id/edit', async ({ id }) =>
   requireAdmin(() => renderAdminMarketplaceEditPage(id))
 );
+
 async function bootstrap() {
   const {
     data: { user }

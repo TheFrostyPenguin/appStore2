@@ -1,37 +1,36 @@
-import { renderShell } from './layout.js';
+import { renderAppShell } from './layout.js';
 import { createCard } from './components.js';
 import { getAppById, getVersionsForApp, addVersion, updateApp } from '../api.js';
 
 export async function renderAdminAppVersionsPage(appId) {
-  await renderShell(async main => {
+  await renderAppShell(async main => {
     const { data: app, error } = await getAppById(appId);
     if (error || !app) {
-      main.innerHTML = '<p class="text-red-500 text-sm">App not found.</p>';
+      main.innerHTML = '<p class="app-note" style="color:#f87171">App not found.</p>';
       return;
     }
 
     const heading = document.createElement('div');
-    heading.className = 'space-y-1';
-    heading.innerHTML = `<p class="text-sm text-slate-400">Manage Versions</p><h2 class="text-2xl font-semibold text-white">${app.name}</h2>`;
+    heading.innerHTML = `<p class="app-subtext">Manage Versions</p><h2 class="app-section-title">${app.name}</h2>`;
     main.appendChild(heading);
 
     const listCard = createCard();
-    listCard.innerHTML = '<h3 class="text-lg font-semibold text-white mb-2">Existing Versions</h3><div id="versions-list" class="space-y-2"></div>';
+    listCard.innerHTML = '<h3 class="app-card-title">Existing Versions</h3><div id="versions-list" class="app-stack"></div>';
     main.appendChild(listCard);
 
     const formCard = createCard();
     formCard.innerHTML = `
-      <h3 class="text-lg font-semibold text-white mb-2">Add Version</h3>
-      <form id="version-form" class="space-y-2">
-        <div class="flex flex-col gap-1">
-          <label class="text-sm text-slate-300" for="version-name">Version</label>
-          <input id="version-name" type="text" class="rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white" />
+      <h3 class="app-card-title">Add Version</h3>
+      <form id="version-form" class="app-stack">
+        <div>
+          <label class="app-label" for="version-name">Version</label>
+          <input id="version-name" type="text" class="app-input" />
         </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-sm text-slate-300" for="version-notes">Release Notes</label>
-          <textarea id="version-notes" rows="3" class="rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2 text-sm text-white"></textarea>
+        <div>
+          <label class="app-label" for="version-notes">Release Notes</label>
+          <textarea id="version-notes" rows="3" class="app-textarea"></textarea>
         </div>
-        <button type="submit" class="px-3 py-2 rounded-lg bg-sky-500 text-white font-semibold">Add Version</button>
+        <button type="submit" class="app-btn-primary" style="width:fit-content;">Add Version</button>
       </form>
     `;
     main.appendChild(formCard);
@@ -55,12 +54,12 @@ export async function renderAdminAppVersionsPage(appId) {
         .map(v => {
           const date = v.created_at ? new Date(v.created_at).toLocaleDateString() : '';
           return `
-            <article class="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
-              <div class="flex items-center justify-between">
-                <div class="font-semibold">Version ${v.version}</div>
-                <div class="text-xs text-slate-500">${date}</div>
+            <article class="app-card">
+              <div class="app-flex-between">
+                <div class="app-card-title" style="margin:0;">Version ${v.version}</div>
+                <div class="app-note">${date}</div>
               </div>
-              <p class="text-xs text-slate-200 mt-1 whitespace-pre-wrap">${(v.release_notes || '').replace(/</g, '&lt;')}</p>
+              <p class="app-subtext" style="white-space:pre-wrap; margin-top:4px;">${(v.release_notes || '').replace(/</g, '&lt;')}</p>
             </article>
           `;
         })
@@ -87,5 +86,5 @@ export async function renderAdminAppVersionsPage(appId) {
       notesInput.value = '';
       await loadVersions();
     });
-  });
+  }, { currentRoute: '#/admin/apps' });
 }
