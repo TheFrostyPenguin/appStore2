@@ -31,21 +31,19 @@ export async function renderAppDetailsPage(appId) {
       </div>
     `;
 
-    if (app.file_path) {
-      const actions = document.createElement('div');
-      actions.style.marginTop = '12px';
-      const downloadBtn = createButton('Download');
-      downloadBtn.addEventListener('click', async () => {
-        const { url, error: downloadError } = await getAppDownloadUrl(app);
-        if (downloadError || !url) {
-          alert('Could not create download link.');
-          return;
-        }
-        window.location.href = url;
-      });
-      actions.appendChild(downloadBtn);
-      header.appendChild(actions);
-    }
+    const actions = document.createElement('div');
+    actions.style.marginTop = '12px';
+    const downloadBtn = createButton('Install');
+    downloadBtn.addEventListener('click', async () => {
+      const { url, error: downloadError } = await getAppDownloadUrl(app);
+      if (downloadError || !url) {
+        alert('No downloadable file is available for this app.');
+        return;
+      }
+      window.location.href = url;
+    });
+    actions.appendChild(downloadBtn);
+    header.appendChild(actions);
     main.appendChild(header);
 
     const tabsContainer = document.createElement('div');

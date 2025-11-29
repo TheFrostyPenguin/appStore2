@@ -46,11 +46,27 @@ export async function isAdmin() {
 }
 
 // Categories
-export async function getAllCategories() {
-  return supabase
-    .from('categories')
-    .select('id, name, slug, description')
-    .order('name', { ascending: true });
+export async function getMarketplaces(options = {}) {
+  const { sortBy = 'name', direction = 'asc' } = options;
+
+  let query = supabase.from('categories').select('id, name, slug, description, updated_at');
+
+  if (sortBy === 'updated_at') {
+    query = query.order('updated_at', { ascending: direction === 'asc' });
+  } else {
+    query = query.order('name', { ascending: direction === 'asc' });
+  }
+
+  const { data, error } = await query;
+  if (error) {
+    console.error('Failed to load marketplaces', error);
+  }
+  return { data, error };
+}
+
+export async function getAllCategories(options = {}) {
+  // Backward compatibility shim to use the new, sortable marketplace loader
+  return getMarketplaces(options);
 }
 
 export async function getCategoryBySlug(slug) {
@@ -78,18 +94,33 @@ export async function updateCategory(id, payload) {
 }
 
 // Apps
-export async function getAppsByCategorySlug(slug) {
-  return supabase
+export async function getAppsByCategorySlug(slug, options = {}) {
+  const { sortBy = 'name', direction = 'asc' } = options;
+
+  let query = supabase
     .from('apps')
-    .select('id, name, description, image, status, category_slug, version, developer, system_requirements')
-    .eq('category_slug', slug)
-    .order('name', { ascending: true });
+    .select(
+      'id, name, description, image, status, category_slug, version, developer, system_requirements, file_path, file_name, updated_at'
+    )
+    .eq('category_slug', slug);
+
+  if (sortBy === 'updated_at') {
+    query = query.order('updated_at', { ascending: direction === 'asc' });
+  } else {
+    query = query.order('name', { ascending: direction === 'asc' });
+  }
+
+  const { data, error } = await query;
+  if (error) {
+    console.error('Failed to load apps for category', error);
+  }
+  return { data, error };
 }
 
 export async function getAllApps() {
   return supabase
     .from('apps')
-    .select('id, name, description, image, status, category_slug, version, developer, system_requirements')
+    .select('id, name, description, image, status, category_slug, version, developer, system_requirements, file_path, file_name, updated_at')
     .order('name', { ascending: true });
 }
 
