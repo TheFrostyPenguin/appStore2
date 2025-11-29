@@ -41,115 +41,129 @@
   </script>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
-  <div class="flex min-h-screen">
-    <aside class="w-64 flex-shrink-0 bg-white dark:bg-[#181e29] border-r border-gray-200 dark:border-gray-800 flex flex-col">
-      <div class="flex h-full flex-col justify-between p-4">
-        <div class="flex flex-col gap-4">
-          <div class="flex items-center gap-3 p-2">
-            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Enterprise Inc. logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCe2grI1_X9Sf0Q2Bvl_C5SlSBSVC6aaiUfYg0ET1PpBrhtRPvomoO64IfIsSPZ4GIZvhkB3OEzVk7tkwJxg5Sy8LBhuKg9_LVi59jEKUMs5rywWxtk4xreHvlcVv5XOau3ljgh9u0NChVHmnJ6kg9ZIjtleD7MAugjLPowGogmxx2uin9oSK7SW58XGRM2CXf6KSlnnU0kJNNjbIagRkK2mpgIYRS6GZUe2PYh8kAz5rUfZ6VK_CYfdPbmRcdtzBCZDQep6RieUmQ");'></div>
-            <div class="flex flex-col">
-              <h1 class="text-gray-900 dark:text-white text-base font-semibold leading-normal">Enterprise Inc.</h1>
-              <p class="text-gray-500 dark:text-[#9da6b9] text-sm font-normal leading-normal">App Store</p>
-            </div>
+  <div class="min-h-screen flex flex-col">
+    <header class="sticky top-0 z-10 flex h-16 items-center justify-between whitespace-nowrap border-b border-zinc-200/50 dark:border-zinc-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm px-6">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-3 text-zinc-900 dark:text-white">
+          <div class="size-6 text-primary">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6_535)">
+                <path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_6_535">
+                  <rect fill="white" height="48" width="48"></rect>
+                </clipPath>
+              </defs>
+            </svg>
           </div>
-          <nav class="flex flex-col gap-2 mt-4">
-            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="marketplaces_&_categories_overview.html">
-              <span class="material-symbols-outlined">home</span>
-              <p class="text-sm font-medium leading-normal">Home</p>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="applications_in_category_view_1.html">
-              <span class="material-symbols-outlined">apps</span>
-              <p class="text-sm font-medium leading-normal">All Apps</p>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="applications_in_category_view_4.html">
-              <span class="material-symbols-outlined">download</span>
-              <p class="text-sm font-medium leading-normal">Updates</p>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="applications_in_category_view_2.html">
-              <span class="material-symbols-outlined">person</span>
-              <p class="text-sm font-medium leading-normal">My Apps</p>
-            </a>
-          </nav>
-        </div>
-        <div class="flex flex-col gap-1 border-t border-gray-200 dark:border-gray-800 pt-4">
-          <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="admin:_manage_app_folders_1.html">
-            <span class="material-symbols-outlined">settings</span>
-            <p class="text-sm font-medium leading-normal">Settings</p>
-          </a>
-          <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-background-dark" href="applications_in_category_view_3.html">
-            <span class="material-symbols-outlined">help</span>
-            <p class="text-sm font-medium leading-normal">Help & Support</p>
-          </a>
+          <h2 class="text-lg font-bold tracking-tight">Enterprise App Store</h2>
         </div>
       </div>
-    </aside>
-    <main class="flex-1 p-8 overflow-y-auto">
-      <div class="max-w-7xl mx-auto">
-        <div class="flex flex-wrap gap-2 items-center">
-          <a class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal hover:text-primary" href="marketplaces_&_categories_overview.html">Home</a>
-          <span class="material-symbols-outlined text-gray-400 dark:text-gray-600 text-lg">chevron_right</span>
-          <span id="breadcrumb-current" class="text-gray-800 dark:text-white text-sm font-medium leading-normal">App</span>
+      <div class="flex items-center gap-4">
+        <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <span class="material-symbols-outlined text-xl">notifications</span>
+        </button>
+        <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <span class="material-symbols-outlined text-xl">settings</span>
+        </button>
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-zinc-200 dark:border-zinc-700" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCX8OLIf17eXGdkX6BQkaI3WOw45inmT1idwQ-POypEDGjWgOSJ8ns49eGN7dkGHhBrLBMQLm_ZUI4pZxvqt3mi0CGzxMwpo4rUmqYY2w2gVl91_QQEKgFXLEQAYmb3OREG2hV3sYJSbyx2W2Qn6CToTl1HyIUWzYFBomeG8NrK9OIGSA1DCOZL6nRPO1nYqLZiXxVsk6-DEvyVpIMYEzaY3tz7V6MvXTTmpJI7oFadCBYR7sUTGB1w6lBmNY-c20WGOernaS7A7z0");'></div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 lg:p-10">
+      <div class="mx-auto max-w-7xl space-y-8">
+        <div class="flex flex-wrap gap-2 items-center text-sm text-zinc-500 dark:text-zinc-400">
+          <a class="hover:text-primary" href="marketplaces_&_categories_overview.html">Home</a>
+          <span class="material-symbols-outlined text-lg">chevron_right</span>
+          <span id="breadcrumb-current">App</span>
         </div>
-        <div class="mt-6 flex flex-wrap gap-6 items-center">
-          <div class="relative h-24 w-24 rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center">
-            <img id="app-icon" class="h-24 w-24 object-cover" alt="App icon" />
-            <span id="app-icon-fallback" class="absolute text-2xl font-bold text-slate-300"></span>
-          </div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h1 id="app-title" class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Application</h1>
-              <span id="app-status" class="text-xs px-2 py-1 rounded-full border border-slate-700 text-slate-300">Status</span>
+
+        <section class="flex flex-col gap-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-sm">
+          <div class="flex flex-wrap items-start gap-6">
+            <div class="relative h-20 w-20 rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center">
+              <img id="app-icon" class="h-20 w-20 object-cover hidden" alt="App icon" />
+              <span id="app-icon-fallback" class="absolute text-xl font-bold text-slate-300"></span>
             </div>
-            <p id="app-subtitle" class="text-gray-500 dark:text-[#9da6b9] text-base font-normal leading-normal mt-1"></p>
-            <p id="app-description" class="text-gray-600 dark:text-gray-300 text-base font-normal leading-normal mt-2"></p>
-          </div>
-          <div class="flex items-center gap-3">
-            <button class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">
-              <span class="material-symbols-outlined mr-2">download</span>
-              <span class="truncate">Install</span>
-            </button>
-            <button class="flex size-12 items-center justify-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#181e29] text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
-              <span class="material-symbols-outlined">more_horiz</span>
-            </button>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-          <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
-            <p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Downloads</p>
-            <p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight mt-1">1.2M+</p>
-          </div>
-          <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
-            <p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Rating</p>
-            <div class="flex items-center gap-1 mt-1">
-              <p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight" id="rating-average">--</p>
-              <span class="material-symbols-outlined text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
-            </div>
-          </div>
-          <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
-            <p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Version</p>
-            <p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight mt-1">Latest</p>
-          </div>
-          <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex flex-col items-center justify-center text-center">
-            <p class="text-gray-500 dark:text-[#9da6b9] text-sm font-medium leading-normal">Category</p>
-            <p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight mt-1" id="app-category">--</p>
-          </div>
-        </div>
-        <div class="mt-8">
-          <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Screenshots</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
-            <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
-            <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
-          </div>
-        </div>
-        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div class="lg:col-span-2">
-            <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6">
-              <div class="flex justify-between items-center mb-4">
-                <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">User Reviews</h2>
+            <div class="flex-1 min-w-[220px] space-y-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <h1 id="app-title" class="text-3xl font-bold tracking-tight text-white">Application</h1>
+                <span id="app-status" class="text-xs px-2 py-1 rounded-full border border-slate-700 text-slate-300">Status</span>
               </div>
-              <div id="reviews-summary" class="mb-4 text-sm text-slate-200"></div>
-              <form id="review-form" class="space-y-3 mb-6">
+              <p id="app-subtitle" class="text-sm text-slate-400"></p>
+              <p id="app-description" class="text-sm text-slate-300"></p>
+            </div>
+            <div class="flex items-center gap-3">
+              <button class="flex min-w-[120px] items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90 transition-colors">
+                <span class="material-symbols-outlined mr-2">download</span>
+                Install
+              </button>
+              <button class="flex size-10 items-center justify-center rounded-lg border border-gray-700 bg-slate-900/60 text-gray-400 hover:text-primary">
+                <span class="material-symbols-outlined">more_horiz</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Downloads</p>
+              <p class="text-white text-2xl font-bold mt-1">1.2M+</p>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Rating</p>
+              <div class="flex items-center justify-center gap-1 mt-1">
+                <p class="text-white text-2xl font-bold" id="rating-average">--</p>
+                <span class="material-symbols-outlined text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Version</p>
+              <p class="text-white text-2xl font-bold mt-1" id="app-version">Latest</p>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Category</p>
+              <p class="text-white text-2xl font-bold mt-1" id="app-category">--</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-2">
+            <button data-tab="overview" role="tab" aria-selected="true" class="tab-trigger rounded-full border border-slate-800 px-4 py-2 text-sm font-semibold text-white bg-slate-800">Overview</button>
+            <button data-tab="reviews" role="tab" aria-selected="false" class="tab-trigger rounded-full border border-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 hover:text-white">Reviews</button>
+            <button data-tab="versions" role="tab" aria-selected="false" class="tab-trigger rounded-full border border-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 hover:text-white">Version History</button>
+          </div>
+
+          <div data-tab-panel="overview" role="tabpanel" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div class="lg:col-span-2 space-y-6">
+                <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+                  <h2 class="text-lg font-semibold text-white mb-3">Highlights</h2>
+                  <p id="overview-text" class="text-sm text-slate-300">Explore the latest capabilities of this application.</p>
+                </div>
+                <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+                  <h2 class="text-lg font-semibold text-white mb-3">Screenshots</h2>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+                    <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+                    <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                <h2 class="text-lg font-semibold text-white">System Requirements</h2>
+                <p id="app-requirements" class="text-sm text-slate-300">Review minimum specs before installing.</p>
+              </div>
+            </div>
+          </div>
+
+          <div data-tab-panel="reviews" role="tabpanel" class="space-y-6 hidden">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-white">User Reviews</h2>
+              </div>
+              <div id="reviews-summary" class="mb-2 text-sm text-slate-200"></div>
+              <form id="review-form" class="space-y-3 mb-4">
                 <div>
                   <label class="block text-xs text-slate-400 mb-1">Your rating</label>
                   <div id="review-stars" class="flex gap-1 text-xl cursor-pointer"></div>
@@ -172,47 +186,15 @@
               </form>
               <div id="reviews-list" class="space-y-3 text-sm"></div>
             </div>
-            <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6 mt-8">
-              <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Version History</h2>
-              <div id="version-history" class="space-y-2 text-sm text-slate-200 mt-4"></div>
+          </div>
+
+          <div data-tab-panel="versions" role="tabpanel" class="space-y-6 hidden">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+              <h2 class="text-lg font-semibold text-white mb-3">Version History</h2>
+              <div id="version-history" class="space-y-2 text-sm text-slate-200"></div>
             </div>
           </div>
-          <div class="lg:col-span-1">
-            <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6 sticky top-8">
-              <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Installation Requirements</h2>
-              <div class="flex flex-col gap-4 mt-6">
-                <div class="flex items-start gap-4">
-                  <span class="material-symbols-outlined mt-1 text-primary">memory</span>
-                  <div>
-                    <p class="text-gray-500 dark:text-[#9da6b9] text-sm">Operating System</p>
-                    <p class="font-medium text-gray-900 dark:text-white">Windows 10 (64-bit) or newer, macOS 11 (Big Sur) or newer</p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-4">
-                  <span class="material-symbols-outlined mt-1 text-primary">developer_board</span>
-                  <div>
-                    <p class="text-gray-500 dark:text-[#9da6b9] text-sm">RAM</p>
-                    <p class="font-medium text-gray-900 dark:text-white">8GB (16GB recommended)</p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-4">
-                  <span class="material-symbols-outlined mt-1 text-primary">hard_drive</span>
-                  <div>
-                    <p class="text-gray-500 dark:text-[#9da6b9] text-sm">Disk Space</p>
-                    <p class="font-medium text-gray-900 dark:text-white">2GB of available space</p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-4">
-                  <span class="material-symbols-outlined mt-1 text-primary">language</span>
-                  <div>
-                    <p class="text-gray-500 dark:text-[#9da6b9] text-sm">Network</p>
-                    <p class="font-medium text-gray-900 dark:text-white">Internet connection required for installation and collaboration features</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
     </main>
   </div>
@@ -229,6 +211,35 @@
     const crumbEl = document.getElementById('breadcrumb-current');
     const categoryEl = document.getElementById('app-category');
     const ratingAverageEl = document.getElementById('rating-average');
+    const versionEl = document.getElementById('app-version');
+    const requirementsEl = document.getElementById('app-requirements');
+
+    function initTabs() {
+      const tabButtons = Array.from(document.querySelectorAll('[data-tab]'));
+      const tabPanels = Array.from(document.querySelectorAll('[data-tab-panel]'));
+
+      function setActive(tabName) {
+        tabButtons.forEach((btn) => {
+          const isActive = btn.dataset.tab === tabName;
+          btn.classList.toggle('bg-slate-800', isActive);
+          btn.classList.toggle('text-white', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        tabPanels.forEach((panel) => {
+          const match = panel.dataset.tabPanel === tabName;
+          panel.classList.toggle('hidden', !match);
+        });
+      }
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => setActive(btn.dataset.tab));
+      });
+
+      if (tabButtons.length) {
+        setActive(tabButtons[0].dataset.tab);
+      }
+    }
 
     function getAppIdFromUrl() {
       const params = new URLSearchParams(window.location.search);
@@ -260,17 +271,19 @@
 
       if (error || !app) {
         console.error('Failed to load app', error);
-        titleEl.textContent = 'Application not found';
+        if (titleEl) titleEl.textContent = 'Application not found';
         return null;
       }
 
-      titleEl.textContent = app.name;
+      if (titleEl) titleEl.textContent = app.name;
       if (subtitleEl) subtitleEl.textContent = app.description || '';
       if (descriptionEl) descriptionEl.textContent = app.description || '';
       if (statusEl) statusEl.textContent = app.status || 'Available';
       if (crumbEl) crumbEl.textContent = app.name;
       if (categoryEl) categoryEl.textContent = app.category_slug || '--';
       if (ratingAverageEl) ratingAverageEl.textContent = '--';
+      if (versionEl) versionEl.textContent = app.version || 'Latest';
+      if (requirementsEl) requirementsEl.textContent = app.system_requirements || 'No system requirements provided yet.';
       renderIcon(app);
 
       document.title = `${app.name} – App Details`;
@@ -446,9 +459,10 @@
     }
 
     async function main() {
+      initTabs();
       const appId = getAppIdFromUrl();
       if (!appId) {
-        titleEl.textContent = 'Application not specified';
+        if (titleEl) titleEl.textContent = 'Application not specified';
         return;
       }
 

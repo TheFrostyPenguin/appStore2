@@ -98,8 +98,22 @@
           <p id="category-description" class="text-sm text-slate-400"></p>
         </header>
 
-        <!-- Apps Grid -->
-        <section>
+        <!-- Controls -->
+        <section class="space-y-4">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h2 class="text-lg font-semibold text-white">Applications</h2>
+            <label class="relative flex min-w-48 flex-1 max-w-md items-center">
+              <span class="material-symbols-outlined absolute left-3 text-zinc-500">search</span>
+              <input
+                id="category-app-search"
+                type="search"
+                class="w-full rounded-lg border border-slate-800 bg-slate-900/60 px-10 py-2 text-sm text-white placeholder:text-slate-500 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30"
+                placeholder="Search applications…"
+              />
+            </label>
+          </div>
+
+          <!-- Apps Grid -->
           <div id="apps-grid" class="grid gap-4 md:grid-cols-3">
             <p class="text-slate-400 text-sm">Loading apps...</p>
           </div>
@@ -112,9 +126,11 @@
     import { supabase } from './supabase-client.js';
 
     const appsGrid = document.getElementById('apps-grid');
+    const searchInput = document.getElementById('category-app-search');
     const titleEl = document.getElementById('category-title');
     const descEl = document.getElementById('category-description');
     const crumbEl = document.getElementById('category-crumb');
+    let allApps = [];
 
     function getCategoryFromUrl() {
       const params = new URLSearchParams(window.location.search);
@@ -140,29 +156,15 @@
       crumbEl.textContent = data.name;
     }
 
-    async function loadApps(slug) {
-      appsGrid.innerHTML = '<p class="text-slate-400 text-sm">Loading apps...</p>';
-
-      const { data: apps, error } = await supabase
-        .from('apps')
-        .select('id, name, description, image, status')
-        .eq('category_slug', slug)
-        .order('name', { ascending: true });
-
-      if (error) {
-        console.error('Error loading apps:', error);
-        appsGrid.innerHTML = '<p class="text-red-500 text-sm">Failed to load apps.</p>';
-        return;
-      }
-
-      if (!apps || apps.length === 0) {
+    function renderApps(list) {
+      if (!list || list.length === 0) {
         appsGrid.innerHTML = '<p class="text-slate-400 text-sm">No applications in this category yet.</p>';
         return;
       }
 
       appsGrid.innerHTML = '';
 
-      apps.forEach(app => {
+      list.forEach(app => {
         const card = document.createElement('article');
         card.className = 'rounded-2xl border border-slate-800 bg-slate-900/60 p-4 flex flex-col justify-between gap-3';
 
@@ -210,6 +212,26 @@
       });
     }
 
+    async function loadApps(slug) {
+      appsGrid.innerHTML = '<p class="text-slate-400 text-sm">Loading apps...</p>';
+
+      const { data: apps, error } = await supabase
+        .from('apps')
+        .select('id, name, description, image, status')
+        .eq('category_slug', slug)
+        .order('name', { ascending: true });
+
+      if (error) {
+        console.error('Error loading apps:', error);
+        appsGrid.innerHTML = '<p class="text-red-500 text-sm">Failed to load apps.</p>';
+        return;
+      }
+
+      allApps = apps || [];
+      if (searchInput) searchInput.value = '';
+      renderApps(allApps);
+    }
+
     async function main() {
       const slug = getCategoryFromUrl();
       if (!slug) {
@@ -221,6 +243,18 @@
 
       await loadCategory(slug);
       await loadApps(slug);
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase();
+          const filtered = allApps.filter((app) => {
+            const name = app.name ? app.name.toLowerCase() : '';
+            const desc = app.description ? app.description.toLowerCase() : '';
+            return name.includes(query) || desc.includes(query);
+          });
+          renderApps(filtered);
+        });
+      }
     }
 
     main();

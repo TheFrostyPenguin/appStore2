@@ -115,6 +115,15 @@
                 <p class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">Applications</p>
                 <p class="text-zinc-500 dark:text-zinc-400">Review and manage all published applications.</p>
               </div>
+              <label class="relative flex w-full max-w-md items-center rounded-lg bg-slate-900/60 border border-slate-800 px-3 py-2">
+                <span class="material-symbols-outlined mr-2 text-zinc-400">search</span>
+                <input
+                  id="admin-app-search"
+                  type="search"
+                  class="w-full bg-transparent text-sm text-white placeholder:text-slate-500 focus:outline-none"
+                  placeholder="Search by name or category"
+                />
+              </label>
               <button
                 class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
                 onclick="window.location.href='admin_control_panel_overview_2.html'"
@@ -168,38 +177,62 @@
         return;
       }
 
-      tbody.innerHTML = apps
-        .map((app) => `
-          <tr class="border-t border-slate-800/70">
-            <td class="px-4 py-3 font-medium text-white">${app.name || ''}</td>
-            <td class="px-4 py-3 text-slate-300">${app.category_slug || ''}</td>
-            <td class="px-4 py-3 text-slate-300">${app.version || '—'}</td>
-            <td class="px-4 py-3 text-slate-300">${app.status || '—'}</td>
-            <td class="px-4 py-3 text-right">
-              <div class="flex items-center justify-end gap-2">
-                <button class="btn-edit-app text-xs px-3 py-1.5 rounded-md border border-slate-700 text-slate-200 hover:bg-slate-800" data-app-id="${app.id}">Edit</button>
-                <button class="btn-manage-versions text-xs px-3 py-1.5 rounded-md bg-primary text-white hover:bg-primary/90" data-app-id="${app.id}">Manage Versions</button>
-              </div>
-            </td>
-          </tr>
-        `)
-        .join('');
+      const searchInput = document.getElementById('admin-app-search');
+      const allApps = apps || [];
 
-      document.querySelectorAll('.btn-edit-app').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const appId = btn.dataset.appId;
-          if (!appId) return;
-          window.location.href = `admin_edit_application.html?app=${encodeURIComponent(appId)}`;
-        });
-      });
+      function renderApps(list) {
+        if (!list || list.length === 0) {
+          tbody.innerHTML = '<tr><td class="px-4 py-3 text-sm text-slate-400" colspan="5">No applications found.</td></tr>';
+          return;
+        }
 
-      document.querySelectorAll('.btn-manage-versions').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const appId = btn.dataset.appId;
-          if (!appId) return;
-          window.location.href = `admin_app_versions.html?app=${encodeURIComponent(appId)}`;
+        tbody.innerHTML = list
+          .map((app) => `
+            <tr class="border-t border-slate-800/70">
+              <td class="px-4 py-3 font-medium text-white">${app.name || ''}</td>
+              <td class="px-4 py-3 text-slate-300">${app.category_slug || ''}</td>
+              <td class="px-4 py-3 text-slate-300">${app.version || '—'}</td>
+              <td class="px-4 py-3 text-slate-300">${app.status || '—'}</td>
+              <td class="px-4 py-3 text-right">
+                <div class="flex items-center justify-end gap-2">
+                  <button class="btn-edit-app text-xs px-3 py-1.5 rounded-md border border-slate-700 text-slate-200 hover:bg-slate-800" data-app-id="${app.id}">Edit</button>
+                  <button class="btn-manage-versions text-xs px-3 py-1.5 rounded-md bg-primary text-white hover:bg-primary/90" data-app-id="${app.id}">Manage Versions</button>
+                </div>
+              </td>
+            </tr>
+          `)
+          .join('');
+
+        document.querySelectorAll('.btn-edit-app').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const appId = btn.dataset.appId;
+            if (!appId) return;
+            window.location.href = `admin_edit_application.html?app=${encodeURIComponent(appId)}`;
+          });
         });
-      });
+
+        document.querySelectorAll('.btn-manage-versions').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const appId = btn.dataset.appId;
+            if (!appId) return;
+            window.location.href = `admin_app_versions.html?app=${encodeURIComponent(appId)}`;
+          });
+        });
+      }
+
+      renderApps(allApps);
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase();
+          const filtered = allApps.filter((app) => {
+            const name = app.name ? app.name.toLowerCase() : '';
+            const category = app.category_slug ? app.category_slug.toLowerCase() : '';
+            return name.includes(query) || category.includes(query);
+          });
+          renderApps(filtered);
+        });
+      }
     }
 
     protectAdminPage(initAdminPage);
