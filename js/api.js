@@ -61,7 +61,6 @@ export async function getCategoryBySlug(slug) {
     .maybeSingle();
 }
 
-<<<<<<< HEAD
 export async function getCategoryById(id) {
   return supabase
     .from('categories')
@@ -70,8 +69,6 @@ export async function getCategoryById(id) {
     .maybeSingle();
 }
 
-=======
->>>>>>> origin/main
 export async function createCategory(payload) {
   return supabase.from('categories').insert(payload);
 }
@@ -112,7 +109,6 @@ export async function updateApp(id, payload) {
   return supabase.from('apps').update(payload).eq('id', id);
 }
 
-<<<<<<< HEAD
 export async function uploadAppFile(appId, file) {
   if (!file) return { data: null, error: null };
 
@@ -164,9 +160,6 @@ export async function getAppDownloadUrl(app) {
 
   return { url: data?.signedUrl || null, error: null };
 }
-
-=======
->>>>>>> origin/main
 export async function searchAppsInCategory(slug, query) {
   const { data, error } = await getAppsByCategorySlug(slug);
   if (error || !data) return { data, error };
