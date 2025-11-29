@@ -174,28 +174,7 @@
             </div>
             <div class="bg-white dark:bg-[#181e29] rounded-xl border border-gray-200 dark:border-gray-800 p-6 mt-8">
               <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight">Version History</h2>
-              <div class="flow-root mt-6">
-                <ul class="-mb-8">
-                  <li>
-                    <div class="relative pb-8">
-                      <span aria-hidden="true" class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-gray-700"></span>
-                      <div class="relative flex space-x-3">
-                        <div>
-                          <span class="h-8 w-8 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center ring-8 ring-white dark:ring-[#181e29]">
-                            <span class="material-symbols-outlined text-primary dark:text-white">history</span>
-                          </span>
-                        </div>
-                        <div class="min-w-0 flex-1 pt-1.5">
-                          <p class="text-sm text-gray-500 dark:text-[#9da6b9]">Latest Release <time class="ml-2">Recently</time></p>
-                          <div class="mt-2 text-gray-700 dark:text-gray-300">
-                            <p>Minor bug fixes and performance improvements.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              <div id="version-history" class="space-y-2 text-sm text-slate-200 mt-4"></div>
             </div>
           </div>
           <div class="lg:col-span-1">
@@ -426,6 +405,46 @@
       });
     }
 
+    async function loadVersionHistory(appId) {
+      const historyEl = document.getElementById('version-history');
+      if (!historyEl) return;
+
+      historyEl.innerHTML = '<p class="text-slate-400 text-sm">Loading version history...</p>';
+
+      const { data: versions, error } = await supabase
+        .from('app_versions')
+        .select('version, release_notes, created_at')
+        .eq('app_id', appId)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Failed to load version history', error);
+        historyEl.textContent = 'Failed to load version history.';
+        return;
+      }
+
+      if (!versions || versions.length === 0) {
+        historyEl.textContent = 'No version history available yet.';
+        return;
+      }
+
+      historyEl.innerHTML = versions
+        .map((v) => {
+          const date = v.created_at ? new Date(v.created_at).toLocaleDateString() : '';
+          const notes = (v.release_notes || '').replace(/</g, '&lt;');
+          return `
+            <article class="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
+              <div class="flex items-center justify-between mb-1">
+                <div class="font-semibold">Version ${v.version}</div>
+                <div class="text-xs text-slate-500">${date}</div>
+              </div>
+              <p class="text-xs text-slate-200 whitespace-pre-wrap">${notes}</p>
+            </article>
+          `;
+        })
+        .join('');
+    }
+
     async function main() {
       const appId = getAppIdFromUrl();
       if (!appId) {
@@ -437,6 +456,7 @@
       if (!app) return;
 
       await initReviews(appId);
+      await loadVersionHistory(appId);
     }
 
     main();

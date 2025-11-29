@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Application</title>
+  <title>Edit Application</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
@@ -85,7 +85,7 @@
               <p class="text-sm font-medium">Folders</p>
             </a>
             <a class="flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-primary dark:bg-primary/20" href="admin_control_panel_overview_2.html">
-              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">apps</span>
+              <span class="material-symbols-outlined text-xl">apps</span>
               <p class="text-sm font-semibold">Applications</p>
             </a>
           </nav>
@@ -102,7 +102,7 @@
         </div>
       </aside>
       <main class="w-full flex-1 p-8">
-        <div class="mx-auto flex w-full max-w-6xl flex-col gap-6">
+        <div class="mx-auto flex w-full max-w-4xl flex-col gap-6">
           <div
             id="not-admin-message"
             class="hidden text-red-400 text-sm px-6 py-3 rounded-lg bg-red-950/40 border border-red-600/40 mb-4"
@@ -112,68 +112,59 @@
           <div id="admin-section" class="space-y-6">
             <div class="flex flex-wrap items-start justify-between gap-4">
               <div class="flex min-w-72 flex-col gap-2">
-                <p class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">Add New Application</p>
-                <p class="text-zinc-500 dark:text-zinc-400">Capture application details to publish in the marketplace.</p>
+                <p class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">Edit Application</p>
+                <p id="page-subtitle" class="text-zinc-500 dark:text-zinc-400">Loading application...</p>
               </div>
+              <button
+                class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800/50"
+                onclick="window.history.back()"
+              >
+                Back
+              </button>
             </div>
             <div class="rounded-xl border border-zinc-200/50 bg-white p-6 shadow-sm dark:border-zinc-800/50 dark:bg-zinc-900">
               <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="app-name">Application Name</label>
-                  <input id="app-name" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="Design Studio" />
+                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="edit-app-name">Application Name</label>
+                  <input id="edit-app-name" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" />
                 </div>
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="app-version">Version</label>
-                  <input id="app-version" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="1.0.0" />
+                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="edit-version">Version</label>
+                  <input id="edit-version" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="1.0.0" />
                 </div>
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="developer">Developer</label>
-                  <input id="developer" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="Acme Inc." />
-                </div>
-                <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="category">Category / Folder</label>
-                  <select id="category" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">
+                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="edit-category">Category / Folder</label>
+                  <select id="edit-category" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">
                     <option value="">Loading...</option>
                   </select>
                 </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="edit-status">Status</label>
+                  <select id="edit-status" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">
+                    <option value="available">Available</option>
+                    <option value="draft">Draft</option>
+                    <option value="deprecated">Deprecated</option>
+                  </select>
+                </div>
                 <div class="md:col-span-2 flex flex-col gap-2">
-                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="description">Description</label>
-                  <textarea id="description" rows="3" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="Explain what the app does"></textarea>
+                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="edit-description">Description</label>
+                  <textarea id="edit-description" rows="3" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"></textarea>
                 </div>
                 <div class="md:col-span-2">
-                  <label class="block text-sm font-medium text-[#9da6b9] mb-1.5" for="app-system-requirements">
+                  <label class="block text-sm font-medium text-[#9da6b9] mb-1.5" for="edit-system-requirements">
                     System Requirements
                   </label>
                   <textarea
-                    id="app-system-requirements"
+                    id="edit-system-requirements"
                     rows="3"
                     class="form-input w-full rounded-lg text-white bg-white/5 dark:bg-black/20 border-white/10 dark:border-black/30 focus:ring-primary focus:border-primary placeholder:text-gray-500"
                     placeholder="e.g. Windows 10+, 8 GB RAM, 2 GB free disk space..."
                   ></textarea>
                 </div>
-                <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="icon-upload">Application Icon</label>
-                  <input id="icon-upload" type="file" class="rounded-lg border border-dashed border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" />
-                </div>
-                <div class="md:col-span-2">
-                  <label class="block text-sm font-medium text-[#9da6b9] mb-1.5" for="app-icon-url">
-                    Application Icon URL
-                  </label>
-                  <input
-                    id="app-icon-url"
-                    type="text"
-                    class="form-input w-full rounded-lg text-white bg-white/5 dark:bg-black/20 border-white/10 dark:border-black/30 focus:ring-primary focus:border-primary placeholder:text-gray-500"
-                    placeholder="https://example.com/icon.png"
-                  />
-                </div>
-                <div class="md:col-span-2 flex flex-col gap-2">
-                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="metadata">Additional Metadata</label>
-                  <textarea id="metadata" rows="3" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="Key-value metadata (optional)"></textarea>
-                </div>
               </div>
               <div class="mt-6 flex justify-end gap-3">
                 <button class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800/50" onclick="window.history.back()">Cancel</button>
-                <button id="btn-save-app" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">Save Application</button>
+                <button id="btn-update-app" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">Save Changes</button>
               </div>
             </div>
           </div>
@@ -186,33 +177,34 @@
     import { protectAdminPage } from './admin-auth.js';
     import { supabase } from './supabase-client.js';
 
-    async function initAdminPage() {
-      const nameInput = document.getElementById('app-name');
-      const versionInput = document.getElementById('app-version');
-      const developerInput = document.getElementById('developer');
-      const categorySelect = document.getElementById('category');
-      const descInput = document.getElementById('description');
-      const metadataInput = document.getElementById('metadata');
-      const iconUrlInput = document.getElementById('app-icon-url');
-      const systemReqInput = document.getElementById('app-system-requirements');
-      const saveBtn = document.getElementById('btn-save-app');
+    function getAppIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('app');
+    }
 
-      if (!saveBtn) return;
+    async function initAdminPage() {
+      const appId = getAppIdFromUrl();
+      const nameInput = document.getElementById('edit-app-name');
+      const versionInput = document.getElementById('edit-version');
+      const categorySelect = document.getElementById('edit-category');
+      const statusSelect = document.getElementById('edit-status');
+      const descriptionInput = document.getElementById('edit-description');
+      const systemReqInput = document.getElementById('edit-system-requirements');
+      const subtitleEl = document.getElementById('page-subtitle');
+      const saveBtn = document.getElementById('btn-update-app');
+
+      if (!appId) {
+        if (subtitleEl) subtitleEl.textContent = 'Application not specified';
+        return;
+      }
 
       async function loadCategories() {
         const { data, error } = await supabase.from('categories').select('slug, name').order('name', { ascending: true });
-
         if (error) {
           console.error('Failed to load categories', error);
           return;
         }
-
         categorySelect.innerHTML = '';
-        const placeholder = document.createElement('option');
-        placeholder.value = '';
-        placeholder.textContent = 'Select a category';
-        categorySelect.appendChild(placeholder);
-
         data.forEach((cat) => {
           const opt = document.createElement('option');
           opt.value = cat.slug;
@@ -221,16 +213,39 @@
         });
       }
 
-      await loadCategories();
+      async function loadApp() {
+        const { data: app, error } = await supabase
+          .from('apps')
+          .select('name, description, category_slug, status, version, system_requirements')
+          .eq('id', appId)
+          .maybeSingle();
 
-      saveBtn.addEventListener('click', async () => {
+        if (error || !app) {
+          console.error('Failed to load app', error);
+          if (subtitleEl) subtitleEl.textContent = 'Application not found';
+          return null;
+        }
+
+        nameInput.value = app.name || '';
+        versionInput.value = app.version || '';
+        descriptionInput.value = app.description || '';
+        statusSelect.value = app.status || 'available';
+        systemReqInput.value = app.system_requirements || '';
+        categorySelect.value = app.category_slug || '';
+        if (subtitleEl) subtitleEl.textContent = app.name;
+        return app;
+      }
+
+      await loadCategories();
+      const app = await loadApp();
+      if (!app) return;
+
+      saveBtn?.addEventListener('click', async () => {
         const name = nameInput.value.trim();
-        const categorySlug = categorySelect.value;
-        const description = descInput.value.trim();
-        const iconUrl = iconUrlInput.value.trim();
         const version = versionInput.value.trim();
-        const developer = developerInput.value.trim();
-        const metadata = metadataInput.value.trim();
+        const categorySlug = categorySelect.value;
+        const status = statusSelect.value;
+        const description = descriptionInput.value.trim();
         const systemRequirements = systemReqInput.value.trim();
 
         if (!name) {
@@ -242,28 +257,26 @@
           return;
         }
 
-        const payload = {
-          name,
-          description,
-          category_slug: categorySlug,
-          image: iconUrl || null,
-          status: 'available',
-          version: version || null,
-          developer: developer || null,
-          metadata: metadata || null,
-          system_requirements: systemRequirements || null,
-        };
-
-        const { error } = await supabase.from('apps').insert(payload);
+        const { error } = await supabase
+          .from('apps')
+          .update({
+            name,
+            version: version || null,
+            category_slug: categorySlug,
+            status: status || null,
+            description,
+            system_requirements: systemRequirements || null,
+          })
+          .eq('id', appId);
 
         if (error) {
           console.error(error);
-          alert('Failed to save application: ' + error.message);
+          alert('Failed to update application: ' + error.message);
           return;
         }
 
-        alert('Application saved successfully');
-        window.location.href = 'admin_control_panel_overview_1.html';
+        alert('Application updated successfully');
+        window.location.href = 'admin_applications_list.html';
       });
     }
 

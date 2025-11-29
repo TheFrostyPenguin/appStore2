@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Control Panel</title>
+  <title>Manage App Versions</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
@@ -72,9 +72,9 @@
             </div>
           </div>
           <nav class="flex flex-col gap-1">
-            <a class="flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-primary dark:bg-primary/20" href="admin_control_panel_overview_1.html">
-              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-              <p class="text-sm font-semibold">Dashboard</p>
+            <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800/50" href="admin_control_panel_overview_1.html">
+              <span class="material-symbols-outlined text-xl">dashboard</span>
+              <p class="text-sm font-medium">Dashboard</p>
             </a>
             <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800/50" href="admin_control_panel_overview_4.html">
               <span class="material-symbols-outlined text-xl">store</span>
@@ -84,9 +84,9 @@
               <span class="material-symbols-outlined text-xl">folder</span>
               <p class="text-sm font-medium">Folders</p>
             </a>
-            <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800/50" href="admin_control_panel_overview_2.html">
+            <a class="flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-primary dark:bg-primary/20" href="admin_control_panel_overview_2.html">
               <span class="material-symbols-outlined text-xl">apps</span>
-              <p class="text-sm font-medium">Applications</p>
+              <p class="text-sm font-semibold">Applications</p>
             </a>
           </nav>
         </div>
@@ -102,7 +102,7 @@
         </div>
       </aside>
       <main class="w-full flex-1 p-8">
-        <div class="mx-auto flex w-full max-w-6xl flex-col gap-6">
+        <div class="mx-auto flex w-full max-w-4xl flex-col gap-6">
           <div
             id="not-admin-message"
             class="hidden text-red-400 text-sm px-6 py-3 rounded-lg bg-red-950/40 border border-red-600/40 mb-4"
@@ -111,53 +111,37 @@
           </div>
           <div id="admin-section" class="space-y-6">
             <div class="flex flex-wrap items-start justify-between gap-4">
-              <div class="flex min-w-72 flex-col gap-2">
-                <p class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">Admin Dashboard</p>
-                <p class="text-zinc-500 dark:text-zinc-400">Monitor the state of marketplaces, folders, and applications.</p>
+              <div class="flex min-w-72 flex-col gap-1">
+                <p class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">Manage Versions</p>
+                <p id="app-name" class="text-zinc-500 dark:text-zinc-400">Loading app...</p>
               </div>
+              <button
+                class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800/50"
+                onclick="window.history.back()"
+              >
+                Back
+              </button>
             </div>
-            <div class="grid gap-4 md:grid-cols-3">
-              <article class="rounded-xl border border-zinc-200/50 bg-white p-5 dark:border-zinc-800/50 dark:bg-zinc-900">
-                <div class="flex items-start justify-between">
-                  <div>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400">Manage Marketplaces</p>
-                    <p id="marketplaces-count" class="text-3xl font-bold text-zinc-900 dark:text-white">0</p>
-                  </div>
-                  <span class="material-symbols-outlined text-primary">storefront</span>
+            <section class="space-y-4">
+              <h3 class="text-lg font-semibold text-white">Version History</h3>
+              <div id="versions-list" class="space-y-3"></div>
+            </section>
+            <section class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 space-y-4">
+              <h3 class="text-lg font-semibold text-white">Add Version</h3>
+              <div class="grid grid-cols-1 gap-4">
+                <div class="flex flex-col gap-2">
+                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="version-name">Version</label>
+                  <input id="version-name" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="1.0.1" />
                 </div>
-                <div class="mt-4 flex items-center justify-between gap-2">
-                  <button id="btn-view-marketplaces" class="text-sm font-semibold text-primary hover:underline">View All</button>
-                  <button id="btn-add-marketplace" class="rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary/90">Add New</button>
+                <div class="flex flex-col gap-2">
+                  <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200" for="version-notes">Release Notes</label>
+                  <textarea id="version-notes" rows="3" class="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white" placeholder="Describe what's new"></textarea>
                 </div>
-              </article>
-              <article class="rounded-xl border border-zinc-200/50 bg-white p-5 dark:border-zinc-800/50 dark:bg-zinc-900">
-                <div class="flex items-start justify-between">
-                  <div>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400">Manage Application Folders</p>
-                    <p id="folders-count" class="text-3xl font-bold text-zinc-900 dark:text-white">0</p>
-                  </div>
-                  <span class="material-symbols-outlined text-primary">folder</span>
-                </div>
-                <div class="mt-4 flex items-center justify-between gap-2">
-                  <button id="btn-view-folders" class="text-sm font-semibold text-primary hover:underline">View All</button>
-                  <button id="btn-add-folder" class="rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary/90">Add New</button>
-                </div>
-              </article>
-              <article class="rounded-xl border border-zinc-200/50 bg-white p-5 dark:border-zinc-800/50 dark:bg-zinc-900">
-                <div class="flex items-start justify-between">
-                  <div>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400">Manage Applications</p>
-                    <p id="apps-count" class="text-3xl font-bold text-zinc-900 dark:text-white">0</p>
-                    <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400">Pending Approval: <span id="apps-pending-count">3</span></p>
-                  </div>
-                  <span class="material-symbols-outlined text-primary">apps</span>
-                </div>
-                <div class="mt-4 flex items-center justify-between gap-2">
-                  <button id="btn-view-apps" class="text-sm font-semibold text-primary hover:underline">View All</button>
-                  <button id="btn-add-app" class="rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary/90">Add New</button>
-                </div>
-              </article>
-            </div>
+              </div>
+              <div class="flex justify-end">
+                <button id="btn-add-version" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">Add Version</button>
+              </div>
+            </section>
           </div>
         </div>
       </main>
@@ -168,52 +152,102 @@
     import { protectAdminPage } from './admin-auth.js';
     import { supabase } from './supabase-client.js';
 
+    function getAppIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('app');
+    }
+
     async function initAdminPage() {
-      const marketplacesCountEl = document.getElementById('marketplaces-count');
-      const foldersCountEl = document.getElementById('folders-count');
-      const appsCountEl = document.getElementById('apps-count');
+      const appNameEl = document.getElementById('app-name');
+      const versionsList = document.getElementById('versions-list');
+      const versionInput = document.getElementById('version-name');
+      const notesInput = document.getElementById('version-notes');
+      const addBtn = document.getElementById('btn-add-version');
 
-      const [{ count: categoriesCount }, { count: foldersCount }, { count: appsCount }] = await Promise.all([
-        supabase.from('categories').select('*', { count: 'exact', head: true }),
-        supabase.from('folders').select('*', { count: 'exact', head: true }),
-        supabase.from('apps').select('*', { count: 'exact', head: true }),
-      ]);
-
-      if (marketplacesCountEl && categoriesCount != null) {
-        marketplacesCountEl.textContent = String(categoriesCount);
-      }
-      if (foldersCountEl && foldersCount != null) {
-        foldersCountEl.textContent = String(foldersCount);
-      }
-      if (appsCountEl && appsCount != null) {
-        appsCountEl.textContent = String(appsCount);
+      const appId = getAppIdFromUrl();
+      if (!appId) {
+        if (appNameEl) appNameEl.textContent = 'Application not specified';
+        return;
       }
 
-      const btnAddMarketplace = document.getElementById('btn-add-marketplace');
-      const btnAddFolder = document.getElementById('btn-add-folder');
-      const btnAddApp = document.getElementById('btn-add-app');
-      const btnViewApps = document.getElementById('btn-view-apps');
+      async function loadAppDetails() {
+        const { data: app, error } = await supabase.from('apps').select('name').eq('id', appId).maybeSingle();
+        if (error || !app) {
+          console.error('Failed to load app', error);
+          if (appNameEl) appNameEl.textContent = 'Application not found';
+          return;
+        }
+        if (appNameEl) appNameEl.textContent = app.name;
+      }
 
-      if (btnAddMarketplace) {
-        btnAddMarketplace.addEventListener('click', () => {
-          window.location.href = 'admin_control_panel_overview_4.html';
-        });
+      async function loadVersions() {
+        if (versionsList) versionsList.innerHTML = '<p class="text-sm text-slate-400">Loading versions...</p>';
+        const { data: versions, error } = await supabase
+          .from('app_versions')
+          .select('id, version, release_notes, created_at')
+          .eq('app_id', appId)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Failed to load versions', error);
+          if (versionsList) versionsList.innerHTML = '<p class="text-sm text-red-400">Failed to load versions.</p>';
+          return;
+        }
+
+        if (!versions || versions.length === 0) {
+          if (versionsList) versionsList.innerHTML = '<p class="text-sm text-slate-400">No versions added yet.</p>';
+          return;
+        }
+
+        if (versionsList) {
+          versionsList.innerHTML = versions
+            .map((v) => {
+              const date = v.created_at ? new Date(v.created_at).toLocaleDateString() : '';
+              const notes = (v.release_notes || '').replace(/</g, '&lt;');
+              return `
+                <article class="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="font-semibold text-white">Version ${v.version}</div>
+                    <div class="text-xs text-slate-500">${date}</div>
+                  </div>
+                  <p class="text-xs text-slate-200 whitespace-pre-wrap">${notes}</p>
+                </article>
+              `;
+            })
+            .join('');
+        }
       }
-      if (btnAddFolder) {
-        btnAddFolder.addEventListener('click', () => {
-          window.location.href = 'admin_control_panel_overview_3.html';
+
+      addBtn?.addEventListener('click', async () => {
+        const version = versionInput.value.trim();
+        const notes = notesInput.value.trim();
+
+        if (!version) {
+          alert('Version is required');
+          return;
+        }
+
+        const { error } = await supabase.from('app_versions').insert({
+          app_id: appId,
+          version,
+          release_notes: notes || null,
         });
-      }
-      if (btnAddApp) {
-        btnAddApp.addEventListener('click', () => {
-          window.location.href = 'admin_control_panel_overview_2.html';
-        });
-      }
-      if (btnViewApps) {
-        btnViewApps.addEventListener('click', () => {
-          window.location.href = 'admin_applications_list.html';
-        });
-      }
+
+        if (error) {
+          console.error(error);
+          alert('Failed to add version: ' + error.message);
+          return;
+        }
+
+        await supabase.from('apps').update({ version }).eq('id', appId);
+
+        versionInput.value = '';
+        notesInput.value = '';
+        await loadVersions();
+      });
+
+      await loadAppDetails();
+      await loadVersions();
     }
 
     protectAdminPage(initAdminPage);
