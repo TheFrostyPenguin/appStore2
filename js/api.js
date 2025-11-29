@@ -235,3 +235,60 @@ export async function addRating(appId, rating, comment) {
 
   return supabase.from('ratings').insert({ app_id: appId, user_id: user.id, rating, comment });
 }
+
+// Analytics helpers
+export async function getAllAppsForAnalytics() {
+  const { data, error } = await supabase
+    .from('apps')
+    .select('id, name, image, category_slug, download_count, like_count, created_at, updated_at');
+
+  if (error) {
+    console.error('Failed to load apps for analytics', error);
+  }
+
+  return { data, error };
+}
+
+export async function getRatingsForAnalytics() {
+  const { data, error } = await supabase.from('ratings').select('app_id, rating');
+
+  if (error) {
+    console.error('Failed to load ratings for analytics', error);
+  }
+
+  return { data, error };
+}
+
+export async function getCategoriesMap() {
+  const { data, error } = await supabase.from('categories').select('id, name, slug');
+
+  if (error) {
+    console.error('Failed to load categories map', error);
+    return { map: {}, error };
+  }
+
+  const map = {};
+  (data || []).forEach(cat => {
+    map[cat.slug] = cat.name;
+  });
+
+  return { map, error: null };
+}
+
+// Increment downloads via RPC to avoid race conditions
+// SQL for reference (not executed here):
+// create function increment_app_download(p_app_id uuid)
+// returns void as $$
+// begin
+//   update public.apps
+//   set download_count = coalesce(download_count, 0) + 1
+//   where id = p_app_id;
+// end;
+// $$ language plpgsql security definer;
+export async function incrementAppDownloadCount(appId) {
+  const { data, error } = await supabase.rpc('increment_app_download', { p_app_id: appId });
+  if (error) {
+    console.error('Failed to increment download count', error);
+  }
+  return { data, error };
+}

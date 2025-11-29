@@ -1,4 +1,11 @@
-import { getAppById, getRatingsForApp, addRating, getVersionsForApp, getAppDownloadUrl } from '../api.js';
+import {
+  getAppById,
+  getRatingsForApp,
+  addRating,
+  getVersionsForApp,
+  getAppDownloadUrl,
+  incrementAppDownloadCount
+} from '../api.js';
 import { renderAppShell } from './layout.js';
 import { initTabs } from './tabs.js';
 import { statusPill, createCard, createButton } from './components.js';
@@ -40,6 +47,7 @@ export async function renderAppDetailsPage(appId) {
         alert('No downloadable file is available for this app.');
         return;
       }
+      await incrementAppDownloadCount(app.id);
       window.location.href = url;
     });
     actions.appendChild(downloadBtn);

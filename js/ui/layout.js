@@ -121,6 +121,11 @@ export async function renderAppShell(viewFn, { currentRoute } = {}) {
       href: '#/admin',
       isActive: hash => hash.startsWith('#/admin')
     });
+    tabs.push({
+      label: 'Analytics',
+      href: '#/analytics',
+      isActive: hash => hash.startsWith('#/analytics')
+    });
   }
 
   const main = shellBase({

@@ -1,4 +1,4 @@
-import { getCategoryBySlug, getAppsByCategorySlug, getAppDownloadUrl } from '../api.js';
+import { getCategoryBySlug, getAppsByCategorySlug, getAppDownloadUrl, incrementAppDownloadCount } from '../api.js';
 import { renderAppShell } from './layout.js';
 import { createCard, statusPill } from './components.js';
 import { createSearchInput } from './search.js';
@@ -122,6 +122,7 @@ export async function renderCategoryAppsPage(slug) {
             alert('No downloadable file is available for this app.');
             return;
           }
+          await incrementAppDownloadCount(app.id);
           window.location.href = url;
         });
       });

@@ -13,6 +13,7 @@ import {
   renderAdminMarketplaceNewPage,
   renderAdminMarketplaceEditPage
 } from './ui/adminMarketplaces.js';
+import { renderAdminAnalytics } from './ui/adminAnalytics.js';
 import { getCurrentUser, getCurrentAccount } from './api.js';
 
 registerRoute('/login', async () => renderLoginView(document.getElementById('app-root')));
@@ -31,6 +32,7 @@ registerRoute('/admin/marketplaces/new', async () => requireAdmin(() => renderAd
 registerRoute('/admin/marketplaces/:id/edit', async ({ id }) =>
   requireAdmin(() => renderAdminMarketplaceEditPage(id))
 );
+registerRoute('/analytics', async () => requireAdmin(() => renderAdminAnalytics()));
 
 async function bootstrap() {
   const {
