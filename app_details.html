@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>App Details</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#135bec",
+            "background-light": "#f6f6f8",
+            "background-dark": "#101622",
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+  <div class="min-h-screen flex flex-col">
+    <header class="sticky top-0 z-10 flex h-16 items-center justify-between whitespace-nowrap border-b border-zinc-200/50 dark:border-zinc-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm px-6">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-3 text-zinc-900 dark:text-white">
+          <div class="size-6 text-primary">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6_535)">
+                <path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_6_535">
+                  <rect fill="white" height="48" width="48"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold tracking-tight">Enterprise App Store</h2>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <span class="material-symbols-outlined text-xl">notifications</span>
+        </button>
+        <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-transparent text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <span class="material-symbols-outlined text-xl">settings</span>
+        </button>
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-zinc-200 dark:border-zinc-700" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCX8OLIf17eXGdkX6BQkaI3WOw45inmT1idwQ-POypEDGjWgOSJ8ns49eGN7dkGHhBrLBMQLm_ZUI4pZxvqt3mi0CGzxMwpo4rUmqYY2w2gVl91_QQEKgFXLEQAYmb3OREG2hV3sYJSbyx2W2Qn6CToTl1HyIUWzYFBomeG8NrK9OIGSA1DCOZL6nRPO1nYqLZiXxVsk6-DEvyVpIMYEzaY3tz7V6MvXTTmpJI7oFadCBYR7sUTGB1w6lBmNY-c20WGOernaS7A7z0");'></div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 lg:p-10">
+      <div class="mx-auto max-w-7xl space-y-8">
+        <div class="flex flex-wrap gap-2 items-center text-sm text-zinc-500 dark:text-zinc-400">
+          <a class="hover:text-primary" href="marketplaces_&_categories_overview.html">Home</a>
+          <span class="material-symbols-outlined text-lg">chevron_right</span>
+          <span id="breadcrumb-current">App</span>
+        </div>
+
+        <section class="flex flex-col gap-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-sm">
+          <div class="flex flex-wrap items-start gap-6">
+            <div class="relative h-20 w-20 rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center">
+              <img id="app-icon" class="h-20 w-20 object-cover hidden" alt="App icon" />
+              <span id="app-icon-fallback" class="absolute text-xl font-bold text-slate-300"></span>
+            </div>
+            <div class="flex-1 min-w-[220px] space-y-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <h1 id="app-title" class="text-3xl font-bold tracking-tight text-white">Application</h1>
+                <span id="app-status" class="text-xs px-2 py-1 rounded-full border border-slate-700 text-slate-300">Status</span>
+              </div>
+              <p id="app-subtitle" class="text-sm text-slate-400"></p>
+              <p id="app-description" class="text-sm text-slate-300"></p>
+            </div>
+            <div class="flex items-center gap-3">
+              <button class="flex min-w-[120px] items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90 transition-colors">
+                <span class="material-symbols-outlined mr-2">download</span>
+                Install
+              </button>
+              <button class="flex size-10 items-center justify-center rounded-lg border border-gray-700 bg-slate-900/60 text-gray-400 hover:text-primary">
+                <span class="material-symbols-outlined">more_horiz</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Downloads</p>
+              <p class="text-white text-2xl font-bold mt-1">1.2M+</p>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Rating</p>
+              <div class="flex items-center justify-center gap-1 mt-1">
+                <p class="text-white text-2xl font-bold" id="rating-average">--</p>
+                <span class="material-symbols-outlined text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Version</p>
+              <p class="text-white text-2xl font-bold mt-1" id="app-version">Latest</p>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
+              <p class="text-slate-400 text-sm">Category</p>
+              <p class="text-white text-2xl font-bold mt-1" id="app-category">--</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-2">
+            <button data-tab="overview" role="tab" aria-selected="true" class="tab-trigger rounded-full border border-slate-800 px-4 py-2 text-sm font-semibold text-white bg-slate-800">Overview</button>
+            <button data-tab="reviews" role="tab" aria-selected="false" class="tab-trigger rounded-full border border-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 hover:text-white">Reviews</button>
+            <button data-tab="versions" role="tab" aria-selected="false" class="tab-trigger rounded-full border border-slate-800 px-4 py-2 text-sm font-semibold text-slate-300 hover:text-white">Version History</button>
+          </div>
+
+          <div data-tab-panel="overview" role="tabpanel" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div class="lg:col-span-2 space-y-6">
+                <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+                  <h2 class="text-lg font-semibold text-white mb-3">Highlights</h2>
+                  <p id="overview-text" class="text-sm text-slate-300">Explore the latest capabilities of this application.</p>
+                </div>
+                <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+                  <h2 class="text-lg font-semibold text-white mb-3">Screenshots</h2>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+                    <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+                    <div class="aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyMahYNl1d7-tJrre3BoWsEbzbhBYt7ky0RvcFo1KK-Rhks02hosHtIBRBvPeMwFA4YcEGTR5i0AgZLCScU2cRKNpLEkM67syn7nE2eI-NhR9j6dXZNmrBPMOvv6MrECcp-BF5_mo5CisRrGwlBGCHPs8UIqz0z58vX1LBs7Gf7S_nc7iw5M6TEXkC2BHRec88HrpwzR1t27JDxhkbG0Eyj6Hqv-jJmPqgM5WvclHFf1AkTeLG0xKWVn8KpcMmV_U0dsmFEnz2b4Q");'></div>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+                <h2 class="text-lg font-semibold text-white">System Requirements</h2>
+                <p id="app-requirements" class="text-sm text-slate-300">Review minimum specs before installing.</p>
+              </div>
+            </div>
+          </div>
+
+          <div data-tab-panel="reviews" role="tabpanel" class="space-y-6 hidden">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-white">User Reviews</h2>
+              </div>
+              <div id="reviews-summary" class="mb-2 text-sm text-slate-200"></div>
+              <form id="review-form" class="space-y-3 mb-4">
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1">Your rating</label>
+                  <div id="review-stars" class="flex gap-1 text-xl cursor-pointer"></div>
+                </div>
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1" for="review-comment">Your review</label>
+                  <textarea
+                    id="review-comment"
+                    class="w-full rounded-lg bg-slate-900/60 border border-slate-700 text-sm text-white p-2 resize-y"
+                    rows="3"
+                    placeholder="Share your experience with this app..."
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="px-3 py-1.5 rounded-md bg-sky-500 text-xs font-medium text-white hover:bg-sky-400"
+                >
+                  Submit review
+                </button>
+              </form>
+              <div id="reviews-list" class="space-y-3 text-sm"></div>
+            </div>
+          </div>
+
+          <div data-tab-panel="versions" role="tabpanel" class="space-y-6 hidden">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+              <h2 class="text-lg font-semibold text-white mb-3">Version History</h2>
+              <div id="version-history" class="space-y-2 text-sm text-slate-200"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase-client.js';
+
+    const titleEl = document.getElementById('app-title');
+    const subtitleEl = document.getElementById('app-subtitle');
+    const descriptionEl = document.getElementById('app-description');
+    const iconEl = document.getElementById('app-icon');
+    const iconFallbackEl = document.getElementById('app-icon-fallback');
+    const statusEl = document.getElementById('app-status');
+    const crumbEl = document.getElementById('breadcrumb-current');
+    const categoryEl = document.getElementById('app-category');
+    const ratingAverageEl = document.getElementById('rating-average');
+    const versionEl = document.getElementById('app-version');
+    const requirementsEl = document.getElementById('app-requirements');
+
+    function initTabs() {
+      const tabButtons = Array.from(document.querySelectorAll('[data-tab]'));
+      const tabPanels = Array.from(document.querySelectorAll('[data-tab-panel]'));
+
+      function setActive(tabName) {
+        tabButtons.forEach((btn) => {
+          const isActive = btn.dataset.tab === tabName;
+          btn.classList.toggle('bg-slate-800', isActive);
+          btn.classList.toggle('text-white', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        tabPanels.forEach((panel) => {
+          const match = panel.dataset.tabPanel === tabName;
+          panel.classList.toggle('hidden', !match);
+        });
+      }
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => setActive(btn.dataset.tab));
+      });
+
+      if (tabButtons.length) {
+        setActive(tabButtons[0].dataset.tab);
+      }
+    }
+
+    function getAppIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('app');
+    }
+
+    function renderIcon(app) {
+      if (!iconEl || !iconFallbackEl) return;
+      if (app.image) {
+        iconEl.src = app.image;
+        iconEl.alt = `${app.name} icon`;
+        iconEl.classList.remove('hidden');
+        iconFallbackEl.classList.add('hidden');
+      } else {
+        iconEl.src = '';
+        iconEl.alt = 'App icon placeholder';
+        iconEl.classList.add('hidden');
+        iconFallbackEl.textContent = (app.name || '?').charAt(0).toUpperCase();
+        iconFallbackEl.classList.remove('hidden');
+      }
+    }
+
+    async function loadApp(appId) {
+      const { data: app, error } = await supabase
+        .from('apps')
+        .select('*')
+        .eq('id', appId)
+        .maybeSingle();
+
+      if (error || !app) {
+        console.error('Failed to load app', error);
+        if (titleEl) titleEl.textContent = 'Application not found';
+        return null;
+      }
+
+      if (titleEl) titleEl.textContent = app.name;
+      if (subtitleEl) subtitleEl.textContent = app.description || '';
+      if (descriptionEl) descriptionEl.textContent = app.description || '';
+      if (statusEl) statusEl.textContent = app.status || 'Available';
+      if (crumbEl) crumbEl.textContent = app.name;
+      if (categoryEl) categoryEl.textContent = app.category_slug || '--';
+      if (ratingAverageEl) ratingAverageEl.textContent = '--';
+      if (versionEl) versionEl.textContent = app.version || 'Latest';
+      if (requirementsEl) requirementsEl.textContent = app.system_requirements || 'No system requirements provided yet.';
+      renderIcon(app);
+
+      document.title = `${app.name} – App Details`;
+      return app;
+    }
+
+    async function initReviews(appId) {
+      const reviewsSummaryEl = document.getElementById('reviews-summary');
+      const reviewsListEl = document.getElementById('reviews-list');
+      const reviewForm = document.getElementById('review-form');
+      const reviewComment = document.getElementById('review-comment');
+      const reviewStarsContainer = document.getElementById('review-stars');
+
+      let currentRating = 0;
+
+      function renderStars(rating) {
+        reviewStarsContainer.innerHTML = '';
+        for (let i = 1; i <= 5; i++) {
+          const span = document.createElement('span');
+          span.textContent = i <= rating ? '★' : '☆';
+          span.className = 'text-yellow-400 text-xl';
+          span.dataset.value = i;
+          span.style.cursor = 'pointer';
+          span.addEventListener('click', () => {
+            currentRating = i;
+            renderStars(currentRating);
+          });
+          reviewStarsContainer.appendChild(span);
+        }
+      }
+
+      renderStars(currentRating);
+
+      async function loadReviews() {
+        const { data: reviews, error } = await supabase
+          .from('ratings')
+          .select('id, rating, comment, created_at')
+          .eq('app_id', appId)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Failed to load reviews', error);
+          if (reviewsSummaryEl) reviewsSummaryEl.textContent = 'Failed to load reviews.';
+          return;
+        }
+
+        if (!reviews || reviews.length === 0) {
+          if (reviewsSummaryEl) reviewsSummaryEl.textContent = 'No reviews yet. Be the first to review this app.';
+          if (reviewsListEl) reviewsListEl.innerHTML = '';
+          return;
+        }
+
+        const sum = reviews.reduce((acc, r) => acc + (r.rating || 0), 0);
+        const avg = sum / reviews.length;
+
+        if (reviewsSummaryEl) {
+          reviewsSummaryEl.innerHTML = `
+            <div class="flex items-center gap-2">
+              <div class="text-lg">
+                ${'★'.repeat(Math.round(avg))}${'☆'.repeat(5 - Math.round(avg))}
+              </div>
+              <div class="text-xs text-slate-400">
+                ${avg.toFixed(1)} / 5.0 · ${reviews.length} review${reviews.length === 1 ? '' : 's'}
+              </div>
+            </div>
+          `;
+        }
+
+        if (ratingAverageEl) {
+          ratingAverageEl.textContent = avg.toFixed(1);
+        }
+
+        if (reviewsListEl) {
+          reviewsListEl.innerHTML = reviews
+            .map(r => {
+              const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+              const date = r.created_at ? new Date(r.created_at).toLocaleDateString() : '';
+              const safeComment = (r.comment || '').replace(/</g, '&lt;');
+              return `
+                <article class="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="text-yellow-400 text-sm">${stars}</div>
+                    <div class="text-xs text-slate-500">${date}</div>
+                  </div>
+                  <p class="text-sm text-slate-100 whitespace-pre-wrap">${safeComment}</p>
+                </article>
+              `;
+            })
+            .join('');
+        }
+      }
+
+      await loadReviews();
+
+      reviewForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!currentRating) {
+          alert('Please select a rating.');
+          return;
+        }
+
+        const comment = reviewComment.value.trim();
+
+        const {
+          data: { user },
+          error: userError
+        } = await supabase.auth.getUser();
+
+        if (userError || !user) {
+          alert('You must be logged in to submit a review.');
+          return;
+        }
+
+        const { error: insertError } = await supabase.from('ratings').insert({
+          app_id: appId,
+          user_id: user.id,
+          rating: currentRating,
+          comment
+        });
+
+        if (insertError) {
+          console.error(insertError);
+          alert('Failed to submit review: ' + insertError.message);
+          return;
+        }
+
+        currentRating = 0;
+        renderStars(currentRating);
+        reviewComment.value = '';
+        await loadReviews();
+      });
+    }
+
+    async function loadVersionHistory(appId) {
+      const historyEl = document.getElementById('version-history');
+      if (!historyEl) return;
+
+      historyEl.innerHTML = '<p class="text-slate-400 text-sm">Loading version history...</p>';
+
+      const { data: versions, error } = await supabase
+        .from('app_versions')
+        .select('version, release_notes, created_at')
+        .eq('app_id', appId)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Failed to load version history', error);
+        historyEl.textContent = 'Failed to load version history.';
+        return;
+      }
+
+      if (!versions || versions.length === 0) {
+        historyEl.textContent = 'No version history available yet.';
+        return;
+      }
+
+      historyEl.innerHTML = versions
+        .map((v) => {
+          const date = v.created_at ? new Date(v.created_at).toLocaleDateString() : '';
+          const notes = (v.release_notes || '').replace(/</g, '&lt;');
+          return `
+            <article class="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
+              <div class="flex items-center justify-between mb-1">
+                <div class="font-semibold">Version ${v.version}</div>
+                <div class="text-xs text-slate-500">${date}</div>
+              </div>
+              <p class="text-xs text-slate-200 whitespace-pre-wrap">${notes}</p>
+            </article>
+          `;
+        })
+        .join('');
+    }
+
+    async function main() {
+      initTabs();
+      const appId = getAppIdFromUrl();
+      if (!appId) {
+        if (titleEl) titleEl.textContent = 'Application not specified';
+        return;
+      }
+
+      const app = await loadApp(appId);
+      if (!app) return;
+
+      await initReviews(appId);
+      await loadVersionHistory(appId);
+    }
+
+    main();
+  </script>
+</body>
+</html>
