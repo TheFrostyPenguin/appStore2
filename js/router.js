@@ -44,6 +44,7 @@ export function startRouter() {
     const match = matchRoute(path);
     if (match) {
       await match.handler(match.params || {});
+<<<<<<< HEAD
     } else {
       const root = document.getElementById('app-root');
       if (root) {
@@ -54,6 +55,8 @@ export function startRouter() {
           '<a href="#/marketplaces" class="text-sky-400 hover:underline text-sm">Back to home</a>' +
           '</div></div>';
       }
+=======
+>>>>>>> origin/main
     }
   }
 

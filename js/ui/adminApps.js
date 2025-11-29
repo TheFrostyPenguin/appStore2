@@ -1,7 +1,11 @@
 import { renderShell } from './layout.js';
 import { createCard, statusPill } from './components.js';
 import { createSearchInput } from './search.js';
+<<<<<<< HEAD
 import { getAllApps, getAllCategories, createApp, updateApp, getAppById, uploadAppFile } from '../api.js';
+=======
+import { getAllApps, getAllCategories, createApp, updateApp, getAppById } from '../api.js';
+>>>>>>> origin/main
 import { navigateTo } from '../router.js';
 
 export async function renderAdminAppsListPage() {
@@ -150,6 +154,7 @@ export async function renderAdminAppNewPage() {
     reqWrap.appendChild(reqArea);
     form.appendChild(reqWrap);
 
+<<<<<<< HEAD
     const fileWrap = document.createElement('div');
     fileWrap.className = 'md:col-span-2 flex flex-col gap-1';
     fileWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-file">Application File</label>';
@@ -160,6 +165,8 @@ export async function renderAdminAppNewPage() {
     fileWrap.appendChild(fileInput);
     form.appendChild(fileWrap);
 
+=======
+>>>>>>> origin/main
     const submit = document.createElement('button');
     submit.type = 'submit';
     submit.className = 'md:col-span-2 px-3 py-2 rounded-lg bg-sky-500 text-white font-semibold';
@@ -198,6 +205,7 @@ export async function renderAdminAppNewPage() {
         alert('Name and category are required');
         return;
       }
+<<<<<<< HEAD
     const { data, error } = await createApp(payload);
     if (error) {
       alert('Failed to save application');
@@ -213,6 +221,14 @@ export async function renderAdminAppNewPage() {
       }
     }
     navigateTo('#/admin/apps');
+=======
+      const { error } = await createApp(payload);
+      if (error) {
+        alert('Failed to save application');
+        return;
+      }
+      navigateTo('#/admin/apps');
+>>>>>>> origin/main
     });
   });
 }
@@ -287,6 +303,7 @@ export async function renderAdminAppEditPage(appId) {
     reqWrap.appendChild(reqArea);
     form.appendChild(reqWrap);
 
+<<<<<<< HEAD
     const fileWrap = document.createElement('div');
     fileWrap.className = 'md:col-span-2 flex flex-col gap-1';
     fileWrap.innerHTML = '<label class="text-sm text-slate-300" for="app-file">Application File</label>';
@@ -303,6 +320,8 @@ export async function renderAdminAppEditPage(appId) {
     }
     form.appendChild(fileWrap);
 
+=======
+>>>>>>> origin/main
     const submit = document.createElement('button');
     submit.type = 'submit';
     submit.className = 'md:col-span-2 px-3 py-2 rounded-lg bg-sky-500 text-white font-semibold';
@@ -342,6 +361,7 @@ export async function renderAdminAppEditPage(appId) {
         alert('Name and category are required');
         return;
       }
+<<<<<<< HEAD
     const { error: updateError } = await updateApp(appId, payload);
     if (updateError) {
       alert('Failed to update application');
@@ -356,6 +376,14 @@ export async function renderAdminAppEditPage(appId) {
       }
     }
     navigateTo('#/admin/apps');
+=======
+      const { error: updateError } = await updateApp(appId, payload);
+      if (updateError) {
+        alert('Failed to update application');
+        return;
+      }
+      navigateTo('#/admin/apps');
+>>>>>>> origin/main
     });
   });
 }
