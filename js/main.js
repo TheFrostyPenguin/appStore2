@@ -8,7 +8,16 @@ import { renderAppDetailsPage } from './ui/appDetails.js';
 import { renderAdminDashboardPage } from './ui/adminDashboard.js';
 import { renderAdminAppsListPage, renderAdminAppNewPage, renderAdminAppEditPage } from './ui/adminApps.js';
 import { renderAdminAppVersionsPage } from './ui/adminAppVersions.js';
+<<<<<<< HEAD
+import {
+  renderAdminMarketplacesListPage,
+  renderAdminMarketplaceNewPage,
+  renderAdminMarketplaceEditPage
+} from './ui/adminMarketplaces.js';
+import { getCurrentUser, getCurrentAccount } from './api.js';
+=======
 import { getCurrentUser } from './api.js';
+>>>>>>> origin/main
 
 registerRoute('/login', async () => renderLoginPage());
 registerRoute('/signup', async () => renderSignupPage());
@@ -21,6 +30,14 @@ registerRoute('/admin/apps', async () => requireAdmin(() => renderAdminAppsListP
 registerRoute('/admin/apps/new', async () => requireAdmin(() => renderAdminAppNewPage()));
 registerRoute('/admin/apps/:id/edit', async ({ id }) => requireAdmin(() => renderAdminAppEditPage(id)));
 registerRoute('/admin/apps/:id/versions', async ({ id }) => requireAdmin(() => renderAdminAppVersionsPage(id)));
+<<<<<<< HEAD
+registerRoute('/admin/marketplaces', async () => requireAdmin(() => renderAdminMarketplacesListPage()));
+registerRoute('/admin/marketplaces/new', async () => requireAdmin(() => renderAdminMarketplaceNewPage()));
+registerRoute('/admin/marketplaces/:id/edit', async ({ id }) =>
+  requireAdmin(() => renderAdminMarketplaceEditPage(id))
+);
+=======
+>>>>>>> origin/main
 
 async function bootstrap() {
   const {
@@ -29,7 +46,16 @@ async function bootstrap() {
 
   if (!window.location.hash) {
     if (user) {
+<<<<<<< HEAD
+      const { data: account } = await getCurrentAccount();
+      if (account?.role === 'admin') {
+        navigateTo('#/admin');
+      } else {
+        navigateTo('#/marketplaces');
+      }
+=======
       navigateTo('#/marketplaces');
+>>>>>>> origin/main
     } else {
       navigateTo('#/login');
     }

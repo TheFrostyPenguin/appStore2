@@ -1,7 +1,14 @@
+<<<<<<< HEAD
+import { getAppById, getRatingsForApp, addRating, getVersionsForApp, getAppDownloadUrl } from '../api.js';
+import { renderShell } from './layout.js';
+import { initTabs } from './tabs.js';
+import { ratingStars, statusPill, createCard, createButton } from './components.js';
+=======
 import { getAppById, getRatingsForApp, addRating, getVersionsForApp } from '../api.js';
 import { renderShell } from './layout.js';
 import { initTabs } from './tabs.js';
 import { ratingStars, statusPill, createCard } from './components.js';
+>>>>>>> origin/main
 
 export async function renderAppDetailsPage(appId) {
   await renderShell(async main => {
@@ -12,7 +19,11 @@ export async function renderAppDetailsPage(appId) {
     }
 
     const header = createCard();
+<<<<<<< HEAD
+    header.classList.add('flex', 'gap-4', 'items-start');
+=======
     header.classList.add('flex', 'gap-4');
+>>>>>>> origin/main
     header.innerHTML = `
       <div class="h-14 w-14 rounded-2xl bg-slate-800 overflow-hidden flex items-center justify-center">
         ${app.image ? `<img src="${app.image}" alt="${app.name} icon" class="h-14 w-14 object-cover" />` : `<span class="text-lg text-slate-200 font-semibold">${(app.name || '?')[0]}</span>`}
@@ -25,6 +36,27 @@ export async function renderAppDetailsPage(appId) {
         ${app.system_requirements ? `<p class="text-xs text-slate-400 mt-2">Requirements: ${app.system_requirements}</p>` : ''}
       </div>
     `;
+<<<<<<< HEAD
+
+    const actions = document.createElement('div');
+    actions.className = 'flex items-start gap-2';
+    if (app.file_path) {
+      const downloadBtn = createButton('Download');
+      downloadBtn.addEventListener('click', async () => {
+        const { url, error } = await getAppDownloadUrl(app);
+        if (error || !url) {
+          alert('Could not create download link.');
+          return;
+        }
+        window.location.href = url;
+      });
+      actions.appendChild(downloadBtn);
+    }
+    if (actions.children.length) {
+      header.appendChild(actions);
+    }
+=======
+>>>>>>> origin/main
     main.appendChild(header);
 
     const tabsContainer = document.createElement('div');

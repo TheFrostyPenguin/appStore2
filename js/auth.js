@@ -50,7 +50,15 @@ export async function requireAdmin(handler) {
 
   const admin = await isAdmin();
   if (!admin) {
-    navigateTo('#/marketplaces');
+    const root = document.getElementById('app-root');
+    if (root) {
+      root.innerHTML =
+        '<div class="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100 px-4"><div class="max-w-md text-center space-y-3">' +
+        '<h1 class="text-2xl font-semibold text-white">Access denied</h1>' +
+        '<p class="text-slate-400 text-sm">You do not have permission to view this page.</p>' +
+        '<a href="#/marketplaces" class="text-sky-400 hover:underline text-sm">Return to marketplaces</a>' +
+        '</div></div>';
+    }
     return null;
   }
   return handler();

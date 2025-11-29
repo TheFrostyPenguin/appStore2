@@ -44,6 +44,19 @@ export function startRouter() {
     const match = matchRoute(path);
     if (match) {
       await match.handler(match.params || {});
+<<<<<<< HEAD
+    } else {
+      const root = document.getElementById('app-root');
+      if (root) {
+        root.innerHTML =
+          '<div class="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100 px-4"><div class="max-w-md text-center space-y-3">' +
+          '<h1 class="text-2xl font-semibold text-white">Page not found</h1>' +
+          '<p class="text-slate-400 text-sm">The requested page could not be located.</p>' +
+          '<a href="#/marketplaces" class="text-sky-400 hover:underline text-sm">Back to home</a>' +
+          '</div></div>';
+      }
+=======
+>>>>>>> origin/main
     }
   }
 

@@ -61,6 +61,17 @@ export async function getCategoryBySlug(slug) {
     .maybeSingle();
 }
 
+<<<<<<< HEAD
+export async function getCategoryById(id) {
+  return supabase
+    .from('categories')
+    .select('id, name, slug, description')
+    .eq('id', id)
+    .maybeSingle();
+}
+
+=======
+>>>>>>> origin/main
 export async function createCategory(payload) {
   return supabase.from('categories').insert(payload);
 }
@@ -101,6 +112,61 @@ export async function updateApp(id, payload) {
   return supabase.from('apps').update(payload).eq('id', id);
 }
 
+<<<<<<< HEAD
+export async function uploadAppFile(appId, file) {
+  if (!file) return { data: null, error: null };
+
+  const name = file.name || '';
+  const parts = name.split('.');
+  const ext = parts.length > 1 ? parts.pop() : '';
+  const filePath = `apps/${appId}/${Date.now()}${ext ? `.${ext}` : ''}`;
+
+  const { error: uploadError } = await supabase.storage.from('app-files').upload(filePath, file, {
+    cacheControl: '3600',
+    upsert: true
+  });
+
+  if (uploadError) {
+    console.error('File upload failed', uploadError);
+    return { data: null, error: uploadError };
+  }
+
+  const { data, error } = await supabase
+    .from('apps')
+    .update({
+      file_path: filePath,
+      file_name: name,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', appId)
+    .select()
+    .maybeSingle();
+
+  if (error) {
+    console.error('Failed to update app with file info', error);
+  }
+
+  return { data, error };
+}
+
+export async function getAppDownloadUrl(app) {
+  if (!app || !app.file_path) {
+    return { url: null, error: null };
+  }
+
+  const { data, error } = await supabase.storage.from('app-files').createSignedUrl(app.file_path, 60);
+
+  // For public buckets we would call getPublicUrl, but this bucket is private so we always sign.
+  if (error) {
+    console.error('Failed to create signed download URL', error);
+    return { url: null, error };
+  }
+
+  return { url: data?.signedUrl || null, error: null };
+}
+
+=======
+>>>>>>> origin/main
 export async function searchAppsInCategory(slug, query) {
   const { data, error } = await getAppsByCategorySlug(slug);
   if (error || !data) return { data, error };

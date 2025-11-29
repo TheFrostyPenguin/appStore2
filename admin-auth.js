@@ -11,7 +11,7 @@ async function ensureAdmin() {
   } = await supabase.auth.getUser();
 
   if (error || !user) {
-    window.location.href = 'enterprise_app_store_login_1.html';
+    window.location.hash = '#/login';
     return null;
   }
 
