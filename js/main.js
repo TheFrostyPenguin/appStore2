@@ -1,7 +1,7 @@
 import { startRouter, registerRoute, navigateTo } from './router.js';
 import { requireAuth, requireAdmin } from './auth.js';
-import { renderLoginPage } from './ui/login.js';
-import { renderSignupPage } from './ui/signup.js';
+import { renderLoginView } from './ui/loginView.js';
+import { renderSignupView } from './ui/signupView.js';
 import { renderMarketplacesPage } from './ui/marketplaces.js';
 import { renderCategoryAppsPage } from './ui/categoryApps.js';
 import { renderAppDetailsPage } from './ui/appDetails.js';
@@ -15,8 +15,8 @@ import {
 } from './ui/adminMarketplaces.js';
 import { getCurrentUser, getCurrentAccount } from './api.js';
 
-registerRoute('/login', async () => renderLoginPage());
-registerRoute('/signup', async () => renderSignupPage());
+registerRoute('/login', async () => renderLoginView(document.getElementById('app-root')));
+registerRoute('/signup', async () => renderSignupView(document.getElementById('app-root')));
 registerRoute('/marketplaces', async () => requireAuth(() => renderMarketplacesPage()));
 registerRoute('/category/:slug', async ({ slug }) => requireAuth(() => renderCategoryAppsPage(slug)));
 registerRoute('/app/:id', async ({ id }) => requireAuth(() => renderAppDetailsPage(id)));

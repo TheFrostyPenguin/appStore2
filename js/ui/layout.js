@@ -29,6 +29,7 @@ function buildTabs(tabs, currentRoute) {
 function shellBase({ title, subtitle, tabs, currentRoute, showAccount }) {
   const root = document.getElementById('app-root');
   root.innerHTML = '';
+  root.className = 'app-root-container';
 
   const shell = document.createElement('div');
   shell.className = 'app-shell-card';
