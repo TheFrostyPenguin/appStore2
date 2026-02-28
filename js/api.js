@@ -140,6 +140,12 @@ export async function updateCategory(id, payload) {
   return supabase.from('categories').update(payload).eq('id', id);
 }
 
+export async function deleteMarketplace(marketplaceId) {
+  const { error } = await supabase.from('categories').delete().eq('id', marketplaceId);
+  if (error) console.error('deleteMarketplace failed', error);
+  return { error };
+}
+
 // Apps
 export async function getAppsByCategorySlug(slug, options = {}) {
   const { sortBy = 'name', direction = 'asc' } = options;
@@ -185,6 +191,12 @@ export async function createApp(payload) {
 
 export async function updateApp(id, payload) {
   return supabase.from('apps').update(payload).eq('id', id);
+}
+
+export async function deleteApp(appId) {
+  const { error } = await supabase.from('apps').delete().eq('id', appId);
+  if (error) console.error('deleteApp failed', error);
+  return { error };
 }
 
 export async function uploadAppFile(appId, file) {

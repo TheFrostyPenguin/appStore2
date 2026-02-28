@@ -1,8 +1,9 @@
 import { renderAppShell } from './layout.js';
-import { createCard, statusPill } from './components.js';
+import { createCard, statusPill, confirmDanger } from './components.js';
 import { createSearchInput } from './search.js';
-import { getAllApps, getAllCategories, createApp, updateApp, getAppById, uploadAppFile } from '../api.js';
+import { getAllApps, getAllCategories, createApp, updateApp, getAppById, uploadAppFile, deleteApp } from '../api.js';
 import { navigateTo } from '../router.js';
+import { isCurrentUserAdmin } from '../auth.js';
 
 export async function renderAdminAppsListPage() {
   await renderAppShell(async main => {
@@ -308,11 +309,51 @@ export async function renderAdminAppEditPage(appId) {
     }
     form.appendChild(fileWrap);
 
+    const actions = document.createElement('div');
+    actions.style.display = 'flex';
+    actions.style.gap = '10px';
+    actions.style.alignItems = 'center';
+
     const submit = document.createElement('button');
     submit.type = 'submit';
     submit.className = 'app-btn-primary';
     submit.textContent = 'Save Changes';
-    form.appendChild(submit);
+    actions.appendChild(submit);
+
+    const canDelete = await isCurrentUserAdmin();
+    if (canDelete) {
+      const deleteBtn = document.createElement('button');
+      deleteBtn.type = 'button';
+      deleteBtn.className = 'px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold';
+      deleteBtn.textContent = 'Delete App';
+      deleteBtn.addEventListener('click', async () => {
+        const stillAdmin = await isCurrentUserAdmin();
+        if (!stillAdmin) {
+          alert('Only admins can delete apps.');
+          return;
+        }
+
+        const confirmed = await confirmDanger({
+          title: 'Delete app?',
+          message: `Are you sure? This cannot be undone.\n\n"${app.name}" will be permanently deleted.`,
+          confirmText: 'Confirm'
+        });
+        if (!confirmed) return;
+
+        const { error: deleteError } = await deleteApp(app.id);
+        if (deleteError) {
+          console.error(deleteError);
+          alert('Failed to delete app. Please try again.');
+          return;
+        }
+
+        alert('Deleted successfully');
+        navigateTo('#/admin/apps');
+      });
+      actions.appendChild(deleteBtn);
+    }
+
+    form.appendChild(actions);
 
     formCard.appendChild(form);
     main.appendChild(formCard);

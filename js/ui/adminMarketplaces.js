@@ -1,13 +1,15 @@
 import { renderAppShell } from './layout.js';
-import { createCard } from './components.js';
+import { createCard, confirmDanger } from './components.js';
 import {
   getAllCategories,
   createCategory,
   updateCategory,
-  getCategoryById
+  getCategoryById,
+  deleteMarketplace
 } from '../api.js';
 import { createSearchInput } from './search.js';
 import { navigateTo } from '../router.js';
+import { isCurrentUserAdmin } from '../auth.js';
 
 function slugify(str) {
   return (str || '')
@@ -191,7 +193,10 @@ export async function renderAdminMarketplaceEditPage(id) {
       <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
         <input id="mp-approval" type="checkbox" /> Require approval for new apps
       </label>
-      <button type="submit" class="app-btn-primary" style="width:fit-content;">Save Changes</button>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button type="submit" class="app-btn-primary" style="width:fit-content;">Save Changes</button>
+        <button type="button" id="delete-marketplace" class="hidden px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold">Delete Marketplace</button>
+      </div>
     `;
     card.appendChild(form);
     main.appendChild(card);
@@ -201,6 +206,41 @@ export async function renderAdminMarketplaceEditPage(id) {
     const descInput = form.querySelector('#mp-description');
     const publicInput = form.querySelector('#mp-public');
     const approvalInput = form.querySelector('#mp-approval');
+    const deleteBtn = form.querySelector('#delete-marketplace');
+
+    const canDelete = await isCurrentUserAdmin();
+    if (deleteBtn && canDelete) {
+      deleteBtn.classList.remove('hidden');
+      deleteBtn.addEventListener('click', async () => {
+        const stillAdmin = await isCurrentUserAdmin();
+        if (!stillAdmin) {
+          alert('Only admins can delete marketplaces.');
+          return;
+        }
+
+        const confirmed = await confirmDanger({
+          title: 'Delete marketplace?',
+          message: `Are you sure? This cannot be undone.\n\n"${category.name}" will be permanently deleted.`,
+          confirmText: 'Confirm'
+        });
+        if (!confirmed) return;
+
+        const { error: deleteError } = await deleteMarketplace(id);
+        if (deleteError) {
+          console.error(deleteError);
+          const detail = `${deleteError.message || ''} ${deleteError.details || ''}`.toLowerCase();
+          if (detail.includes('foreign key') || detail.includes('violates') || detail.includes('constraint')) {
+            alert('Cannot delete marketplace while it still contains apps. Delete or reassign apps first.');
+          } else {
+            alert('Delete or reassign apps in this marketplace first.');
+          }
+          return;
+        }
+
+        alert('Deleted successfully');
+        navigateTo('#/admin/marketplaces');
+      });
+    }
 
     nameInput.value = category.name || '';
     descInput.value = category.description || '';
