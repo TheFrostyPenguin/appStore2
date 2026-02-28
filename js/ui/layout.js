@@ -105,7 +105,10 @@ export async function renderPublicShell(viewFn, { currentRoute } = {}) {
 }
 
 export async function renderAppShell(viewFn, { currentRoute } = {}) {
-  const { data: account } = await getCurrentAccount();
+  const { data: account, error } = await getCurrentAccount();
+  if (error) {
+    console.error('Failed to resolve account for app shell', error);
+  }
   const tabs = [
     {
       label: 'Marketplaces',
@@ -115,7 +118,7 @@ export async function renderAppShell(viewFn, { currentRoute } = {}) {
     }
   ];
 
-  if (account?.role === 'admin') {
+  if ((account?.role || '').toLowerCase() === 'admin') {
     tabs.push({
       label: 'Admin',
       href: '#/admin',
@@ -124,7 +127,7 @@ export async function renderAppShell(viewFn, { currentRoute } = {}) {
     tabs.push({
       label: 'Analytics',
       href: '#/analytics',
-      isActive: hash => hash.startsWith('#/analytics')
+      isActive: hash => hash.startsWith('#/analytics') || hash.startsWith('#/admin/analytics')
     });
   }
 

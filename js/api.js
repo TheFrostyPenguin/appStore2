@@ -15,7 +15,7 @@ export async function getCurrentAccount() {
   const { data, error } = await supabase
     .from('accounts')
     .select('*')
-    .eq('id', user.id)
+    .eq('user_id', user.id)
     .maybeSingle();
 
   return { data, error };
@@ -249,10 +249,16 @@ export async function getAllAppsForAnalytics() {
     .select('id, name, image, category_slug, download_count, like_count, created_at, updated_at');
 
   if (error) {
+    const missingColumns = error.code === '42703' || error.status === 400;
+    if (missingColumns) {
+      console.error('Missing analytics columns in apps table. Run migrations.', error);
+      return { data: null, error, analyticsColumnsMissing: true };
+    }
+
     console.error('Failed to load apps for analytics', error);
   }
 
-  return { data, error };
+  return { data, error, analyticsColumnsMissing: false };
 }
 
 export async function getRatingsForAnalytics() {
