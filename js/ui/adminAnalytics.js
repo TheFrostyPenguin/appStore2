@@ -246,7 +246,6 @@ function computeExplorerRows(apps, categoriesMap, ratingsMap) {
       categorySlug: app.category_slug || 'uncategorized',
       categoryName: categoriesMap[app.category_slug] || app.category_slug || 'Uncategorized',
       downloadCount: Number(app.download_count || 0),
-      likeCount: Number(app.like_count || 0),
       avgRating: Number(rating.avgRating || 0),
       ratingCount: Number(rating.count || 0),
       createdAt: app.created_at || null,
@@ -382,9 +381,6 @@ export async function renderAdminAnalytics(root, options = {}) {
       const topDownloaded = [...apps]
         .sort((a, b) => Number(b.download_count || 0) - Number(a.download_count || 0))
         .slice(0, 5);
-      const topLiked = [...apps]
-        .sort((a, b) => Number(b.like_count || 0) - Number(a.like_count || 0))
-        .slice(0, 5);
       const highestRated = [...apps]
         .map(app => {
           const rating = ratingsMap[app.id] || { avgRating: 0, count: 0 };
@@ -393,17 +389,6 @@ export async function renderAdminAnalytics(root, options = {}) {
         .filter(app => app.ratingCount >= 1)
         .sort((a, b) => b.avgRating - a.avgRating)
         .slice(0, 5);
-
-      const categoryActivity = Object.entries(
-        apps.reduce((acc, app) => {
-          const slug = app.category_slug || 'uncategorized';
-          acc[slug] = (acc[slug] || 0) + Number(app.download_count || 0);
-          return acc;
-        }, {})
-      ).map(([slug, downloads]) => ({
-        name: categoriesMap[slug] || slug,
-        downloads
-      }));
 
       const newestApps = [...apps]
         .sort((a, b) => new Date(b.updated_at || b.created_at || 0) - new Date(a.updated_at || a.created_at || 0))
@@ -420,14 +405,6 @@ export async function renderAdminAnalytics(root, options = {}) {
           label: 'Total Downloads',
           value: apps.reduce((sum, app) => sum + Number(app.download_count || 0), 0)
         },
-        {
-          label: 'Total Likes',
-          value: apps.reduce((sum, app) => sum + Number(app.like_count || 0), 0)
-        },
-        {
-          label: 'Active Categories',
-          value: new Set(apps.map(app => app.category_slug).filter(Boolean)).size
-        }
       ];
       kpis.forEach(kpi => {
         const card = createPanel(kpi.label);
@@ -441,16 +418,7 @@ export async function renderAdminAnalytics(root, options = {}) {
         topDownloaded.map(app => ({ name: app.name, value: app.download_count || 0 })),
         'value',
         '#38bdf8',
-        'No download data yet.'
-      );
-
-      addChartPanel(
-        dashboardGrid,
-        'Most Liked Apps',
-        topLiked.map(app => ({ name: app.name, value: app.like_count || 0 })),
-        'value',
-        '#f472b6',
-        'No likes data yet.'
+        'No downloads recorded yet. Downloads increase when users click Install.'
       );
 
       addChartPanel(
@@ -460,15 +428,6 @@ export async function renderAdminAnalytics(root, options = {}) {
         'value',
         '#a78bfa',
         'Need at least 1 rating per app to rank.'
-      );
-
-      addChartPanel(
-        dashboardGrid,
-        'Activity by Category',
-        categoryActivity.map(item => ({ name: item.name, value: item.downloads })),
-        'value',
-        '#34d399',
-        'No category activity yet.'
       );
 
       const newestCard = createPanel('Newest Apps');

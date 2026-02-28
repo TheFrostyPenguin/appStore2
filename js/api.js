@@ -293,7 +293,7 @@ export async function addRating(appId, rating, comment) {
 export async function getAllAppsForAnalytics() {
   const { data, error } = await supabase
     .from('apps')
-    .select('id, name, image, category_slug, download_count, like_count, created_at, updated_at');
+    .select('id, name, image, category_slug, download_count, created_at, updated_at');
 
   if (error) {
     const missingColumns = error.code === '42703' || error.status === 400;
@@ -359,20 +359,48 @@ export async function getCategoriesMap() {
   return { map, error: null };
 }
 
-// Increment downloads via RPC to avoid race conditions
-// SQL for reference (not executed here):
-// create function increment_app_download(p_app_id uuid)
+// SQL (run in Supabase):
+// create or replace function public.increment_app_download(p_app_id uuid)
 // returns void as $$
 // begin
 //   update public.apps
-//   set download_count = coalesce(download_count, 0) + 1
+//   set download_count = coalesce(download_count, 0) + 1,
+//       updated_at = now()
 //   where id = p_app_id;
 // end;
-// $$ language plpgsql security definer;
+// $$ language plpgsql;
 export async function incrementAppDownloadCount(appId) {
   const { data, error } = await supabase.rpc('increment_app_download', { p_app_id: appId });
-  if (error) {
-    console.error('Failed to increment download count', error);
+  if (!error) {
+    return { data, error: null };
   }
-  return { data, error };
+
+  console.error('incrementAppDownloadCount failed', error);
+
+  // Fallback (not perfectly atomic): read current count then write count + 1.
+  const { data: appRow, error: readError } = await supabase
+    .from('apps')
+    .select('download_count')
+    .eq('id', appId)
+    .maybeSingle();
+
+  if (readError) {
+    console.error('incrementAppDownloadCount fallback read failed', readError);
+    return { data: null, error: readError };
+  }
+
+  const nextCount = Number(appRow?.download_count || 0) + 1;
+  const { data: updated, error: updateError } = await supabase
+    .from('apps')
+    .update({ download_count: nextCount })
+    .eq('id', appId)
+    .select('id, download_count')
+    .maybeSingle();
+
+  if (updateError) {
+    console.error('incrementAppDownloadCount fallback update failed', updateError);
+    return { data: null, error: updateError };
+  }
+
+  return { data: updated, error: null };
 }
