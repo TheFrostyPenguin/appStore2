@@ -1,5 +1,5 @@
 import { startRouter, registerRoute, navigateTo } from './router.js';
-import { requireAuth, requireAdmin } from './auth.js';
+import { requireAuth, requireAdmin, getCurrentAccount } from './auth.js';
 import { renderLoginView } from './ui/loginView.js';
 import { renderSignupView } from './ui/signupView.js';
 import { renderMarketplacesPage } from './ui/marketplaces.js';
@@ -14,7 +14,7 @@ import {
   renderAdminMarketplaceEditPage
 } from './ui/adminMarketplaces.js';
 import { renderAdminAnalytics } from './ui/adminAnalytics.js';
-import { getCurrentUser, getCurrentAccount } from './api.js';
+import { getCurrentUser } from './api.js';
 
 registerRoute('/login', async () => renderLoginView(document.getElementById('app-root')));
 registerRoute('/signup', async () => renderSignupView(document.getElementById('app-root')));
@@ -41,7 +41,7 @@ async function bootstrap() {
 
   if (!window.location.hash) {
     if (user) {
-      const { data: account } = await getCurrentAccount();
+      const { account } = await getCurrentAccount();
       if (account?.role === 'admin') {
         navigateTo('#/admin');
       } else {

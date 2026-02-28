@@ -15,10 +15,37 @@ export async function getCurrentAccount() {
   const { data, error } = await supabase
     .from('accounts')
     .select('*')
-    .eq('user_id', user.id)
+    .eq('id', user.id)
     .maybeSingle();
 
-  return { data, error };
+  if (error) {
+    return { data, error };
+  }
+
+  if (!data) {
+    console.warn('No accounts row for this auth user. Creating default member row...');
+    const { data: created, error: createError } = await supabase
+      .from('accounts')
+      .upsert(
+        {
+          id: user.id,
+          email: user.email || null,
+          role: 'member',
+          full_name: user.user_metadata?.full_name || null
+        },
+        { onConflict: 'id' }
+      )
+      .select('*')
+      .maybeSingle();
+
+    if (createError) {
+      return { data: null, error: createError };
+    }
+
+    return { data: created, error: null };
+  }
+
+  return { data, error: null };
 }
 
 export async function signIn(email, password) {
@@ -26,13 +53,33 @@ export async function signIn(email, password) {
 }
 
 export async function signUp(email, password, fullName) {
-  return supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { full_name: fullName || null }
     }
   });
+
+  if (error || !data?.user) {
+    return { data, error };
+  }
+
+  const { error: accountError } = await supabase.from('accounts').upsert(
+    {
+      id: data.user.id,
+      email: data.user.email || email,
+      role: 'member',
+      full_name: fullName || data.user.user_metadata?.full_name || null
+    },
+    { onConflict: 'id' }
+  );
+
+  if (accountError) {
+    return { data, error: accountError };
+  }
+
+  return { data, error: null };
 }
 
 export async function signOut() {

@@ -160,7 +160,8 @@ export function renderSignupView(root) {
         .upsert(
           {
             id: user.id,
-            email,
+            email: user.email || email,
+            role: 'member',
             full_name: fullName || null
           },
           { onConflict: 'id' }

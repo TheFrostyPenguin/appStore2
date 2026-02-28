@@ -1,19 +1,65 @@
-import {
-  signIn,
-  signUp,
-  signOut,
-  getCurrentUser,
-  getCurrentAccount,
-  isAdmin
-} from './api.js';
+import { signIn, signUp, signOut as apiSignOut } from './api.js';
+import { supabase } from '../supabase-client.js';
 import { navigateTo } from './router.js';
+
+export async function getCurrentAccount() {
+  const {
+    data: sessionData,
+    error: sessionError
+  } = await supabase.auth.getSession();
+
+  if (sessionError) {
+    return { account: null, user: null, error: sessionError };
+  }
+
+  const user = sessionData?.session?.user || null;
+  if (!user) {
+    return { account: null, user: null, error: null };
+  }
+
+  const { data: account, error } = await supabase
+    .from('accounts')
+    .select('id,email,full_name,role,created_at')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!account && !error) {
+    console.warn('No accounts row for this auth user. Creating default member row...');
+    const upsertRes = await supabase
+      .from('accounts')
+      .upsert(
+        {
+          id: user.id,
+          email: user.email ?? null,
+          full_name: user.user_metadata?.full_name || null,
+          role: 'member'
+        },
+        { onConflict: 'id' }
+      )
+      .select('id,email,full_name,role,created_at')
+      .maybeSingle();
+
+    return {
+      account: upsertRes.data ?? null,
+      user,
+      error: upsertRes.error ?? null
+    };
+  }
+
+  return { account: account ?? null, user, error };
+}
+
+export async function isCurrentUserAdmin() {
+  const { account } = await getCurrentAccount();
+  return account?.role === 'admin';
+}
 
 export async function handleLogin(email, password) {
   const { error } = await signIn(email, password);
   if (error) return { error };
 
-  const { data: account } = await getCurrentAccount();
-  if (account && account.role === 'admin') {
+  const { account } = await getCurrentAccount();
+  if (account?.role === 'admin') {
     navigateTo('#/admin');
   } else {
     navigateTo('#/marketplaces');
@@ -25,43 +71,52 @@ export async function handleSignup(email, password, fullName) {
   const { data, error } = await signUp(email, password, fullName);
   if (error) return { error };
 
-  // Optionally ensure account row exists; assume trigger handles it
   navigateTo('#/login');
   return { data, error: null };
 }
 
+export async function signOutAndRedirect() {
+  try {
+    await apiSignOut();
+  } finally {
+    window.__accountCache = null;
+    try {
+      localStorage.removeItem('account');
+    } catch (storageError) {
+      console.warn('Unable to clear local account cache', storageError);
+    }
+    window.location.hash = '#/login';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+  }
+}
+
+export async function signOut() {
+  await signOutAndRedirect();
+}
+
 export async function handleLogout() {
-  await signOut();
-  navigateTo('#/login');
+  await signOutAndRedirect();
 }
 
 export async function requireAuth(handler) {
-  const { data, error } = await getCurrentUser();
-  if (error || !data?.user) {
+  const result = await getCurrentAccount();
+  if (result.error || !result.user) {
     navigateTo('#/login');
     return null;
   }
-  return handler(data.user);
+  return handler ? handler({ user: result.user, account: result.account }) : result;
 }
 
 export async function requireAdmin(handler) {
-  const userCheck = await requireAuth(async () => true);
-  if (!userCheck) return null;
+  const authResult = await requireAuth();
+  if (!authResult?.user) return null;
 
-  const admin = await isAdmin();
-  if (!admin) {
-    const root = document.getElementById('app-root');
-    if (root) {
-      root.innerHTML =
-        '<div class="app-card" style="margin-top:40px;">' +
-        '<h1 class="app-section-title">Access denied</h1>' +
-        '<p class="app-subtext">You do not have permission to view this page.</p>' +
-        '<a href="#/marketplaces">Return to marketplaces</a>' +
-        '</div>';
-    }
+  if (authResult.account?.role !== 'admin') {
+    navigateTo('#/marketplaces');
     return null;
   }
-  return handler();
+
+  return handler ? handler({ user: authResult.user, account: authResult.account }) : authResult;
 }
 
 export async function getSessionAccount() {

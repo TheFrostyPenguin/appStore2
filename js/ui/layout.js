@@ -1,5 +1,4 @@
-import { handleLogout } from '../auth.js';
-import { getCurrentAccount } from '../api.js';
+import { signOutAndRedirect, getCurrentAccount } from '../auth.js';
 
 function buildTabs(tabs, currentRoute) {
   const nav = document.createElement('div');
@@ -50,18 +49,69 @@ function shellBase({ title, subtitle, tabs, currentRoute, showAccount }) {
   if (showAccount?.name) {
     const accountBox = document.createElement('div');
     accountBox.className = 'app-header-meta';
-    const avatar = document.createElement('div');
-    avatar.className = 'app-avatar';
-    avatar.textContent = showAccount.name.slice(0, 2).toUpperCase();
+
     const name = document.createElement('div');
     name.innerHTML = `<div class="app-subtext">Signed in</div><div>${showAccount.name}</div>`;
-    const logout = document.createElement('button');
-    logout.className = 'app-btn-secondary';
-    logout.textContent = 'Logout';
-    logout.addEventListener('click', handleLogout);
-    accountBox.appendChild(avatar);
+
+    const menuWrap = document.createElement('div');
+    menuWrap.className = 'relative';
+
+    const accountButton = document.createElement('button');
+    accountButton.type = 'button';
+    accountButton.className =
+      'w-10 h-10 rounded-full flex items-center justify-center hover:bg-slate-800/60 transition border border-slate-800';
+    accountButton.setAttribute('aria-label', 'Account menu');
+    accountButton.innerHTML = '<span class="material-symbols-outlined">account_circle</span>';
+
+    const menu = document.createElement('div');
+    menu.className = 'hidden absolute right-0 mt-2 w-44 bg-slate-900 border border-slate-800 rounded-xl shadow-lg overflow-hidden z-50';
+
+    const logoutItem = document.createElement('button');
+    logoutItem.type = 'button';
+    logoutItem.className = 'w-full text-left px-4 py-2 text-sm text-slate-100 hover:bg-slate-800';
+    logoutItem.textContent = 'Log out';
+
+    let detachOutsideClick = null;
+
+    const closeMenu = () => {
+      menu.classList.add('hidden');
+      if (detachOutsideClick) {
+        detachOutsideClick();
+        detachOutsideClick = null;
+      }
+    };
+
+    const openMenu = () => {
+      menu.classList.remove('hidden');
+      const onDocClick = event => {
+        if (!menuWrap.contains(event.target)) {
+          closeMenu();
+        }
+      };
+      document.addEventListener('click', onDocClick, true);
+      detachOutsideClick = () => document.removeEventListener('click', onDocClick, true);
+    };
+
+    accountButton.addEventListener('click', event => {
+      event.stopPropagation();
+      if (menu.classList.contains('hidden')) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+    });
+
+    logoutItem.addEventListener('click', async () => {
+      closeMenu();
+      await signOutAndRedirect();
+    });
+
+    menu.appendChild(logoutItem);
+    menuWrap.appendChild(accountButton);
+    menuWrap.appendChild(menu);
+
     accountBox.appendChild(name);
-    accountBox.appendChild(logout);
+    accountBox.appendChild(menuWrap);
     header.appendChild(accountBox);
   }
 
@@ -105,7 +155,7 @@ export async function renderPublicShell(viewFn, { currentRoute } = {}) {
 }
 
 export async function renderAppShell(viewFn, { currentRoute } = {}) {
-  const { data: account, error } = await getCurrentAccount();
+  const { account, error } = await getCurrentAccount();
   if (error) {
     console.error('Failed to resolve account for app shell', error);
   }
