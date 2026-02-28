@@ -1,4 +1,5 @@
 import { supabase } from '../../supabase-client.js';
+import { sendPasswordReset } from '../auth.js';
 
 export function renderLoginView(root) {
   if (!root) return;
@@ -31,7 +32,7 @@ export function renderLoginView(root) {
             <div class="space-y-2">
               <div class="flex items-center justify-between">
                 <label for="login-password" class="text-sm font-medium text-slate-200">Password</label>
-                <button type="button" class="text-xs text-slate-400 hover:text-sky-400">Forgot password?</button>
+                <button type="button" id="forgot-password-link" class="text-xs text-slate-400 hover:text-sky-400">Forgot password?</button>
               </div>
               <div class="relative">
                 <input
@@ -67,6 +68,27 @@ export function renderLoginView(root) {
         </div>
         <p class="text-center text-xs text-slate-500">© 2024 Enterprise Corp. All rights reserved.</p>
       </div>
+
+        <div id="forgot-password-modal" class="hidden fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center">
+          <div class="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+            <h2 class="text-lg font-semibold text-white mb-2">Reset your password</h2>
+            <p class="text-sm text-slate-400 mb-4">Enter your email and we will send a reset link.</p>
+            <form id="forgot-password-form" class="space-y-4">
+              <input
+                id="forgot-password-email"
+                type="email"
+                class="w-full rounded-xl bg-slate-900/60 border border-slate-700 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                placeholder="you@example.com"
+              />
+              <div id="forgot-password-message" class="hidden rounded-lg border border-slate-700 bg-slate-800/50 p-3 text-sm text-slate-200"></div>
+              <div class="flex justify-end gap-2">
+                <button type="button" id="forgot-password-cancel" class="rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-200 hover:bg-slate-800">Cancel</button>
+                <button type="submit" class="rounded-xl bg-sky-500 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-400">Send reset email</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
     </div>
   `;
 
@@ -76,6 +98,12 @@ export function renderLoginView(root) {
   const togglePassword = root.querySelector('#togglePassword');
   const errorBox = root.querySelector('#login-error');
   const goToSignup = root.querySelector('#go-to-signup');
+  const forgotLink = root.querySelector('#forgot-password-link');
+  const forgotModal = root.querySelector('#forgot-password-modal');
+  const forgotForm = root.querySelector('#forgot-password-form');
+  const forgotEmail = root.querySelector('#forgot-password-email');
+  const forgotMessage = root.querySelector('#forgot-password-message');
+  const forgotCancel = root.querySelector('#forgot-password-cancel');
 
   if (togglePassword && passwordInput) {
     togglePassword.addEventListener('click', () => {
@@ -96,6 +124,53 @@ export function renderLoginView(root) {
       window.location.hash = '#/signup';
     });
   }
+
+
+
+  const closeForgotModal = () => {
+    forgotModal?.classList.add('hidden');
+    if (forgotMessage) {
+      forgotMessage.textContent = '';
+      forgotMessage.classList.add('hidden');
+    }
+  };
+
+  forgotLink?.addEventListener('click', () => {
+    forgotModal?.classList.remove('hidden');
+    if (forgotEmail) {
+      forgotEmail.value = emailInput?.value?.trim() || '';
+    }
+  });
+
+  forgotCancel?.addEventListener('click', closeForgotModal);
+
+  forgotModal?.addEventListener('click', event => {
+    if (event.target === forgotModal) {
+      closeForgotModal();
+    }
+  });
+
+  forgotForm?.addEventListener('submit', async event => {
+    event.preventDefault();
+    const email = forgotEmail?.value?.trim() || '';
+    if (!email) {
+      forgotMessage.textContent = 'Please enter your email address.';
+      forgotMessage.classList.remove('hidden');
+      return;
+    }
+
+    const { error } = await sendPasswordReset(email);
+    if (error) {
+      console.error(error);
+    }
+
+    forgotMessage.textContent = 'If that email exists, a reset link has been sent.';
+    forgotMessage.classList.remove('hidden');
+
+    setTimeout(() => {
+      closeForgotModal();
+    }, 1200);
+  });
 
   if (form) {
     form.addEventListener('submit', async e => {

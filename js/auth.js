@@ -75,6 +75,20 @@ export async function handleSignup(email, password, fullName) {
   return { data, error: null };
 }
 
+
+// Supabase Auth settings required for password reset links:
+// Site URL: https://app-store2-amber.vercel.app
+// Redirect URL: https://app-store2-amber.vercel.app/#/reset-password
+export async function sendPasswordReset(email) {
+  return supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://app-store2-amber.vercel.app/#/reset-password'
+  });
+}
+
+export async function updatePassword(newPassword) {
+  return supabase.auth.updateUser({ password: newPassword });
+}
+
 export async function signOutAndRedirect() {
   try {
     await apiSignOut();
