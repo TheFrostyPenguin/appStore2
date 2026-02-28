@@ -1,27 +1,19 @@
 // admin-auth.js
-import { supabase } from './supabase-client.js';
+import { getCurrentAccount, isCurrentUserAdmin } from './js/auth.js';
 
 async function ensureAdmin() {
   const adminSection = document.getElementById('admin-section');
   const notAdmin = document.getElementById('not-admin-message');
 
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
+  const { user, error } = await getCurrentAccount();
 
   if (error || !user) {
     window.location.hash = '#/login';
     return null;
   }
 
-  const { data: account, error: accError } = await supabase
-    .from('accounts')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (accError || !account || account.role !== 'admin') {
+  const admin = await isCurrentUserAdmin();
+  if (!admin) {
     if (adminSection) adminSection.classList.add('hidden');
     if (notAdmin) notAdmin.classList.remove('hidden');
     return null;

@@ -1,5 +1,4 @@
-import { handleLogout } from '../auth.js';
-import { getCurrentAccount } from '../api.js';
+import { handleLogout, getCurrentAccount } from '../auth.js';
 
 function buildTabs(tabs, currentRoute) {
   const nav = document.createElement('div');
@@ -105,7 +104,7 @@ export async function renderPublicShell(viewFn, { currentRoute } = {}) {
 }
 
 export async function renderAppShell(viewFn, { currentRoute } = {}) {
-  const { data: account, error } = await getCurrentAccount();
+  const { account, error } = await getCurrentAccount();
   if (error) {
     console.error('Failed to resolve account for app shell', error);
   }
