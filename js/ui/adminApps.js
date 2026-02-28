@@ -41,7 +41,7 @@ export async function renderAdminAppsListPage() {
 
     const { data: apps, error } = await getAllApps();
     if (error) {
-      tableWrap.innerHTML = '<p class="app-note" style="color:#f87171">Failed to load apps.</p>';
+      tableWrap.innerHTML = '<p class="admin-help" style="color:#f87171">Failed to load apps.</p>';
       return;
     }
     const allApps = apps || [];
@@ -57,7 +57,7 @@ export async function renderAdminAppsListPage() {
     function renderRows(list) {
       tbody.innerHTML = '';
       if (!list || list.length === 0) {
-        tbody.innerHTML = '<tr><td class="app-note" colspan="5">No applications found.</td></tr>';
+        tbody.innerHTML = '<tr><td class="admin-help" colspan="5">No applications found.</td></tr>';
         return;
       }
       list.forEach(app => {
@@ -96,6 +96,7 @@ export async function renderAdminAppNewPage() {
     main.appendChild(heading);
 
     const formCard = createCard();
+    formCard.classList.add('bg-slate-900/80', 'border', 'border-slate-800', 'rounded-2xl', 'p-4', 'sm:p-6', 'shadow-lg');
     const form = document.createElement('form');
     form.className = 'app-form-grid';
 
@@ -112,12 +113,12 @@ export async function renderAdminAppNewPage() {
     fields.forEach(({ id, label, type, placeholder }) => {
       const wrap = document.createElement('div');
       wrap.className = 'app-stack';
-      wrap.innerHTML = `<label class="app-label" for="${id}">${label}</label>`;
+      wrap.innerHTML = `<label class="admin-label" for="${id}">${label}</label>`;
       const input = document.createElement('input');
       input.id = `app-${id}`;
       input.type = type;
       input.placeholder = placeholder || '';
-      input.className = 'app-input';
+      input.className = 'admin-input';
       wrap.appendChild(input);
       inputs[id] = input;
       form.appendChild(wrap);
@@ -125,36 +126,36 @@ export async function renderAdminAppNewPage() {
 
     const categoryWrap = document.createElement('div');
     categoryWrap.className = 'app-stack';
-    categoryWrap.innerHTML = '<label class="app-label" for="app-category">Category</label>';
+    categoryWrap.innerHTML = '<label class="admin-label" for="app-category">Category</label>';
     const categorySelect = document.createElement('select');
     categorySelect.id = 'app-category';
-    categorySelect.className = 'app-select';
+    categorySelect.className = 'admin-select';
     categoryWrap.appendChild(categorySelect);
     form.appendChild(categoryWrap);
 
     const descWrap = document.createElement('div');
     descWrap.className = 'app-stack';
-    descWrap.innerHTML = '<label class="app-label" for="app-description">Description</label>';
+    descWrap.innerHTML = '<label class="admin-label" for="app-description">Description</label>';
     const descArea = document.createElement('textarea');
     descArea.id = 'app-description';
-    descArea.className = 'app-textarea';
+    descArea.className = 'admin-textarea';
     descArea.rows = 3;
     descWrap.appendChild(descArea);
     form.appendChild(descWrap);
 
     const reqWrap = document.createElement('div');
     reqWrap.className = 'app-stack';
-    reqWrap.innerHTML = '<label class="app-label" for="app-requirements">System Requirements</label>';
+    reqWrap.innerHTML = '<label class="admin-label" for="app-requirements">System Requirements</label>';
     const reqArea = document.createElement('textarea');
     reqArea.id = 'app-requirements';
-    reqArea.className = 'app-textarea';
+    reqArea.className = 'admin-textarea';
     reqArea.rows = 3;
     reqWrap.appendChild(reqArea);
     form.appendChild(reqWrap);
 
     const fileWrap = document.createElement('div');
     fileWrap.className = 'app-stack';
-    fileWrap.innerHTML = '<label class="app-label" for="app-file">Application File</label>';
+    fileWrap.innerHTML = '<label class="admin-label" for="app-file">Application File</label>';
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.id = 'app-file';
@@ -229,11 +230,12 @@ export async function renderAdminAppEditPage(appId) {
 
     const { data: app, error } = await getAppById(appId);
     if (error || !app) {
-      main.innerHTML += '<p class="app-note" style="color:#f87171">App not found.</p>';
+      main.innerHTML += '<p class="admin-help" style="color:#f87171">App not found.</p>';
       return;
     }
 
     const formCard = createCard();
+    formCard.classList.add('bg-slate-900/80', 'border', 'border-slate-800', 'rounded-2xl', 'p-4', 'sm:p-6', 'shadow-lg');
     const form = document.createElement('form');
     form.className = 'app-form-grid';
 
@@ -249,12 +251,12 @@ export async function renderAdminAppEditPage(appId) {
     fields.forEach(({ id, label, type, value }) => {
       const wrap = document.createElement('div');
       wrap.className = 'app-stack';
-      wrap.innerHTML = `<label class="app-label" for="${id}">${label}</label>`;
+      wrap.innerHTML = `<label class="admin-label" for="${id}">${label}</label>`;
       const input = document.createElement('input');
       input.id = `app-${id}`;
       input.type = type;
       input.value = value || '';
-      input.className = 'app-input';
+      input.className = 'admin-input';
       wrap.appendChild(input);
       inputs[id] = input;
       form.appendChild(wrap);
@@ -262,19 +264,19 @@ export async function renderAdminAppEditPage(appId) {
 
     const categoryWrap = document.createElement('div');
     categoryWrap.className = 'app-stack';
-    categoryWrap.innerHTML = '<label class="app-label" for="app-category">Category</label>';
+    categoryWrap.innerHTML = '<label class="admin-label" for="app-category">Category</label>';
     const categorySelect = document.createElement('select');
     categorySelect.id = 'app-category';
-    categorySelect.className = 'app-select';
+    categorySelect.className = 'admin-select';
     categoryWrap.appendChild(categorySelect);
     form.appendChild(categoryWrap);
 
     const descWrap = document.createElement('div');
     descWrap.className = 'app-stack';
-    descWrap.innerHTML = '<label class="app-label" for="app-description">Description</label>';
+    descWrap.innerHTML = '<label class="admin-label" for="app-description">Description</label>';
     const descArea = document.createElement('textarea');
     descArea.id = 'app-description';
-    descArea.className = 'app-textarea';
+    descArea.className = 'admin-textarea';
     descArea.rows = 3;
     descArea.value = app.description || '';
     descWrap.appendChild(descArea);
@@ -282,10 +284,10 @@ export async function renderAdminAppEditPage(appId) {
 
     const reqWrap = document.createElement('div');
     reqWrap.className = 'app-stack';
-    reqWrap.innerHTML = '<label class="app-label" for="app-requirements">System Requirements</label>';
+    reqWrap.innerHTML = '<label class="admin-label" for="app-requirements">System Requirements</label>';
     const reqArea = document.createElement('textarea');
     reqArea.id = 'app-requirements';
-    reqArea.className = 'app-textarea';
+    reqArea.className = 'admin-textarea';
     reqArea.rows = 3;
     reqArea.value = app.system_requirements || '';
     reqWrap.appendChild(reqArea);
@@ -293,7 +295,7 @@ export async function renderAdminAppEditPage(appId) {
 
     const fileWrap = document.createElement('div');
     fileWrap.className = 'app-stack';
-    fileWrap.innerHTML = '<label class="app-label" for="app-file">Application File</label>';
+    fileWrap.innerHTML = '<label class="admin-label" for="app-file">Application File</label>';
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.id = 'app-file';

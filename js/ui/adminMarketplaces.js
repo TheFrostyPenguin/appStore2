@@ -55,7 +55,7 @@ export async function renderAdminMarketplacesListPage() {
 
     const { data: categories, error } = await getAllCategories();
     if (error) {
-      tableWrap.innerHTML = '<p class="app-note" style="color:#f87171">Failed to load marketplaces.</p>';
+      tableWrap.innerHTML = '<p class="admin-help" style="color:#f87171">Failed to load marketplaces.</p>';
       return;
     }
     const allCategories = categories || [];
@@ -71,7 +71,7 @@ export async function renderAdminMarketplacesListPage() {
     function renderRows(list) {
       tbody.innerHTML = '';
       if (!list || list.length === 0) {
-        tbody.innerHTML = '<tr><td class="app-note" colspan="4">No marketplaces found.</td></tr>';
+        tbody.innerHTML = '<tr><td class="admin-help" colspan="4">No marketplaces found.</td></tr>';
         return;
       }
       list.forEach(cat => {
@@ -100,21 +100,22 @@ export async function renderAdminMarketplaceNewPage() {
     main.appendChild(heading);
 
     const card = createCard();
+    card.classList.add('bg-slate-900/80', 'border', 'border-slate-800', 'rounded-2xl', 'p-4', 'sm:p-6', 'shadow-lg');
     const form = document.createElement('form');
     form.className = 'app-stack';
     form.innerHTML = `
       <div>
-        <label class="app-label" for="mp-name">Name</label>
-        <input id="mp-name" type="text" class="app-input" required />
+        <label class="admin-label" for="mp-name">Name</label>
+        <input id="mp-name" type="text" class="admin-input" required />
       </div>
       <div>
-        <label class="app-label" for="mp-slug">Slug</label>
-        <input id="mp-slug" type="text" class="app-input" />
-        <p class="app-note">Leave blank to auto-generate.</p>
+        <label class="admin-label" for="mp-slug">Slug</label>
+        <input id="mp-slug" type="text" class="admin-input" />
+        <p class="admin-help">Leave blank to auto-generate.</p>
       </div>
       <div>
-        <label class="app-label" for="mp-description">Description</label>
-        <textarea id="mp-description" rows="3" class="app-textarea"></textarea>
+        <label class="admin-label" for="mp-description">Description</label>
+        <textarea id="mp-description" rows="3" class="admin-textarea"></textarea>
       </div>
       <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
         <input id="mp-public" type="checkbox" /> Public marketplace
@@ -166,26 +167,27 @@ export async function renderAdminMarketplaceEditPage(id) {
 
     const { data: category, error } = await getCategoryById(id);
     if (error || !category) {
-      main.innerHTML = '<p class="app-note" style="color:#f87171">Marketplace not found.</p>';
+      main.innerHTML = '<p class="admin-help" style="color:#f87171">Marketplace not found.</p>';
       return;
     }
 
     const card = createCard();
+    card.classList.add('bg-slate-900/80', 'border', 'border-slate-800', 'rounded-2xl', 'p-4', 'sm:p-6', 'shadow-lg');
     const form = document.createElement('form');
     form.className = 'app-stack';
     form.innerHTML = `
       <div>
-        <label class="app-label" for="mp-name">Name</label>
-        <input id="mp-name" type="text" class="app-input" required />
+        <label class="admin-label" for="mp-name">Name</label>
+        <input id="mp-name" type="text" class="admin-input" required />
       </div>
       <div>
-        <label class="app-label" for="mp-slug">Slug</label>
-        <input id="mp-slug" type="text" class="app-input" />
-        <p class="app-note">Leave blank to keep current slug.</p>
+        <label class="admin-label" for="mp-slug">Slug</label>
+        <input id="mp-slug" type="text" class="admin-input" />
+        <p class="admin-help">Leave blank to keep current slug.</p>
       </div>
       <div>
-        <label class="app-label" for="mp-description">Description</label>
-        <textarea id="mp-description" rows="3" class="app-textarea"></textarea>
+        <label class="admin-label" for="mp-description">Description</label>
+        <textarea id="mp-description" rows="3" class="admin-textarea"></textarea>
       </div>
       <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
         <input id="mp-public" type="checkbox" /> Public marketplace

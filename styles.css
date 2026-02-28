@@ -365,3 +365,50 @@ a:hover {
 .text-right {
   text-align: right;
 }
+
+
+/* Admin form controls */
+.admin-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(226 232 240);
+  margin-bottom: 0.35rem;
+}
+
+.admin-input,
+.admin-select,
+.admin-textarea {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgb(51 65 85);
+  color: rgb(241 245 249);
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.admin-input::placeholder,
+.admin-textarea::placeholder {
+  color: rgb(148 163 184);
+}
+
+.admin-input:focus,
+.admin-select:focus,
+.admin-textarea:focus {
+  border-color: rgb(56 189 248);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+}
+
+.admin-help {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: rgb(148 163 184);
+}
+
+.admin-error {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: rgb(251 113 133);
+}
