@@ -96,7 +96,7 @@ export async function renderAdminAppNewPage() {
     main.appendChild(heading);
 
     const formCard = createCard();
-    formCard.classList.add('bg-slate-900/80', 'border', 'border-slate-800', 'rounded-2xl', 'p-4', 'sm:p-6', 'shadow-lg');
+    formCard.className = 'bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-lg';
     const form = document.createElement('form');
     form.className = 'app-form-grid';
 
@@ -118,7 +118,7 @@ export async function renderAdminAppNewPage() {
       input.id = `app-${id}`;
       input.type = type;
       input.placeholder = placeholder || '';
-      input.className = 'admin-input';
+      input.className = 'admin-field';
       wrap.appendChild(input);
       inputs[id] = input;
       form.appendChild(wrap);
@@ -129,7 +129,7 @@ export async function renderAdminAppNewPage() {
     categoryWrap.innerHTML = '<label class="admin-label" for="app-category">Category</label>';
     const categorySelect = document.createElement('select');
     categorySelect.id = 'app-category';
-    categorySelect.className = 'admin-select';
+    categorySelect.className = 'admin-field admin-select';
     categoryWrap.appendChild(categorySelect);
     form.appendChild(categoryWrap);
 
@@ -138,7 +138,7 @@ export async function renderAdminAppNewPage() {
     descWrap.innerHTML = '<label class="admin-label" for="app-description">Description</label>';
     const descArea = document.createElement('textarea');
     descArea.id = 'app-description';
-    descArea.className = 'admin-textarea';
+    descArea.className = 'admin-field';
     descArea.rows = 3;
     descWrap.appendChild(descArea);
     form.appendChild(descWrap);
@@ -148,7 +148,7 @@ export async function renderAdminAppNewPage() {
     reqWrap.innerHTML = '<label class="admin-label" for="app-requirements">System Requirements</label>';
     const reqArea = document.createElement('textarea');
     reqArea.id = 'app-requirements';
-    reqArea.className = 'admin-textarea';
+    reqArea.className = 'admin-field';
     reqArea.rows = 3;
     reqWrap.appendChild(reqArea);
     form.appendChild(reqWrap);
@@ -160,8 +160,7 @@ export async function renderAdminAppNewPage() {
     fileInput.type = 'file';
     fileInput.id = 'app-file';
     fileInput.accept = '*/*';
-    fileInput.className =
-      'w-full text-sm text-slate-300 file:mr-4 file:rounded-lg file:border-0 file:bg-sky-500 file:px-4 file:py-2 file:text-sm file:font-medium hover:file:bg-sky-400 mt-2';
+    fileInput.className = 'admin-file';
     fileWrap.appendChild(fileInput);
     form.appendChild(fileWrap);
 
@@ -235,7 +234,7 @@ export async function renderAdminAppEditPage(appId) {
     }
 
     const formCard = createCard();
-    formCard.classList.add('bg-slate-900/80', 'border', 'border-slate-800', 'rounded-2xl', 'p-4', 'sm:p-6', 'shadow-lg');
+    formCard.className = 'bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-lg';
     const form = document.createElement('form');
     form.className = 'app-form-grid';
 
@@ -256,7 +255,7 @@ export async function renderAdminAppEditPage(appId) {
       input.id = `app-${id}`;
       input.type = type;
       input.value = value || '';
-      input.className = 'admin-input';
+      input.className = 'admin-field';
       wrap.appendChild(input);
       inputs[id] = input;
       form.appendChild(wrap);
@@ -267,7 +266,7 @@ export async function renderAdminAppEditPage(appId) {
     categoryWrap.innerHTML = '<label class="admin-label" for="app-category">Category</label>';
     const categorySelect = document.createElement('select');
     categorySelect.id = 'app-category';
-    categorySelect.className = 'admin-select';
+    categorySelect.className = 'admin-field admin-select';
     categoryWrap.appendChild(categorySelect);
     form.appendChild(categoryWrap);
 
@@ -276,7 +275,7 @@ export async function renderAdminAppEditPage(appId) {
     descWrap.innerHTML = '<label class="admin-label" for="app-description">Description</label>';
     const descArea = document.createElement('textarea');
     descArea.id = 'app-description';
-    descArea.className = 'admin-textarea';
+    descArea.className = 'admin-field';
     descArea.rows = 3;
     descArea.value = app.description || '';
     descWrap.appendChild(descArea);
@@ -287,7 +286,7 @@ export async function renderAdminAppEditPage(appId) {
     reqWrap.innerHTML = '<label class="admin-label" for="app-requirements">System Requirements</label>';
     const reqArea = document.createElement('textarea');
     reqArea.id = 'app-requirements';
-    reqArea.className = 'admin-textarea';
+    reqArea.className = 'admin-field';
     reqArea.rows = 3;
     reqArea.value = app.system_requirements || '';
     reqWrap.appendChild(reqArea);
@@ -300,8 +299,7 @@ export async function renderAdminAppEditPage(appId) {
     fileInput.type = 'file';
     fileInput.id = 'app-file';
     fileInput.accept = '*/*';
-    fileInput.className =
-      'w-full text-sm text-slate-300 file:mr-4 file:rounded-lg file:border-0 file:bg-sky-500 file:px-4 file:py-2 file:text-sm file:font-medium hover:file:bg-sky-400 mt-2';
+    fileInput.className = 'admin-file';
     fileWrap.appendChild(fileInput);
     if (app.file_name) {
       const currentFile = document.createElement('p');

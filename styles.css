@@ -370,35 +370,71 @@ a:hover {
 /* Admin form controls */
 .admin-label {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: rgb(226 232 240);
-  margin-bottom: 0.35rem;
+  margin-bottom: 8px;
 }
 
-.admin-input,
-.admin-select,
-.admin-textarea {
+.admin-field {
   width: 100%;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgb(51 65 85);
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.22);
   color: rgb(241 245 249);
-  border-radius: 0.75rem;
-  padding: 0.6rem 0.75rem;
+  border-radius: 16px;
+  padding: 12px 14px;
   font-size: 0.95rem;
   outline: none;
+  transition: box-shadow 150ms ease, border-color 150ms ease, background 150ms ease;
 }
 
-.admin-input::placeholder,
-.admin-textarea::placeholder {
-  color: rgb(148 163 184);
+.admin-field::placeholder {
+  color: rgba(226, 232, 240, 0.45);
 }
 
-.admin-input:focus,
-.admin-select:focus,
-.admin-textarea:focus {
-  border-color: rgb(56 189 248);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+.admin-field:focus {
+  border-color: rgba(56, 189, 248, 0.8);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
+  background: rgba(15, 23, 42, 0.92);
+}
+
+.admin-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-select {
+  appearance: none;
+}
+
+.admin-file {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  color: rgb(241 245 249);
+  border-radius: 16px;
+  padding: 10px 12px;
+}
+
+.admin-file::file-selector-button {
+  margin-right: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(30, 41, 59, 0.9);
+  color: rgb(241 245 249);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.admin-file::file-selector-button:hover {
+  background: rgba(51, 65, 85, 0.95);
+}
+
+input.admin-field,
+select.admin-field,
+textarea.admin-field {
+  background-color: rgba(15, 23, 42, 0.78) !important;
+  color: rgb(241 245 249) !important;
 }
 
 .admin-help {
