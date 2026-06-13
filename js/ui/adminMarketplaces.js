@@ -109,6 +109,11 @@ export async function renderAdminMarketplaceNewPage() {
         <input id="mp-name" type="text" class="admin-field" required />
       </div>
       <div>
+        <label class="admin-label" for="mp-slug">Slug</label>
+        <input id="mp-slug" type="text" class="admin-field" />
+        <p class="admin-help">Leave blank to auto-generate from the name.</p>
+      </div>
+      <div>
         <label class="admin-label" for="mp-description">Description</label>
         <textarea id="mp-description" rows="3" class="admin-field"></textarea>
       </div>
@@ -118,6 +123,7 @@ export async function renderAdminMarketplaceNewPage() {
     main.appendChild(card);
 
     const nameInput = form.querySelector('#mp-name');
+    const slugInput = form.querySelector('#mp-slug');
     const descInput = form.querySelector('#mp-description');
 
     form.addEventListener('submit', async e => {
@@ -129,7 +135,7 @@ export async function renderAdminMarketplaceNewPage() {
       }
       const payload = {
         name,
-        slug: slugify(name),
+        slug: slugInput.value.trim() || slugify(name),
         description: descInput.value.trim() || null,
         is_public: true,
         require_approval: false
