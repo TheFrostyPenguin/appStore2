@@ -106,33 +106,19 @@ export async function renderAdminMarketplaceNewPage() {
     form.innerHTML = `
       <div>
         <label class="admin-label" for="mp-name">Name</label>
-        <input id="mp-name" type="text" class="admin-input" required />
-      </div>
-      <div>
-        <label class="admin-label" for="mp-slug">Slug</label>
-        <input id="mp-slug" type="text" class="admin-input" />
-        <p class="admin-help">Leave blank to auto-generate.</p>
+        <input id="mp-name" type="text" class="admin-field" required />
       </div>
       <div>
         <label class="admin-label" for="mp-description">Description</label>
-        <textarea id="mp-description" rows="3" class="admin-textarea"></textarea>
+        <textarea id="mp-description" rows="3" class="admin-field"></textarea>
       </div>
-      <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
-        <input id="mp-public" type="checkbox" /> Public marketplace
-      </label>
-      <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
-        <input id="mp-approval" type="checkbox" /> Require approval for new apps
-      </label>
       <button type="submit" class="app-btn-primary" style="width:fit-content;">Save Marketplace</button>
     `;
     card.appendChild(form);
     main.appendChild(card);
 
     const nameInput = form.querySelector('#mp-name');
-    const slugInput = form.querySelector('#mp-slug');
     const descInput = form.querySelector('#mp-description');
-    const publicInput = form.querySelector('#mp-public');
-    const approvalInput = form.querySelector('#mp-approval');
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
@@ -141,13 +127,12 @@ export async function renderAdminMarketplaceNewPage() {
         alert('Name is required');
         return;
       }
-      const slug = slugInput.value.trim() || slugify(name);
       const payload = {
         name,
-        slug,
+        slug: slugify(name),
         description: descInput.value.trim() || null,
-        is_public: publicInput.checked,
-        require_approval: approvalInput.checked
+        is_public: true,
+        require_approval: false
       };
       const { error } = await createCategory(payload);
       if (error) {
@@ -178,16 +163,16 @@ export async function renderAdminMarketplaceEditPage(id) {
     form.innerHTML = `
       <div>
         <label class="admin-label" for="mp-name">Name</label>
-        <input id="mp-name" type="text" class="admin-input" required />
+        <input id="mp-name" type="text" class="admin-field" required />
       </div>
       <div>
         <label class="admin-label" for="mp-slug">Slug</label>
-        <input id="mp-slug" type="text" class="admin-input" />
+        <input id="mp-slug" type="text" class="admin-field" />
         <p class="admin-help">Leave blank to keep current slug.</p>
       </div>
       <div>
         <label class="admin-label" for="mp-description">Description</label>
-        <textarea id="mp-description" rows="3" class="admin-textarea"></textarea>
+        <textarea id="mp-description" rows="3" class="admin-field"></textarea>
       </div>
       <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
         <input id="mp-public" type="checkbox" /> Public marketplace
