@@ -180,12 +180,6 @@ export async function renderAdminMarketplaceEditPage(id) {
         <label class="admin-label" for="mp-description">Description</label>
         <textarea id="mp-description" rows="3" class="admin-field"></textarea>
       </div>
-      <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
-        <input id="mp-public" type="checkbox" /> Public marketplace
-      </label>
-      <label class="app-subtext" style="display:flex; align-items:center; gap:8px;">
-        <input id="mp-approval" type="checkbox" /> Require approval for new apps
-      </label>
       <div style="display:flex; gap:10px; align-items:center;">
         <button type="submit" class="app-btn-primary" style="width:fit-content;">Save Changes</button>
         <button type="button" id="delete-marketplace" class="hidden px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold">Delete Marketplace</button>
@@ -197,8 +191,6 @@ export async function renderAdminMarketplaceEditPage(id) {
     const nameInput = form.querySelector('#mp-name');
     const slugInput = form.querySelector('#mp-slug');
     const descInput = form.querySelector('#mp-description');
-    const publicInput = form.querySelector('#mp-public');
-    const approvalInput = form.querySelector('#mp-approval');
     const deleteBtn = form.querySelector('#delete-marketplace');
 
     const canDelete = await isCurrentUserAdmin();
@@ -237,8 +229,6 @@ export async function renderAdminMarketplaceEditPage(id) {
 
     nameInput.value = category.name || '';
     descInput.value = category.description || '';
-    publicInput.checked = category.is_public !== false;
-    approvalInput.checked = category.require_approval === true;
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
@@ -251,9 +241,7 @@ export async function renderAdminMarketplaceEditPage(id) {
       const payload = {
         name,
         slug,
-        description: descInput.value.trim() || null,
-        is_public: publicInput.checked,
-        require_approval: approvalInput.checked
+        description: descInput.value.trim() || null
       };
       const { error: updateError } = await updateCategory(id, payload);
       if (updateError) {
