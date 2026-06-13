@@ -145,7 +145,7 @@ export async function renderPublicShell(viewFn, { currentRoute } = {}) {
   ];
 
   const main = shellBase({
-    title: 'Enterprise App Store',
+    title: "GE's App Store",
     subtitle: 'Access your workspace apps securely',
     tabs,
     currentRoute
@@ -182,7 +182,7 @@ export async function renderAppShell(viewFn, { currentRoute } = {}) {
   }
 
   const main = shellBase({
-    title: 'Enterprise App Store',
+    title: "GE's App Store",
     subtitle: 'Browse, manage, and deploy applications',
     tabs,
     currentRoute,
